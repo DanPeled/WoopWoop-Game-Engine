@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "XchqCEyDaNNFDYK/00IOqou7V9nYZVSXBQRO6kw3KP2Z014Ab6onhqjvAmYXR2+Azau/L3SfnMyUz/L3T0orFw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\danpe\\Desktop\\Coding\\Personal\\C#\\Game Engine\\Game Engine.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\danpe\\.nuget\\packages\\raylib-cs\\6.0.0\\raylib-cs.6.0.0.nupkg.sha512",
+    "C:\\Users\\danpe\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
