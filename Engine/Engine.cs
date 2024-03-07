@@ -6,18 +6,29 @@ using Raylib_cs;
 
 namespace WoopWoop
 {
+    /// <summary>
+    /// Represents the main engine for the WoopWoop game.
+    /// </summary>
     public class WoopWoopEngine
     {
-        static Game? game;
-        private static List<Entity> entities;
-        private static readonly object entitiesLock = new object();
+        static Game? game; // The game instance
+        private static List<Entity> entities; // List of entities in the game
+        private static readonly object entitiesLock = new object(); // Lock object for synchronizing access to the entities list
 
+        /// <summary>
+        /// Initializes the game engine.
+        /// </summary>
+        /// <param name="game_">The Game instance to use.</param>
         private static void Init(Game game_)
         {
             game = game_;
             entities = new List<Entity>();
         }
 
+        /// <summary>
+        /// Starts the game engine.
+        /// </summary>
+        /// <param name="game_">The Game instance to use.</param>
         public static void Start(Game game_)
         {
             Init(game_);
@@ -41,12 +52,20 @@ namespace WoopWoop
             Raylib.CloseWindow();
         }
 
+        /// <summary>
+        /// Updates an entity.
+        /// </summary>
+        /// <param name="e">The entity to update.</param>
         private static void UpdateEntity(Entity e)
         {
             e.Update();
             e.InternalUpdate();
         }
 
+        /// <summary>
+        /// Instantiates a new entity in the game.
+        /// </summary>
+        /// <param name="entity">The entity to instantiate.</param>
         public static void Instantiate(Entity entity)
         {
             lock (entitiesLock)
