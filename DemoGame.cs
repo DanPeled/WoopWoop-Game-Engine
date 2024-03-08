@@ -9,19 +9,24 @@ namespace WoopWoop
         public override void Start()
         {
             e.transform.position = new Vector2(100, 40);
-            ShapeRenderer shapeRenderer = e.AddComponent<ShapeRenderer>();
-            shapeRenderer.shape = ShapeRenderer.Shape.Rectangle;
+            Renderer shapeRenderer = e.AddComponent<Renderer>();
+            shapeRenderer.vertices = BasicShapes.TriangleVertices;
             WoopWoopEngine.Instantiate(e);
         }
 
         public override void Update()
         {
             e.transform.position = Raylib.GetMousePosition();
-            if (Raylib.IsKeyDown(KeyboardKey.Space))
+            if (Raylib.IsKeyDown(KeyboardKey.Up))
             {
-                e.transform.Angle += 1;
+                e.transform.Angle += 0.005f;
+            }
+            else if (Raylib.IsKeyDown(KeyboardKey.Down))
+            {
+                e.transform.Angle -= 0.005f;
             }
             Console.WriteLine(e.transform.Angle);
+            Raylib.DrawText(Raylib.GetFPS().ToString(), 20, 15, 12, Color.Black);
         }
     }
 }

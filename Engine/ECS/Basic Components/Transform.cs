@@ -15,7 +15,7 @@ namespace WoopWoop
             }
             set
             {
-                angle = value % 360;
+                angle = (value % 360 + 360) % 360;
             }
         }
         public override void Start()
