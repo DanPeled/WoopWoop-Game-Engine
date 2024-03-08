@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace WoopWoop
@@ -60,7 +61,7 @@ namespace WoopWoop
             {
                 components.Add(comp);
             }
-            return GetComponent<T>();
+            return comp;
         }
 
         /// <summary>
@@ -77,18 +78,76 @@ namespace WoopWoop
         }
 
         /// <summary>
+        /// Removes the component of the specified type from the entity.
+        /// </summary>
+        /// <typeparam name="T">The type of component to remove.</typeparam>
+        public void RemoveComponent<T>() where T : Component
+        {
+            lock (componentsLock)
+            {
+                var componentToRemove = components.Find(c => c.GetType() == typeof(T));
+                if (componentToRemove != null)
+                {
+                    components.Remove(componentToRemove);
+                }
+            }
+        }
+        /// <summary>
         /// Performs internal updates on all components attached to the entity.
         /// </summary>
         public void InternalUpdate()
         {
-            // Parallelize component updates
-            Parallel.ForEach(GetComponents(), c =>
+            // Check if all required components for each component are present
+            foreach (var component in GetComponents())
             {
-                if (Enabled && c.Enabled)
+                // Check if the component has the RequireComponent attribute
+                var requireComponentAttribute = component.GetType().GetCustomAttribute<RequireComponent>();
+                if (requireComponentAttribute != null)
                 {
-                    c.Update();
+                    // Get the required component types
+                    var requiredComponents = requireComponentAttribute.requiredComponents;
+
+                    // Check if all required components are attached to the entity
+                    if (requiredComponents.All(reqType => HasComponentOfType(reqType)))
+                    {
+                        // Proceed with updating the component
+                        if (Enabled && component.Enabled)
+                        {
+                            component.Update();
+                        }
+                    }
+                    else
+                    {
+                        // Handle case where the component is missing
+                        var missingComponents = string.Join(", ", requiredComponents
+                            .Where(reqType => !HasComponentOfType(reqType))
+                            .Select(reqType => reqType.Name));
+                        Debug.WriteError(
+                            $"Cannot update component {component.GetType().Name} because required components ({missingComponents}) are missing.");
+                    }
                 }
-            });
+                else
+                {
+                    // No required components specified, proceed with updating the component
+                    if (Enabled && component.Enabled)
+                    {
+                        component.Update();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Checks if the entity has a component of the specified type attached.
+        /// </summary>
+        /// <param name="componentType">The type of component to check for.</param>
+        /// <returns>True if the entity has a component of the specified type, otherwise false.</returns>
+        private bool HasComponentOfType(Type componentType)
+        {
+            lock (componentsLock)
+            {
+                return components.Any(c => c.GetType() == componentType);
+            }
         }
 
         /// <summary>

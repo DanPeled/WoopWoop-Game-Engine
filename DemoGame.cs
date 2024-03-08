@@ -25,6 +25,10 @@ namespace WoopWoop
             {
                 e.transform.Angle -= 0.005f;
             }
+            else if (Raylib.IsKeyPressed(KeyboardKey.Space))
+            {
+                e.RemoveComponent<Transform>();
+            }
             Raylib.DrawText(Raylib.GetFPS().ToString(), 20, 15, 12, Color.Black);
         }
     }

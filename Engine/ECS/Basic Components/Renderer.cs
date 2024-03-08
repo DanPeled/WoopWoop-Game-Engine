@@ -4,6 +4,7 @@ using System.Numerics;
 
 namespace WoopWoop
 {
+    [RequireComponent(typeof(Transform))]
     public class Renderer : Component
     {
         public Vector2[]? vertices; // Vertices of the polygon
