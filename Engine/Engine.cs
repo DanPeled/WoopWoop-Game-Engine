@@ -39,7 +39,7 @@ namespace WoopWoop
             {
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
-
+                game?.Update();
                 // Parallelize entity updates
                 Parallel.ForEach(entities.ToArray(), e =>
                 {
