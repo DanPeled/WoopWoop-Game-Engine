@@ -9,15 +9,30 @@ namespace WoopWoop
     /// </summary>
     public class Entity
     {
+        //TODO: Add children and parent relations
         private List<Component> components; // List of components attached to the entity
         public Transform transform; // The transform component of the entity
         private readonly object componentsLock = new object(); // Lock object for synchronizing access to the components list
-
+        private bool enabled = true;
+        Guid uuid;
+        public bool Enabled
+        {
+            get
+            {
+                return enabled;
+            }
+            set
+            {
+                //TODO: Enable / disable all children
+                enabled = value;
+            }
+        }
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         public Entity()
         {
+            uuid = Guid.NewGuid();
             components = new List<Component>();
             transform = AddComponent<Transform>();
         }
@@ -69,7 +84,10 @@ namespace WoopWoop
             // Parallelize component updates
             Parallel.ForEach(GetComponents(), c =>
             {
-                c.Update();
+                if (Enabled && c.Enabled)
+                {
+                    c.Update();
+                }
             });
         }
 

@@ -58,8 +58,11 @@ namespace WoopWoop
         /// <param name="e">The entity to update.</param>
         private static void UpdateEntity(Entity e)
         {
-            e.Update();
-            e.InternalUpdate();
+            if (e.Enabled)
+            {
+                e.Update();
+                e.InternalUpdate();
+            }
         }
 
         /// <summary>

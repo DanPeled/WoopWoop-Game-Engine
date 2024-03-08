@@ -10,7 +10,7 @@ namespace WoopWoop
         {
             e.transform.position = new Vector2(100, 40);
             Renderer shapeRenderer = e.AddComponent<Renderer>();
-            shapeRenderer.vertices = BasicShapes.TriangleVertices;
+            shapeRenderer.vertices = BasicShapes.SquareVertices;
             WoopWoopEngine.Instantiate(e);
         }
 
@@ -25,7 +25,6 @@ namespace WoopWoop
             {
                 e.transform.Angle -= 0.005f;
             }
-            Console.WriteLine(e.transform.Angle);
             Raylib.DrawText(Raylib.GetFPS().ToString(), 20, 15, 12, Color.Black);
         }
     }

@@ -9,6 +9,7 @@ namespace WoopWoop
         /// The entity to which this component is attached.
         /// </summary>
         public Entity entity { get; private set; }
+        public bool Enabled { get; set; } = true;
 
         /// <summary>
         /// Attaches the component to an entity.
