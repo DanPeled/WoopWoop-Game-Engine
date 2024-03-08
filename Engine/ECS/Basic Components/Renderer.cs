@@ -39,12 +39,25 @@ namespace WoopWoop
             // Draw lines between consecutive vertices to form the polygon
             for (int i = 0; i < vertices.Length - 1; i++)
             {
-                Raylib.DrawLine((int)vertices[i].X + posX, (int)vertices[i].Y + posY, (int)vertices[i + 1].X + posX, (int)vertices[i + 1].Y + posY, color);
+                Raylib.DrawLine(
+                    (int)(vertices[i].X * entity.transform.scale.X) + posX,
+                    (int)(vertices[i].Y * entity.transform.scale.Y) + posY,
+                    (int)(vertices[i + 1].X * entity.transform.scale.X) + posX,
+                    (int)(vertices[i + 1].Y * entity.transform.scale.Y) + posY,
+                    color
+                );
             }
 
             // Draw a line connecting the last vertex to the first to close the polygon
-            Raylib.DrawLine((int)vertices[vertices.Length - 1].X + posX, (int)vertices[vertices.Length - 1].Y + posY, (int)vertices[0].X + posX, (int)vertices[0].Y + posY, color);
+            Raylib.DrawLine(
+                (int)(vertices[vertices.Length - 1].X * entity.transform.scale.X) + posX,
+                (int)(vertices[vertices.Length - 1].Y * entity.transform.scale.Y) + posY,
+                (int)(vertices[0].X * entity.transform.scale.X) + posX,
+                (int)(vertices[0].Y * entity.transform.scale.Y) + posY,
+                color
+            );
         }
+
 
         // Custom method to rotate vertices
         private Vector2[] RotateVertices(Vector2[] vertices, float angle)
@@ -66,10 +79,10 @@ namespace WoopWoop
         // Static property for a square
         public static Vector2[] SquareVertices { get; } = new Vector2[]
         {
-            new Vector2(-50, -50), // Top-left
-            new Vector2(50, -50),  // Top-right
-            new Vector2(50, 50),   // Bottom-right
-            new Vector2(-50, 50)   // Bottom-left
+            new Vector2(-10, -10), // Top-left
+            new Vector2(10, -10),  // Top-right
+            new Vector2(10, 10),   // Bottom-right
+            new Vector2(-10, 10)   // Bottom-left
         };
 
         // Static property for a triangle

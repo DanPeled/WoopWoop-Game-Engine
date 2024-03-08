@@ -19,11 +19,19 @@ namespace WoopWoop
             e.transform.position = Raylib.GetMousePosition();
             if (Raylib.IsKeyDown(KeyboardKey.Up))
             {
-                e.transform.Angle += 0.005f;
+                e.transform.scale.Y += 0.5f;
             }
             else if (Raylib.IsKeyDown(KeyboardKey.Down))
             {
-                e.transform.Angle -= 0.005f;
+                e.transform.scale.Y -= 0.5f;
+            }
+            else if (Raylib.IsKeyDown(KeyboardKey.Left))
+            {
+                e.transform.scale.X -= 0.5f;
+            }
+            else if (Raylib.IsKeyDown(KeyboardKey.Right))
+            {
+                e.transform.scale.X += 0.5f;
             }
             else if (Raylib.IsKeyPressed(KeyboardKey.Space))
             {

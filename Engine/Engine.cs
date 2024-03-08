@@ -21,6 +21,7 @@ namespace WoopWoop
         /// <param name="game_">The Game instance to use.</param>
         private static void Init(Game game_)
         {
+            Raylib.SetTargetFPS(60);
             game = game_;
             entities = new List<Entity>();
         }
@@ -79,6 +80,11 @@ namespace WoopWoop
             {
                 component.Start();
             }
+        }
+
+        public static Entity GetEntityWithUUID(string uuid)
+        {
+            return entities.FirstOrDefault(e => e.UUID == uuid);
         }
     }
 

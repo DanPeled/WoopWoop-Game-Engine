@@ -15,7 +15,9 @@ namespace WoopWoop
         public Transform transform; // The transform component of the entity
         private readonly object componentsLock = new object(); // Lock object for synchronizing access to the components list
         private bool enabled = true;
-        Guid uuid;
+        public string UUID { get; private set; }
+
+        private List<string> childrenUUIDs = new();
         public bool Enabled
         {
             get
@@ -24,7 +26,12 @@ namespace WoopWoop
             }
             set
             {
-                //TODO: Enable / disable all children
+                //Enable / disable all children
+                childrenUUIDs.ForEach(uuid =>
+                {
+                    WoopWoopEngine.GetEntityWithUUID(uuid).Enabled = value;
+                });
+
                 enabled = value;
             }
         }
@@ -33,7 +40,7 @@ namespace WoopWoop
         /// </summary>
         public Entity()
         {
-            uuid = Guid.NewGuid();
+            UUID = Guid.NewGuid().ToString();
             components = new List<Component>();
             transform = AddComponent<Transform>();
         }
@@ -160,6 +167,26 @@ namespace WoopWoop
             {
                 return components.ToArray();
             }
+        }
+
+        public void AddChild(string childUUID)
+        {
+            childrenUUIDs.Add(childUUID);
+        }
+
+        public void AddChild(Entity child)
+        {
+            AddChild(child.UUID);
+        }
+
+        public Entity[] GetChildren()
+        {
+            return childrenUUIDs.Select(WoopWoopEngine.GetEntityWithUUID).ToArray();
+        }
+
+        public int GetChildCount()
+        {
+            return childrenUUIDs.Count;
         }
     }
 }
