@@ -8,12 +8,15 @@ namespace WoopWoop
         private Vector2 linearVelocity = Vector2.Zero;
         private float rotationVelocity = 0;
 
-        private float density = 1;
-        private float mass = 1;
-        private float restitution = 1;
-        private float area;
+        public float density = 1;
+        public float mass = 1;
+        public float restitution = 1;
+        public float area;
 
-        private bool isStatic = false;
+        public bool isStatic = false;
+
+        public float radius, width, height;
+        public BasicShape shape;
 
         public override void Update()
         {

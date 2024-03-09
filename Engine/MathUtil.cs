@@ -20,6 +20,25 @@ namespace WoopWoop
             return MathF.Atan2(v.Y, v.X);
         }
 
-
+        public static float Clamp(float value, float min, float max)
+        {
+            if (min == max)
+            {
+                return min;
+            }
+            else if (min > max)
+            {
+                throw new ArgumentOutOfRangeException("min is greater than the max");
+            }
+            else if (value < min)
+            {
+                return min;
+            }
+            else if (value > max)
+            {
+                return max;
+            }
+            return value;
+        }
     }
 }

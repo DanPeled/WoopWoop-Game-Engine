@@ -1,3 +1,5 @@
+using System.Reflection.Metadata.Ecma335;
+
 namespace WoopWoop
 {
     /// <summary>
@@ -29,5 +31,9 @@ namespace WoopWoop
         /// Called every frame to update the component's state.
         /// </summary>
         public virtual void Update() { }
+
+        public virtual void OnCollisionEnter(Collider other) { }
+        public virtual void OnCollisionStay(Collider other) { }
+        public virtual void OnCollisionExit(Collider other) { }
     }
 }

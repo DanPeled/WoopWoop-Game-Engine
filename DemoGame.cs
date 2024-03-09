@@ -10,9 +10,9 @@ namespace WoopWoop
         public override void Start()
         {
             e.transform.position = new Vector2(100, 40);
-            Renderer shapeRenderer = e.AddComponent<Renderer>();
+            BasicShapeRenderer shapeRenderer = e.AddComponent<BasicShapeRenderer>();
             // e.AddComponent<PhysicsBody>();
-            shapeRenderer.vertices = BasicShapes.SquareVertices;
+            shapeRenderer.shape = BasicShape.Box;
             WoopWoopEngine.Instantiate(e);
         }
 
