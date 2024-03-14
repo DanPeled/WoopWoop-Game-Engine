@@ -34,5 +34,9 @@ public class PlayerController : Component
         {
             WoopWoopEngine.Destroy(entity);
         }
+        else if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+        {
+            entity.Enabled = !entity.Enabled;
+        }
     }
 }

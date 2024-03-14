@@ -103,6 +103,7 @@ namespace WoopWoop
         /// </summary>
         public void InternalUpdate(float deltaTime)
         {
+            if (!Enabled) return;
             // Check if all required components for each component are present
             foreach (var component in GetComponents())
             {
@@ -117,7 +118,7 @@ namespace WoopWoop
                     if (requiredComponents.All(reqType => HasComponentOfType(reqType)))
                     {
                         // Proceed with updating the component
-                        if (Enabled && component.Enabled)
+                        if (component.Enabled)
                         {
                             component.Update(deltaTime);
                         }
@@ -145,7 +146,7 @@ namespace WoopWoop
                 else
                 {
                     // No required components specified, proceed with updating the component
-                    if (Enabled && component.Enabled)
+                    if (component.Enabled)
                     {
                         component.Update(deltaTime);
                     }
