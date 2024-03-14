@@ -24,6 +24,10 @@ namespace WoopWoop
             stopwatch.Start();
         }
 
+        /// <summary>
+        /// Starts up the engine, opens the window and starts everything 
+        /// </summary>
+        /// <param name="game_">Game object refrence</param>
         public static void Start(Game game_)
         {
             Init(game_);
@@ -47,10 +51,7 @@ namespace WoopWoop
             }
             foreach (Entity entity in entities.ToArray())
             {
-                foreach (Component c in entity.GetComponents())
-                {
-                    c.Stop();
-                }
+                Destroy(entity);
             }
             Raylib.CloseWindow();
         }
@@ -80,12 +81,21 @@ namespace WoopWoop
             var entitiesCopy = new List<Entity>(entities);
             foreach (Entity child in entity.GetChildren())
             {
+                StopComponents(child);
                 entitiesCopy.Remove(child);
             }
+            StopComponents(entity);
             entitiesCopy.Remove(entity);
             entities = entitiesCopy;
         }
 
+        private static void StopComponents(Entity entity)
+        {
+            foreach (Component c in entity.GetComponents())
+            {
+                c.Stop();
+            }
+        }
         public static Entity GetEntityWithUUID(string uuid)
         {
             return entities.FirstOrDefault(e => e.UUID == uuid);
