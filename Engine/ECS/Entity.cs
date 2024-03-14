@@ -10,7 +10,6 @@ namespace WoopWoop
     /// </summary>
     public class Entity
     {
-        //TODO: Add children and parent relations
         private List<Component> components; // List of components attached to the entity
         public Transform transform; // The transform component of the entity
         private readonly object componentsLock = new object(); // Lock object for synchronizing access to the components list
@@ -48,7 +47,7 @@ namespace WoopWoop
         /// <summary>
         /// Updates the entity.
         /// </summary>
-        public virtual void Update() { }
+        public virtual void Update(float deltaTime) { }
 
         /// <summary>
         /// Draws the entity.
@@ -102,7 +101,7 @@ namespace WoopWoop
         /// <summary>
         /// Performs internal updates on all components attached to the entity.
         /// </summary>
-        public void InternalUpdate()
+        public void InternalUpdate(float deltaTime)
         {
             // Check if all required components for each component are present
             foreach (var component in GetComponents())
@@ -120,7 +119,7 @@ namespace WoopWoop
                         // Proceed with updating the component
                         if (Enabled && component.Enabled)
                         {
-                            component.Update();
+                            component.Update(deltaTime);
                         }
                     }
                     else
@@ -129,8 +128,18 @@ namespace WoopWoop
                         var missingComponents = string.Join(", ", requiredComponents
                             .Where(reqType => !HasComponentOfType(reqType))
                             .Select(reqType => reqType.Name));
-                        Debug.WriteError(
-                            $"Cannot update component {component.GetType().Name} because required components ({missingComponents}) are missing.");
+                        if (requireComponentAttribute.messageType == MessageType.Error)
+                        {
+                            Debug.WriteError(
+                                $"Cannot update component {component.GetType().Name} because required components ({missingComponents}) are missing.");
+                            return;
+                        }
+                        else if (requireComponentAttribute.messageType == MessageType.Warning)
+                        {
+                            Debug.WriteWarning(
+                                $"{component.GetType().Name} may not function properly because required components ({missingComponents}) are missing.");
+                            return;
+                        }
                     }
                 }
                 else
@@ -138,10 +147,11 @@ namespace WoopWoop
                     // No required components specified, proceed with updating the component
                     if (Enabled && component.Enabled)
                     {
-                        component.Update();
+                        component.Update(deltaTime);
                     }
                 }
             }
+            Update(deltaTime);
         }
 
         /// <summary>

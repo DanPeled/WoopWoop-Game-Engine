@@ -30,10 +30,15 @@ namespace WoopWoop
         /// <summary>
         /// Called every frame to update the component's state.
         /// </summary>
-        public virtual void Update() { }
+        public virtual void Update(float deltaTime) { }
 
-        public virtual void OnCollisionEnter(Collider other) { }
-        public virtual void OnCollisionStay(Collider other) { }
-        public virtual void OnCollisionExit(Collider other) { }
+        public virtual void Stop()
+        {
+
+        }
+
+        // public virtual void OnCollisionEnter(Collider other) { }
+        // public virtual void OnCollisionStay(Collider other) { }
+        // public virtual void OnCollisionExit(Collider other) { }
     }
 }

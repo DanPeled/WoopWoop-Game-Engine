@@ -1,75 +1,68 @@
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using Raylib_cs;
 
 namespace WoopWoop
 {
-    /// <summary>
-    /// Represents the main engine for the WoopWoop game.
-    /// </summary>
     public class WoopWoopEngine
     {
-        static Game? game; // The game instance
-        private static List<Entity> entities; // List of entities in the game
-        private static readonly object entitiesLock = new object(); // Lock object for synchronizing access to the entities list
+        static Game? game;
+        private static List<Entity> entities;
+        private static readonly object entitiesLock = new object();
+        private static Stopwatch stopwatch = new Stopwatch(); // Add a Stopwatch for measuring time
 
-        /// <summary>
-        /// Initializes the game engine.
-        /// </summary>
-        /// <param name="game_">The Game instance to use.</param>
+        private static float deltaTime = 0;
+
         private static void Init(Game game_)
         {
-            Raylib.SetTargetFPS(60);
+            Raylib.SetTargetFPS(240);
             game = game_;
             entities = new List<Entity>();
+
+            // Start the stopwatch
+            stopwatch.Start();
         }
 
-        /// <summary>
-        /// Starts the game engine.
-        /// </summary>
-        /// <param name="game_">The Game instance to use.</param>
         public static void Start(Game game_)
         {
             Init(game_);
-            Raylib.InitWindow(800, 480, "Hello World");
+            Raylib.InitWindow(1089, 720, "Hello World");
 
             game?.Start();
             while (!Raylib.WindowShouldClose())
             {
+                // Measure the deltaTime
+                deltaTime = (float)stopwatch.Elapsed.TotalSeconds;
+                stopwatch.Restart();
+
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
                 game?.Update();
+
                 // Parallelize entity updates
-                Parallel.ForEach(entities.ToArray(), e =>
-                {
-                    UpdateEntity(e);
-                });
+                entities.ForEach(UpdateEntity);
 
                 Raylib.EndDrawing();
             }
-
+            foreach (Entity entity in entities.ToArray())
+            {
+                foreach (Component c in entity.GetComponents())
+                {
+                    c.Stop();
+                }
+            }
             Raylib.CloseWindow();
         }
 
-        /// <summary>
-        /// Updates an entity.
-        /// </summary>
-        /// <param name="e">The entity to update.</param>
         private static void UpdateEntity(Entity e)
         {
             if (e.Enabled)
             {
-                e.Update();
-                e.InternalUpdate();
+                e.InternalUpdate(deltaTime);
             }
         }
 
-        /// <summary>
-        /// Instantiates a new entity in the game.
-        /// </summary>
-        /// <param name="entity">The entity to instantiate.</param>
         public static void Instantiate(Entity entity)
         {
             lock (entitiesLock)
@@ -82,10 +75,20 @@ namespace WoopWoop
             }
         }
 
+        public static void Destroy(Entity entity)
+        {
+            var entitiesCopy = new List<Entity>(entities);
+            foreach (Entity child in entity.GetChildren())
+            {
+                entitiesCopy.Remove(child);
+            }
+            entitiesCopy.Remove(entity);
+            entities = entitiesCopy;
+        }
+
         public static Entity GetEntityWithUUID(string uuid)
         {
             return entities.FirstOrDefault(e => e.UUID == uuid);
         }
     }
-
 }

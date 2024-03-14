@@ -18,9 +18,9 @@ namespace WoopWoop
         public float radius, width, height;
         public BasicShape shape;
 
-        public override void Update()
+        public override void Update(float deltaTime)
         {
-            entity.transform.position += linearVelocity;
+            entity.transform.Position += linearVelocity;
             linearVelocity += new Vector2(0, 0.01f);
         }
     }
