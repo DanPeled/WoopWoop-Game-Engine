@@ -10,7 +10,7 @@ namespace WoopWoop
     /// </summary>
     public class Entity
     {
-        private List<Component> components; // List of components attached to the entity
+        private HashSet<Component> components; // List of components attached to the entity
         public Transform transform; // The transform component of the entity
         private readonly object componentsLock = new object(); // Lock object for synchronizing access to the components list
         private bool enabled = true;
@@ -39,7 +39,7 @@ namespace WoopWoop
         public Entity()
         {
             UUID = Guid.NewGuid().ToString();
-            components = new List<Component>();
+            components = new();
             transform = AddComponent<Transform>();
         }
 
@@ -78,7 +78,7 @@ namespace WoopWoop
         {
             lock (componentsLock)
             {
-                return components.Find(c => c.GetType() == typeof(T)) as T;
+                return components.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
             }
         }
 
@@ -88,15 +88,27 @@ namespace WoopWoop
         /// <typeparam name="T">The type of component to remove.</typeparam>
         public void RemoveComponent<T>() where T : Component
         {
+            RemoveComponent(typeof(T));
+        }
+
+        /// <summary>
+        /// Removes the component of the specified type from the entity.
+        /// </summary>
+        /// <param name="componentType">The type of component to remove.</param>
+
+        public void RemoveComponent(Type componentType)
+        {
             lock (componentsLock)
             {
-                var componentToRemove = components.Find(c => c.GetType() == typeof(T));
+                var componentToRemove = components.FirstOrDefault(c => c.GetType() == componentType);
                 if (componentToRemove != null)
                 {
+                    componentToRemove.Stop();
                     components.Remove(componentToRemove);
                 }
             }
         }
+
         /// <summary>
         /// Performs internal updates on all components attached to the entity.
         /// </summary>
@@ -179,6 +191,14 @@ namespace WoopWoop
             }
         }
 
-
+        /// <summary>
+        /// Checks if the entity has a component of the specified type attached.
+        /// </summary>
+        /// <typeparam name="T">The type of component to check for.</typeparam>
+        /// <returns>True if the entity has a component of the specified type, otherwise false.</returns>
+        public bool HasComponent<T>() where T : Component
+        {
+            return components.FirstOrDefault(c => c is T) != null;
+        }
     }
 }

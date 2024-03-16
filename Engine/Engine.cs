@@ -93,9 +93,10 @@ namespace WoopWoop
         {
             foreach (Component c in entity.GetComponents())
             {
-                c.Stop();
+                entity.RemoveComponent(c.GetType());
             }
         }
+
         public static Entity GetEntityWithUUID(string uuid)
         {
             return entities.FirstOrDefault(e => e.UUID == uuid);

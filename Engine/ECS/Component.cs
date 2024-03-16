@@ -32,6 +32,10 @@ namespace WoopWoop
         /// </summary>
         public virtual void Update(float deltaTime) { }
 
+        /// <summary>
+        /// Called when the component is removed
+        /// </summary>
+
         public virtual void Stop()
         {
 
