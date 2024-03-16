@@ -79,10 +79,10 @@ namespace WoopWoop
         public static void Destroy(Entity entity)
         {
             var entitiesCopy = new List<Entity>(entities);
-            foreach (Entity child in entity.GetChildren())
+            foreach (Transform child in entity.transform.GetChildren())
             {
-                StopComponents(child);
-                entitiesCopy.Remove(child);
+                StopComponents(child.entity);
+                entitiesCopy.Remove(child.entity);
             }
             StopComponents(entity);
             entitiesCopy.Remove(entity);

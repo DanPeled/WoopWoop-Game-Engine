@@ -16,7 +16,6 @@ namespace WoopWoop
         private bool enabled = true;
         public string UUID { get; private set; }
 
-        private List<string> childrenUUIDs = new();
         public bool Enabled
         {
             get
@@ -26,9 +25,9 @@ namespace WoopWoop
             set
             {
                 //Enable / disable all children
-                childrenUUIDs.ForEach(uuid =>
+                transform.GetChildren().ToList().ForEach(e =>
                 {
-                    WoopWoopEngine.GetEntityWithUUID(uuid).Enabled = value;
+                    e.entity.Enabled = value;
                 });
 
                 enabled = value;
@@ -180,24 +179,6 @@ namespace WoopWoop
             }
         }
 
-        public void AddChild(string childUUID)
-        {
-            childrenUUIDs.Add(childUUID);
-        }
 
-        public void AddChild(Entity child)
-        {
-            AddChild(child.UUID);
-        }
-
-        public Entity[] GetChildren()
-        {
-            return childrenUUIDs.Select(WoopWoopEngine.GetEntityWithUUID).ToArray();
-        }
-
-        public int GetChildCount()
-        {
-            return childrenUUIDs.Count;
-        }
     }
 }

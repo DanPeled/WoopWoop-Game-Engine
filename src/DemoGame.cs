@@ -22,7 +22,7 @@ public class DemoGame : Game
         shapeRenderer2.shape = BasicShape.Circle;
         WoopWoopEngine.Instantiate(e2);
 
-        e.AddChild(e2);
+        e.transform.AddChild(e2);
 
         Entity fpsText = new();
         fpsText.AddComponent<FpsText>();
