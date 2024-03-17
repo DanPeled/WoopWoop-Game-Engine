@@ -14,7 +14,7 @@ namespace WoopWoop
                 // Rotate the vertices using the entity's transform angle
                 Vector2[] rotatedVertices = RotateVertices(vertices, entity.transform.Angle);
                 // Draw the rotated polygon
-                DrawPolygon((int)entity.transform.Position.X, (int)entity.transform.Position.Y, rotatedVertices, this.color);
+                DrawPolygon((int)entity.transform.Position.X, (int)entity.transform.Position.Y, rotatedVertices, this.Color);
             }
         }
 

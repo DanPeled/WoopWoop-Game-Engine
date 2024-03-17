@@ -9,18 +9,26 @@ namespace WoopWoop
         {
             switch (shape)
             {
-                case BasicShape.Circle:
+                case BasicShape.Ellipse:
                     {
-                        Raylib.DrawCircle((int)entity.transform.Position.X,
-                         (int)entity.transform.Position.Y,
-                          entity.transform.Scale.X * 10, this.color);
+                        // Calculate the scaled radius for both X and Y axes
+                        float scaledRadiusX = entity.transform.Scale.X * 10;
+                        float scaledRadiusY = entity.transform.Scale.Y * 10;
+
+                        // Draw an ellipse with scaled radius
+                        Raylib.DrawEllipse(
+                            (int)entity.transform.Position.X,
+                            (int)entity.transform.Position.Y,
+                            scaledRadiusX,
+                            scaledRadiusY,
+                            this.Color);
                         break;
                     }
                 case BasicShape.Box:
                     {
                         Raylib.DrawRectangle((int)entity.transform.Position.X,
                         (int)entity.transform.Position.Y, (int)entity.transform.Scale.X * 10,
-                         (int)entity.transform.Scale.Y * 10, this.color);
+                         (int)entity.transform.Scale.Y * 10, this.Color);
                         break;
                     }
             }
@@ -29,7 +37,7 @@ namespace WoopWoop
 
     public enum BasicShape
     {
-        Circle = 0,
+        Ellipse = 0,
         Box = 1
     }
 }

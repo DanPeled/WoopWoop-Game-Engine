@@ -12,7 +12,7 @@ namespace WoopWoop
             public float spacing = 1;
             public override void Update(float deltaTime)
             {
-                Raylib.DrawTextEx(font, text, entity.transform.Position, fontSize, spacing, color);
+                Raylib.DrawTextEx(font, text, entity.transform.Position, fontSize, spacing, Color);
             }
         }
     }

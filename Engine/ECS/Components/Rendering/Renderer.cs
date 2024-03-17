@@ -7,7 +7,8 @@ namespace WoopWoop
     [RequireComponent(typeof(Transform))]
     public class Renderer : Component
     {
-        public Color color = Color.Black;
+        public Color Color { get; set; } = Color.Black;
+        public byte Layer { get; set; }
     }
     public static class BasicShapes
     {

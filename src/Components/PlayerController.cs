@@ -7,13 +7,16 @@ public class PlayerController : Component
     public override void Start()
     {
         textureRenderer = entity.GetComponent<TextureRenderer>();
+        // entity.AddComponent<ImageSpammer>();
+        // entity.RemoveComponent<TextureRenderer>();
+        // entity.AddComponent<BasicShapeRenderer>().shape = BasicShape.Box;
     }
     public override void Update(float deltaTime)
     {
         Vector2 mousePos = Raylib.GetMousePosition();
         entity.transform.Position = new(
-            mousePos.X - textureRenderer.texture.Width * entity.transform.Scale.X / 2,
-             mousePos.Y - textureRenderer.texture.Height * entity.transform.Scale.X / 2);
+            mousePos.X,
+             mousePos.Y);
         if (Raylib.IsKeyDown(KeyboardKey.Up))
         {
             entity.transform.Scale += new Vector2(0, 0.05f);

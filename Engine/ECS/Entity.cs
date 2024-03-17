@@ -65,6 +65,14 @@ namespace WoopWoop
             lock (componentsLock)
             {
                 components.Add(comp);
+                if (WoopWoopEngine.GetEntityWithUUID(UUID) != null)
+                {
+                    comp.Start();
+                }
+                if (comp is Renderer)
+                {
+                    WoopWoopEngine.AddToRenderBatch((Renderer)(object)comp);
+                }
             }
             return comp;
         }
@@ -78,7 +86,7 @@ namespace WoopWoop
         {
             lock (componentsLock)
             {
-                return components.FirstOrDefault(c => c.GetType() == typeof(T)) as T;
+                return components.FirstOrDefault(c => c is T) as T;
             }
         }
 
@@ -118,6 +126,7 @@ namespace WoopWoop
             // Check if all required components for each component are present
             foreach (var component in GetComponents())
             {
+                if (component is Renderer) continue;
                 // Check if the component has the RequireComponent attribute
                 var requireComponentAttribute = component.GetType().GetCustomAttribute<RequireComponent>();
                 if (requireComponentAttribute != null)
@@ -171,11 +180,25 @@ namespace WoopWoop
         /// </summary>
         /// <param name="componentType">The type of component to check for.</param>
         /// <returns>True if the entity has a component of the specified type, otherwise false.</returns>
-        private bool HasComponentOfType(Type componentType)
+        public bool HasComponentOfType(Type componentType)
+        {
+            if (!typeof(Component).IsAssignableFrom(componentType))
+            {
+                throw new ArgumentException("componentType must be a subtype of Component");
+            }
+
+            lock (componentsLock)
+            {
+                return components.Any(c => componentType.IsInstanceOfType(c));
+            }
+        }
+
+
+        public bool HasComponentOfType<T>() where T : Component
         {
             lock (componentsLock)
             {
-                return components.Any(c => c.GetType() == componentType);
+                return components.Any(c => c is T);
             }
         }
 

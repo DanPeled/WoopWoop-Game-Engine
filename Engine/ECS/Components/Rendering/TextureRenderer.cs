@@ -1,3 +1,4 @@
+using System.Numerics;
 using Raylib_cs;
 
 namespace WoopWoop
@@ -32,9 +33,33 @@ namespace WoopWoop
         {
             if (isTextureLoaded)
             {
-                Raylib.DrawTextureEx(texture, entity.transform.Position, entity.transform.Angle, entity.transform.Scale.X, color);
+                // Separate X and Y scaling factors
+                Vector2 scale = new Vector2(entity.transform.Scale.X, entity.transform.Scale.Y);
+
+                // Calculate adjusted position to maintain apparent distance
+                Vector2 adjustedPosition = new Vector2(
+                    entity.transform.Position.X + (texture.Width * scale.X - texture.Width) / 2,
+                    entity.transform.Position.Y + (texture.Height * scale.Y - texture.Height) / 2
+                );
+
+                // Adjust the width based on X scaling factor to prevent diagonal movement
+                float adjustedWidth = texture.Width * scale.X;
+                float adjustedHeight = texture.Height * scale.Y;
+
+                // Draw the texture with separate scaling factors for width and height
+                Raylib.DrawTexturePro(
+                    texture,
+                    new Rectangle(0, 0, texture.Width, texture.Height), // Source rectangle (entire texture)
+                    new Rectangle(adjustedPosition.X, adjustedPosition.Y, adjustedWidth, adjustedHeight), // Destination rectangle
+                    new Vector2(adjustedWidth / 2, adjustedHeight / 2), // Origin (center of the scaled texture)
+                    entity.transform.Angle,
+                    Color
+                );
             }
         }
+
+
+
 
         public override void Stop()
         {

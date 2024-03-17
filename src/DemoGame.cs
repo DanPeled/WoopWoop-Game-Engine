@@ -10,16 +10,18 @@ public class DemoGame : Game
     {
         Entity e = new();
         e.transform.Position = new Vector2(100, 40);
-        TextureRenderer shapeRenderer = e.AddComponent<TextureRenderer>();
+        TextureRenderer textureRenderer = e.AddComponent<TextureRenderer>();
         e.AddComponent<PlayerController>();
-        shapeRenderer.LoadFromPath("resources/r.png");
-        shapeRenderer.color = Color.White;
+        Image image = Raylib.LoadImage("resources/r.png");
+        Raylib.ImageResize(ref image, 100, 100);
+        textureRenderer.LoadImage(image);
+        textureRenderer.Color = Color.White;
         WoopWoopEngine.Instantiate(e);
 
         Entity e2 = new();
         e2.transform.Position = new Vector2(100, 100);
         BasicShapeRenderer shapeRenderer2 = e2.AddComponent<BasicShapeRenderer>();
-        shapeRenderer2.shape = BasicShape.Circle;
+        shapeRenderer2.shape = BasicShape.Ellipse;
         WoopWoopEngine.Instantiate(e2);
 
         e.transform.AddChild(e2);

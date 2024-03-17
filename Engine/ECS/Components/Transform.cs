@@ -43,13 +43,23 @@ namespace WoopWoop
             get { return scale; }
             set
             {
+                // Calculate the scale factor relative to the current scale
+                Vector2 scaleFactor = value / scale;
+
+                // Apply the scale factor to the position of each child
                 foreach (Transform childTransform in GetChildren())
                 {
-                    childTransform.Scale = value;
+                    // Adjust the child position relative to the parent's scale
+                    childTransform.Position = position + Vector2.Transform(childTransform.Position - position, Matrix3x2.CreateScale(scaleFactor));
+
+                    // Scale the child's scale relative to the parent's scale
+                    childTransform.Scale *= scaleFactor;
                 }
+
                 scale = value;
             }
         }
+
 
         private float angle = 0;
         /// <summary>
