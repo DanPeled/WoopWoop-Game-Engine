@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 using System.Threading.Tasks;
 using Raylib_cs;
-
+#if DEBUG
+using WoopWoop.Editor;
+#endif
 namespace WoopWoop
 {
     public class WoopWoopEngine
@@ -14,9 +17,10 @@ namespace WoopWoop
         private static Stopwatch stopwatch = new Stopwatch(); // Add a Stopwatch for measuring time
         private static List<List<Renderer>> renderBatches; // List of render batches, each for a specific layer
         private static float deltaTime = 0;
-
+        public static readonly int width = 1080, height = 720;
         private static int batchSize = 10; // Initial batch size
         private static int maxThreads = Environment.ProcessorCount; // Max threads based on the processor count
+        public static bool IsInDebugMenu { get; private set; } = false;
 
         private static void Init(Game game_)
         {
@@ -24,7 +28,9 @@ namespace WoopWoop
             game = game_;
             entities = new();
             renderBatches = new List<List<Renderer>>();
-
+#if DEBUG
+            Editor.Editor.Init();
+#endif
             // Start the stopwatch
             stopwatch.Start();
         }
@@ -36,7 +42,7 @@ namespace WoopWoop
         public static void Start(Game game_)
         {
             Init(game_);
-            Raylib.InitWindow(1089, 720, "Hello World");
+            Raylib.InitWindow(width, height, "Hello World");
 
             game?.Start();
             while (!Raylib.WindowShouldClose())
@@ -48,7 +54,14 @@ namespace WoopWoop
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
                 game?.Update();
-
+#if DEBUG
+                if (Raylib.IsKeyPressed(KeyboardKey.F3))
+                {
+                    IsInDebugMenu = !IsInDebugMenu;
+                }
+                DebugMenu();
+#endif
+                Render();
                 // Process entities in batches
                 Parallel.ForEach(GetEntityBatches(), batch =>
                 {
@@ -58,7 +71,6 @@ namespace WoopWoop
                     }
                 });
 
-                Render();
 
                 Raylib.EndDrawing();
             }
@@ -73,7 +85,16 @@ namespace WoopWoop
         {
             if (e.Enabled)
             {
-                e.InternalUpdate(deltaTime);
+                if (!IsInDebugMenu)
+                {
+                    e.InternalUpdate(deltaTime);
+#if DEBUG
+                    Editor.Editor.TurnOff();
+#endif
+                }
+#if DEBUG
+                DrawGizmos(e);
+#endif
             }
         }
 
@@ -131,7 +152,7 @@ namespace WoopWoop
 
         public static Entity GetEntityWithUUID(string uuid)
         {
-            return entities.Find(e => e.UUID == uuid);
+            return entities.Find(e => e.ID == uuid);
         }
 
         public static void AddToRenderBatch(Renderer renderer)
@@ -157,6 +178,56 @@ namespace WoopWoop
                     }
                 }
             }
+        }
+        private static void DebugMenu()
+        {
+            if (!IsInDebugMenu) return;
+
+            // Check if the left mouse button is pressed
+            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+            {
+                Editor.Editor.SelectedEntity = null;
+                // Get the mouse position
+                Vector2 mousePosition = Raylib.GetMousePosition();
+                // Iterate through entities to check for collision with the mouse position
+                foreach (Entity entity in entities)
+                {
+                    PointerCollider collider = entity.GetComponent<PointerCollider>();
+                    if (collider != null)
+                    {
+                        if (collider.CheckCollisionPointRec(mousePosition))
+                        {
+                            // Store the selected entity
+                            Editor.Editor.SelectedEntity = entity;
+                            break; // Exit the loop after finding the first entity
+                        }
+                    }
+                }
+            }
+
+            // Check if the left mouse button is being held down and a draggable entity is selected
+            if (Raylib.IsMouseButtonDown(MouseButton.Left) && Editor.Editor.SelectedEntity != null)
+            {
+                // Update the position of the selected entity based on the mouse movement
+                Editor.Editor.SelectedEntity.transform.Position = Raylib.GetMousePosition();
+            }
+
+            Editor.Editor.DrawMenu();
+        }
+
+        private static void DrawGizmos(Entity entity)
+        {
+            if (Editor.Editor.debugMenuEntities.Contains(entity)) return;
+            if (!IsInDebugMenu) return;
+            foreach (Component c in entity.GetComponents())
+            {
+                c.OnDrawGizmo();
+            }
+        }
+
+        public static Entity[] GetEntities()
+        {
+            return entities.ToArray();
         }
     }
 }

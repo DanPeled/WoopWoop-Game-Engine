@@ -40,7 +40,7 @@ namespace WoopWoop
         {
 
         }
-
+        public virtual void OnDrawGizmo() { }
         // public virtual void OnCollisionEnter(Collider other) { }
         // public virtual void OnCollisionStay(Collider other) { }
         // public virtual void OnCollisionExit(Collider other) { }

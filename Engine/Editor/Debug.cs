@@ -15,5 +15,6 @@ namespace WoopWoop
             Console.WriteLine(msg);
             Console.ResetColor();
         }
+        
     }
 }

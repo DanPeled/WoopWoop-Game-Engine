@@ -25,5 +25,10 @@ namespace WoopWoop
             float t = value < min ? min : value;
             return t > max ? max : t;
         }
+
+        public static float DegToRad(float deg)
+        {
+            return deg * MathF.PI / 180f;
+        }
     }
 }

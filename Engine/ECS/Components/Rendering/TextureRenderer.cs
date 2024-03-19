@@ -12,7 +12,7 @@ namespace WoopWoop
         {
             if (!isTextureLoaded)
             {
-                Debug.WriteWarning($"No texture provided, nothing will be rendered on entity {entity.UUID}");
+                Debug.WriteWarning($"No texture provided, nothing will be rendered on entity {entity.ID}");
             }
         }
 
@@ -38,9 +38,10 @@ namespace WoopWoop
 
                 // Calculate adjusted position to maintain apparent distance
                 Vector2 adjustedPosition = new Vector2(
-                    entity.transform.Position.X + (texture.Width * scale.X - texture.Width) / 2,
-                    entity.transform.Position.Y + (texture.Height * scale.Y - texture.Height) / 2
+                    entity.transform.Position.X - (texture.Width * scale.X - texture.Width) / 2,
+                    entity.transform.Position.Y - (texture.Height * scale.Y - texture.Height) / 2
                 );
+
 
                 // Adjust the width based on X scaling factor to prevent diagonal movement
                 float adjustedWidth = texture.Width * scale.X;

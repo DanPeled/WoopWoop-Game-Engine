@@ -14,7 +14,7 @@ namespace WoopWoop
         public Transform transform; // The transform component of the entity
         private readonly object componentsLock = new object(); // Lock object for synchronizing access to the components list
         private bool enabled = true;
-        public string UUID { get; private set; }
+        public string ID { get; private set; }
 
         public bool Enabled
         {
@@ -38,9 +38,10 @@ namespace WoopWoop
         /// </summary>
         public Entity()
         {
-            UUID = Guid.NewGuid().ToString();
+            ID = Guid.NewGuid().ToString();
             components = new();
             transform = AddComponent<Transform>();
+            AddComponent<PointerCollider>();
         }
 
         /// <summary>
@@ -61,11 +62,16 @@ namespace WoopWoop
         public T AddComponent<T>() where T : Component, new()
         {
             T comp = new T();
+            return AddComponent(comp);
+        }
+
+        public T AddComponent<T>(T comp) where T : Component
+        {
             comp.Attach(this);
             lock (componentsLock)
             {
                 components.Add(comp);
-                if (WoopWoopEngine.GetEntityWithUUID(UUID) != null)
+                if (WoopWoopEngine.GetEntityWithUUID(ID) != null)
                 {
                     comp.Start();
                 }
