@@ -19,7 +19,7 @@ namespace WoopWoop
         {
         }
 
-        public bool CheckCollisionPointRec(Vector2 point)
+        public bool CheckCollision(Vector2 point)
         {
             size = SetSize(size);
             // Translate the point to local space relative to the rectangle
@@ -88,14 +88,10 @@ namespace WoopWoop
             Raylib.DrawLineEx(bottomRight, bottomLeft, 5, color);
             Raylib.DrawLineEx(bottomLeft, topLeft, 5, color);
         }
+
         private Vector2 SetSize(Vector2 newSize)
         {
-            // Calculate the size with a constant offset based on the entity's scale
-            Vector2 size = new Vector2(newSize.X * entity.transform.Scale.X, newSize.Y * entity.transform.Scale.Y);
-
-            // Ensure that the size does not go below a certain threshold
-            size.X = Math.Max(size.X, 10); // Minimum size in X direction
-            size.Y = Math.Max(size.Y, 10); // Minimum size in Y direction
+            size = newSize;
 
             return size;
         }

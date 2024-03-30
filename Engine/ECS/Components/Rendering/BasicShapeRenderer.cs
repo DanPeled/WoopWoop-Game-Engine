@@ -12,13 +12,13 @@ namespace WoopWoop
                 case BasicShape.Ellipse:
                     {
                         // Calculate the scaled radius for both X and Y axes
-                        float scaledRadiusX = entity.transform.Scale.X * 10;
-                        float scaledRadiusY = entity.transform.Scale.Y * 10;
+                        float scaledRadiusX = transform.Scale.X * 10;
+                        float scaledRadiusY = transform.Scale.Y * 10;
 
                         // Draw an ellipse with scaled radius
                         Raylib.DrawEllipse(
-                            (int)entity.transform.Position.X,
-                            (int)entity.transform.Position.Y,
+                            (int)transform.Position.X,
+                            (int)transform.Position.Y,
                             scaledRadiusX,
                             scaledRadiusY,
                             this.Color);
@@ -26,9 +26,9 @@ namespace WoopWoop
                     }
                 case BasicShape.Box:
                     {
-                        Raylib.DrawRectangle((int)entity.transform.Position.X,
-                        (int)entity.transform.Position.Y, (int)entity.transform.Scale.X * 10,
-                         (int)entity.transform.Scale.Y * 10, this.Color);
+                        Raylib.DrawRectangle((int)transform.Position.X,
+                        (int)transform.Position.Y, (int)transform.Scale.X * 10,
+                         (int)transform.Scale.Y * 10, this.Color);
                         break;
                     }
             }

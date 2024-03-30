@@ -20,7 +20,7 @@ namespace WoopWoop
 
         public override void Update(float deltaTime)
         {
-            entity.transform.Position += linearVelocity;
+            transform.Position += linearVelocity;
             linearVelocity += new Vector2(0, 0.01f);
         }
     }

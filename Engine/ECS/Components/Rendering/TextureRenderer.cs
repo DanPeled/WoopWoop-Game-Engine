@@ -34,12 +34,12 @@ namespace WoopWoop
             if (isTextureLoaded)
             {
                 // Separate X and Y scaling factors
-                Vector2 scale = new Vector2(entity.transform.Scale.X, entity.transform.Scale.Y);
+                Vector2 scale = new Vector2(transform.Scale.X, transform.Scale.Y);
 
                 // Calculate adjusted position to maintain apparent distance
                 Vector2 adjustedPosition = new Vector2(
-                    entity.transform.Position.X - (texture.Width * scale.X - texture.Width) / 2,
-                    entity.transform.Position.Y - (texture.Height * scale.Y - texture.Height) / 2
+                    transform.Position.X - (texture.Width * scale.X - texture.Width) / 2,
+                    transform.Position.Y - (texture.Height * scale.Y - texture.Height) / 2
                 );
 
 
@@ -53,7 +53,7 @@ namespace WoopWoop
                     new Rectangle(0, 0, texture.Width, texture.Height), // Source rectangle (entire texture)
                     new Rectangle(adjustedPosition.X, adjustedPosition.Y, adjustedWidth, adjustedHeight), // Destination rectangle
                     new Vector2(adjustedWidth / 2, adjustedHeight / 2), // Origin (center of the scaled texture)
-                    entity.transform.Angle,
+                    transform.Angle,
                     Color
                 );
             }

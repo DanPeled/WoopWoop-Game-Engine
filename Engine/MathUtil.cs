@@ -30,5 +30,10 @@ namespace WoopWoop
         {
             return deg * MathF.PI / 180f;
         }
+
+        public static float RadToDeg(float rad)
+        {
+            return rad * 180 / MathF.PI;
+        }
     }
 }

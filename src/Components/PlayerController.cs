@@ -16,24 +16,24 @@ public class PlayerController : Component
     public override void Update(float deltaTime)
     {
         Vector2 mousePos = Raylib.GetMousePosition();
-        entity.transform.Position = new(
+        transform.Position = new(
             mousePos.X,
              mousePos.Y);
         if (Raylib.IsKeyDown(KeyboardKey.Up))
         {
-            entity.transform.Scale += new Vector2(0, 0.05f);
+            transform.Scale += new Vector2(0, 0.05f);
         }
         else if (Raylib.IsKeyDown(KeyboardKey.Down))
         {
-            entity.transform.Scale -= new Vector2(0, 0.05f);
+            transform.Scale -= new Vector2(0, 0.05f);
         }
         else if (Raylib.IsKeyDown(KeyboardKey.Left))
         {
-            entity.transform.Scale -= new Vector2(0.05f, 0);
+            transform.Scale -= new Vector2(0.05f, 0);
         }
         else if (Raylib.IsKeyDown(KeyboardKey.Right))
         {
-            entity.transform.Scale += new Vector2(0.05f, 0);
+            transform.Scale += new Vector2(0.05f, 0);
         }
         else if (Raylib.IsKeyPressed(KeyboardKey.Space))
         {
@@ -43,7 +43,7 @@ public class PlayerController : Component
         {
             entity.Enabled = !entity.Enabled;
         }
-        entity.transform.Angle += Raylib.GetMouseWheelMove() * 4;
+        transform.Angle += Raylib.GetMouseWheelMove() * 4;
 
 
 

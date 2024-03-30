@@ -29,5 +29,9 @@ public class DemoGame : Game
         Entity fpsText = new();
         fpsText.AddComponent<FpsText>();
         WoopWoopEngine.Instantiate(fpsText);
+
+        Entity canvas = new();
+        canvas.AddComponent<Canvas>();
+        WoopWoopEngine.Instantiate(canvas);
     }
 }
