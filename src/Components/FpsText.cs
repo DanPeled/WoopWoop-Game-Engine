@@ -9,7 +9,7 @@ public class FpsText : Component
     {
         textRenderer = entity.AddComponent<TextRenderer>();
         textRenderer.Layer = 255;
-        textRenderer.Color = Color.Brown;
+        textRenderer.Color = Color.Black;
         textRenderer.text = "60";
     }
     public override void Update(float deltaTime)

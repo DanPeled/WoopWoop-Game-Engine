@@ -4,6 +4,6 @@ class Program
 {
     public static void Main()
     {
-        WoopWoopEngine.Start(new DemoGame());
+        WoopWoopEngine.Start(new SATChecking());
     }
 }

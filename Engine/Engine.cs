@@ -14,8 +14,8 @@ namespace WoopWoop
     {
         static Game? game;
         private static List<Entity> entities;
-        private static readonly object entitiesLock = new object();
-        private static Stopwatch stopwatch = new Stopwatch(); // Add a Stopwatch for measuring time
+        private static readonly object entitiesLock = new();
+        private static Stopwatch stopwatch = new(); // Add a Stopwatch for measuring time
         private static List<List<Renderer>> renderBatches; // List of render batches, each for a specific layer
         private static float deltaTime = 0;
         public static readonly int screenWidth = 1080, screenHeight = 720;
@@ -93,7 +93,7 @@ namespace WoopWoop
                     Console.WriteLine(debugCamera.IsMain);
                     Console.WriteLine(mainCamera.IsMain);
                 }
-
+                OnEndOfFrame();
                 Raylib.EndMode2D();
                 Raylib.EndDrawing();
             }
@@ -236,7 +236,7 @@ namespace WoopWoop
                 // Iterate through entities to check for collision with the mouse position
                 foreach (Entity entity in entities)
                 {
-                    PointerCollider collider = entity.GetComponent<PointerCollider>();
+                    PointCollider collider = entity.GetComponent<PointCollider>();
                     if (collider != null)
                     {
                         if (collider.CheckCollision(mousePosition))
@@ -252,6 +252,11 @@ namespace WoopWoop
             // Check if the left mouse button is being held down and a draggable entity is selected
             if (Raylib.IsMouseButtonDown(MouseButton.Left) && Editor.Editor.SelectedEntity != null)
             {
+                float speedScalar = 1f;
+                if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
+                {
+                    speedScalar = 7f;
+                }
                 switch (Editor.Editor.editorState)
                 {
                     case Editor.Editor.EditorState.Pos:
@@ -260,7 +265,7 @@ namespace WoopWoop
                             // Update the position of the selected entity based on the mouse movement
                             Vector2 mousePos = Raylib.GetMousePosition();
                             Vector2 newPos = mousePos;
-                            if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
+                            if (Raylib.IsKeyDown(KeyboardKey.LeftAlt))
                             {
                                 if (Raylib.IsKeyDown(KeyboardKey.X))
                                 {
@@ -286,7 +291,7 @@ namespace WoopWoop
                             float angle = transform.Angle;
                             Vector2 objectCenter = transform.Position;
                             Vector2 mouseDelta = Raylib.GetMouseDelta();
-                            float rotationSpeed = 1.0f; // Adjust rotation speed as needed
+                            float rotationSpeed = 1.0f * speedScalar; // Adjust rotation speed as needed
 
                             // Calculate the rotation angle based on mouse movement
                             angle += mouseDelta.X / rotationSpeed;
@@ -298,9 +303,9 @@ namespace WoopWoop
                         }
                     case Editor.Editor.EditorState.Scale:
                         {
-                            Vector2 mousePos = Raylib.GetMouseDelta() / 30;
+                            Vector2 mousePos = Raylib.GetMouseDelta() / 30 / speedScalar;
                             Vector2 newScale = mousePos;
-                            if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
+                            if (Raylib.IsKeyDown(KeyboardKey.LeftAlt))
                             {
                                 if (Raylib.IsKeyDown(KeyboardKey.X))
                                 {
@@ -314,6 +319,7 @@ namespace WoopWoop
                                     Raylib.DrawLineEx(new(newScale.X, -100), new(newScale.X, screenHeight + 100), 3, new Color(0, 255, 0, 200));
                                 }
                             }
+                            KeepMouseInScreen();
                             Editor.Editor.SelectedEntity.transform.Scale += newScale;
                             break;
                         }
@@ -367,6 +373,16 @@ namespace WoopWoop
             else if (Raylib.GetMousePosition().Y <= 0)
             {
                 Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, screenHeight);
+            }
+        }
+        private static void OnEndOfFrame()
+        {
+            foreach (Entity e in entities)
+            {
+                foreach (Component component in e.GetComponents())
+                {
+                    component.OnEndOfFrame();
+                }
             }
         }
 #if DEBUG

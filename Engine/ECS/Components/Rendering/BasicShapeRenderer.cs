@@ -1,10 +1,13 @@
 using Raylib_cs;
+using System;
+using System.Numerics;
+
 namespace WoopWoop
 {
     [RequireComponent(typeof(Transform))]
     public class BasicShapeRenderer : Renderer
     {
-        public BasicShape shape;
+        public BasicShape shape = BasicShape.Box;
         public override void Update(float deltaTime)
         {
             switch (shape)
@@ -12,8 +15,8 @@ namespace WoopWoop
                 case BasicShape.Ellipse:
                     {
                         // Calculate the scaled radius for both X and Y axes
-                        float scaledRadiusX = transform.Scale.X * 10;
-                        float scaledRadiusY = transform.Scale.Y * 10;
+                        float scaledRadiusX = transform.Scale.X * 5;
+                        float scaledRadiusY = transform.Scale.Y * 5;
 
                         // Draw an ellipse with scaled radius
                         Raylib.DrawEllipse(
@@ -26,9 +29,21 @@ namespace WoopWoop
                     }
                 case BasicShape.Box:
                     {
-                        Raylib.DrawRectangle((int)transform.Position.X,
-                        (int)transform.Position.Y, (int)transform.Scale.X * 10,
-                         (int)transform.Scale.Y * 10, this.Color);
+                        Raylib.DrawRectanglePro(
+                             new Rectangle(
+                                transform.Position.X + 5f * transform.Scale.X,
+                                transform.Position.Y + 5f * transform.Scale.Y,
+                                transform.Scale.X * 10,
+                                transform.Scale.Y * 10
+                        ),
+                        new Vector2(
+                            transform.Scale.X * 5,  // origin x
+                            transform.Scale.Y * 5   // origin y
+                        ),
+                        transform.Angle,         // rotation
+                        this.Color
+                        );
+
                         break;
                     }
             }

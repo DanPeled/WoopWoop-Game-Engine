@@ -26,6 +26,13 @@ public class DemoGame : Game
 
         e.transform.AddChild(e2);
 
+
+        Entity slider = new();
+        Slider compSlider = slider.AddComponent<Slider>();
+        compSlider.min = 0;
+        compSlider.max = 100;
+        WoopWoopEngine.Instantiate(slider);
+
         Entity fpsText = new();
         fpsText.AddComponent<FpsText>();
         WoopWoopEngine.Instantiate(fpsText);
@@ -33,5 +40,8 @@ public class DemoGame : Game
         Entity canvas = new();
         canvas.AddComponent<Canvas>();
         WoopWoopEngine.Instantiate(canvas);
+
+        canvas.transform.AddChild(fpsText);
+        canvas.transform.AddChild(slider);
     }
 }

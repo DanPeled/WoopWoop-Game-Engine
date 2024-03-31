@@ -34,10 +34,10 @@ namespace WoopWoop
             if (isTextureLoaded)
             {
                 // Separate X and Y scaling factors
-                Vector2 scale = new Vector2(transform.Scale.X, transform.Scale.Y);
+                Vector2 scale = new(transform.Scale.X, transform.Scale.Y);
 
                 // Calculate adjusted position to maintain apparent distance
-                Vector2 adjustedPosition = new Vector2(
+                Vector2 adjustedPosition = new(
                     transform.Position.X - (texture.Width * scale.X - texture.Width) / 2,
                     transform.Position.Y - (texture.Height * scale.Y - texture.Height) / 2
                 );

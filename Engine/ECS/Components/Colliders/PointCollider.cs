@@ -4,7 +4,8 @@ using Raylib_cs;
 
 namespace WoopWoop
 {
-    public class PointerCollider : Component
+    [RequireComponent(typeof(Transform))]
+    public class PointCollider : Component
     {
         private Vector2 size = new(10, 10);
         public Vector2 Size
@@ -60,10 +61,10 @@ namespace WoopWoop
         {
             bool isSelected = Editor.Editor.SelectedEntity == entity;
             // Calculate the corner points of the rectangle in local space
-            Vector2 topLeft = new Vector2(-Size.X / 2, -Size.Y / 2);
-            Vector2 topRight = new Vector2(Size.X / 2, -Size.Y / 2);
-            Vector2 bottomLeft = new Vector2(-Size.X / 2, Size.Y / 2);
-            Vector2 bottomRight = new Vector2(Size.X / 2, Size.Y / 2);
+            Vector2 topLeft = new(-Size.X / 2, -Size.Y / 2);
+            Vector2 topRight = new(Size.X / 2, -Size.Y / 2);
+            Vector2 bottomLeft = new(-Size.X / 2, Size.Y / 2);
+            Vector2 bottomRight = new(Size.X / 2, Size.Y / 2);
 
             // Rotate the corner points based on the entity's angle (in radians)
             float angleRadians = MathUtil.DegToRad(entity.transform.Angle);
@@ -78,7 +79,7 @@ namespace WoopWoop
             bottomLeft += entity.transform.Position;
             bottomRight += entity.transform.Position;
             // Draw the rectangle outline
-            Color color = new Color(0, 228, 48, 200);
+            Color color = new(0, 228, 48, 200);
             if (isSelected)
             {
                 color = new Color(0, 228, 0, 255);

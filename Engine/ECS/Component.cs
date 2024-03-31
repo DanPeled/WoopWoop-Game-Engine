@@ -43,6 +43,8 @@ namespace WoopWoop
         /// </summary>
         public virtual void Update(float deltaTime) { }
 
+        public virtual void OnEndOfFrame() { }
+
         /// <summary>
         /// Called when the component is removed
         /// </summary>

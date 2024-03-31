@@ -4,6 +4,7 @@ namespace WoopWoop
 {
     namespace UI
     {
+        [RequireComponent(typeof(Transform))]
         public class TextRenderer : Renderer
         {
             public string text = "";

@@ -10,6 +10,7 @@ namespace WoopWoop
     /// </summary>
     public class Transform : Component
     {
+        public Pivot pivot = Pivot.Center;
         private Vector2 position = Vector2.Zero;
         private List<string> childrenUUIDs = new();
         public Transform parent { get; private set; }
@@ -33,6 +34,31 @@ namespace WoopWoop
                 }
 
                 // Update the parent's position
+                switch (pivot)
+                {
+                    case Pivot.Center:
+                        {
+                            value -= Scale * 5;
+                            break;
+                        }
+                    case Pivot.BottomRight:
+                        {
+                            value -= Scale * 10;
+                            break;
+                        }
+                    case Pivot.TopRight:
+                        {
+                            value.X -= Scale.X * 10;
+                            break;
+                        }
+                    case Pivot.BottomLeft:
+                        {
+                            value.Y -= Scale.Y * 10;
+                            break;
+                        }
+                    default:
+                        break;
+                }
                 position = value;
                 onTransformChanged?.Invoke();
             }
@@ -47,7 +73,7 @@ namespace WoopWoop
             get { return scale; }
             set
             {
-                PointerCollider pointerCollider = entity.GetComponent<PointerCollider>();
+                PointCollider pointCollider = entity.GetComponent<PointCollider>();
 
                 // Calculate the scale factor relative to the current scale
                 Vector2 scaleFactor = value / scale;
@@ -100,6 +126,7 @@ namespace WoopWoop
             }
         }
 
+
         /// <summary>
         /// Adds a child entity to this transform.
         /// </summary>
@@ -117,6 +144,15 @@ namespace WoopWoop
         public void AddChild(Entity child)
         {
             AddChild(child.ID);
+        }
+
+        /// <summary>
+        /// Adds a child entity to this transform.
+        /// </summary>
+        /// <param name="child">The child entity transform to add.</param>
+        public void AddChild(Transform childTransform)
+        {
+            AddChild(childTransform.entity.ID);
         }
 
         /// <summary>
@@ -185,7 +221,7 @@ namespace WoopWoop
             Vector2 direction = Vector2.Normalize(end - start);
 
             // Calculate the perpendicular vector (to get the arrow's width)
-            Vector2 perpendicular = new Vector2(-direction.Y, direction.X);
+            Vector2 perpendicular = new(-direction.Y, direction.X);
 
             // Normalize the perpendicular vector and scale it to adjust the arrowhead width
             perpendicular = Vector2.Normalize(perpendicular);
@@ -212,5 +248,9 @@ namespace WoopWoop
         {
             childrenUUIDs.Remove(transform.entity.ID);
         }
+    }
+    public enum Pivot
+    {
+        TopLeft, TopRight, Center, BottomLeft, BottomRight
     }
 }

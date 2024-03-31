@@ -2,6 +2,7 @@ using Raylib_cs;
 
 namespace WoopWoop.UI
 {
+    [RequireComponent(typeof(Transform))]
     public class Canvas : Component
     {
         public Camera camera;

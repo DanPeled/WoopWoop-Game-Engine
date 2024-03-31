@@ -3,6 +3,7 @@ using Raylib_cs;
 
 namespace WoopWoop
 {
+    [RequireComponent(typeof(Transform))]
     public class Camera : Component
     {
         public Camera2D camera;
@@ -47,7 +48,12 @@ namespace WoopWoop
         }
         public override void Update(float deltaTime)
         {
+            Raylib.BeginMode2D(camera);
             transform.Position = camera.Target;
+        }
+        public override void OnEndOfFrame()
+        {
+            Raylib.EndMode2D();
         }
         public static Camera Main()
         {

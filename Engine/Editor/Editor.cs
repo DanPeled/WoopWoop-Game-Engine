@@ -29,56 +29,65 @@ namespace WoopWoop.Editor
         private static TextRenderer UUIDText, positionText, scaleText, angleText, componentsText;
         public static void Init()
         {
-            BasicShapeRenderer renderer = new BasicShapeRenderer();
-            renderer.shape = BasicShape.Box;
-            renderer.Color = new Color(130, 130, 130, 200);
-            renderer.Layer = 255;
+            BasicShapeRenderer renderer = new()
+            {
+                shape = BasicShape.Box,
+                Color = new Color(130, 130, 130, 200),
+                Layer = 254
+            };
             editorWindow.AddComponent(renderer);
+            editorWindow.transform.pivot = Pivot.TopLeft;
             editorWindow.transform.Scale = new(45, 50);
-            editorWindow.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 5), 10);
+            editorWindow.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 5), 0);
 
 
             Entity uuidTextEntity = new();
             UUIDText = uuidTextEntity.AddComponent<TextRenderer>();
             uuidTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 12);
             UUIDText.text = "UUID: ";
+            UUIDText.Layer = 255;
 
             Entity positionTextEntity = new();
             positionText = positionTextEntity.AddComponent<TextRenderer>();
             positionTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 26);
             positionText.text = "Pos: ";
             positionText.Color = Color.Black;
+            positionText.Layer = 255;
+
 
             Entity scaleTextEntity = new();
             scaleText = scaleTextEntity.AddComponent<TextRenderer>();
             scaleTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 70);
             scaleText.text = "Scale: ";
             scaleText.Color = Color.Black;
-
+            scaleText.Layer = 255;
 
             Entity angleTextEntity = new();
             angleText = angleTextEntity.AddComponent<TextRenderer>();
             angleTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 130);
             angleText.text = "Angle: ";
             angleText.Color = Color.Black;
+            angleText.Layer = 255;
 
             Entity compoenetsTextEntity = new();
             componentsText = compoenetsTextEntity.AddComponent<TextRenderer>();
             compoenetsTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 170);
             componentsText.text = "Components: ";
             componentsText.Color = Color.Black;
+            componentsText.Layer = 255;
 
             editorWindow.Enabled = false;
 
 
 
-            editorWindow.RemoveComponent<PointerCollider>();
+            editorWindow.RemoveComponent<PointCollider>();
             WoopWoopEngine.Instantiate(editorWindow);
             WoopWoopEngine.Instantiate(uuidTextEntity);
             WoopWoopEngine.Instantiate(positionTextEntity);
             WoopWoopEngine.Instantiate(compoenetsTextEntity);
             WoopWoopEngine.Instantiate(angleTextEntity);
             WoopWoopEngine.Instantiate(scaleTextEntity);
+
             editorWindow.transform.AddChild(uuidTextEntity);
             editorWindow.transform.AddChild(positionTextEntity);
             editorWindow.transform.AddChild(angleTextEntity);
@@ -86,7 +95,7 @@ namespace WoopWoop.Editor
             editorWindow.transform.AddChild(compoenetsTextEntity);
 
 
-            List<Entity> entities = new List<Entity>() { editorWindow };
+            List<Entity> entities = new() { editorWindow };
             entities.AddRange(editorWindow.transform.GetChildren().ToList().Select(t => t.entity));
             debugMenuEntities.AddRange(entities);
 
@@ -113,7 +122,7 @@ namespace WoopWoop.Editor
                 foreach (Component component in selectedEntity.GetComponents())
                 {
 
-                    if (component.GetType() != typeof(PointerCollider))
+                    if (component.GetType() != typeof(PointCollider))
                         componentsString += component.GetType().Name + ", ";
                 }
                 componentsText.text = $"Components: {componentsString}" + " " + selectedEntity.Name;

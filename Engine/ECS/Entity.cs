@@ -12,7 +12,7 @@ namespace WoopWoop
     {
         private HashSet<Component> components; // List of components attached to the entity
         public Transform transform; // The transform component of the entity
-        private readonly object componentsLock = new object(); // Lock object for synchronizing access to the components list
+        private readonly object componentsLock = new(); // Lock object for synchronizing access to the components list
         private bool enabled = true;
         public readonly string ID;
         public string tag = "";
@@ -43,7 +43,7 @@ namespace WoopWoop
             ID = Guid.NewGuid().ToString();
             components = new();
             transform = AddComponent<Transform>();
-            AddComponent<PointerCollider>().Size = new(10, 10);
+            AddComponent<PointCollider>().Size = new(10, 10);
         }
 
         /// <summary>
@@ -63,7 +63,7 @@ namespace WoopWoop
         /// <returns>The added component.</returns>
         public T AddComponent<T>() where T : Component, new()
         {
-            T comp = new T();
+            T comp = new();
             return AddComponent(comp);
         }
 

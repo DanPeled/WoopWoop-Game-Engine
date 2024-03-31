@@ -15,18 +15,18 @@ namespace WoopWoop
         // Static property for a square
         public static Vector2[] SquareVertices { get; } = new Vector2[]
         {
-            new Vector2(-10, -10), // Top-left
-            new Vector2(10, -10),  // Top-right
-            new Vector2(10, 10),   // Bottom-right
-            new Vector2(-10, 10)   // Bottom-left
+            new(-10, -10), // Top-left
+            new(10, -10),  // Top-right
+            new(10, 10),   // Bottom-right
+            new(-10, 10)   // Bottom-left
         };
 
         // Static property for a triangle
         public static Vector2[] TriangleVertices { get; } = new Vector2[]
         {
-            new Vector2(0, -50),   // Top
-            new Vector2(43.3f, 25), // Bottom-right
-            new Vector2(-43.3f, 25) // Bottom-left
+            new(0, -50),   // Top
+            new(43.3f, 25), // Bottom-right
+            new(-43.3f, 25) // Bottom-left
         };
 
     }
