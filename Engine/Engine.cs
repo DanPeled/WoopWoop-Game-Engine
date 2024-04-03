@@ -362,7 +362,7 @@ namespace WoopWoop
         private static void DrawGizmos(Entity entity)
         {
             if (Editor.Editor.debugMenuEntities.Contains(entity)) return;
-            // if (!IsInDebugMenu) return;
+            if (!IsInDebugMenu) return;
             foreach (Component c in entity.GetComponents())
             {
                 c.OnDrawGizmo();
