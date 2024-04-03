@@ -7,7 +7,7 @@ namespace WoopWoop
     [RequireComponent(typeof(Transform))]
     public class PointCollider : Component
     {
-        private Vector2 size = new(10, 10);
+        private Vector2 size = new(1, 1);
         public Vector2 Size
         {
             get { return size; }
@@ -24,7 +24,7 @@ namespace WoopWoop
         {
             size = SetSize(size);
             // Translate the point to local space relative to the rectangle
-            Vector2 localPoint = point - entity.transform.Position;
+            Vector2 localPoint = point - entity.transform.Position - entity.transform.GetPivotPointOffset();
 
             // Scale the local point by the entity's scale
             localPoint /= entity.transform.Scale;
@@ -74,10 +74,10 @@ namespace WoopWoop
             bottomRight = RotateVector(bottomRight, angleRadians);
 
             // Translate the corner points to world space
-            topLeft += entity.transform.Position;
-            topRight += entity.transform.Position;
-            bottomLeft += entity.transform.Position;
-            bottomRight += entity.transform.Position;
+            topLeft += entity.transform.Position - entity.transform.GetPivotPointOffset();
+            topRight += entity.transform.Position - entity.transform.GetPivotPointOffset();
+            bottomLeft += entity.transform.Position - entity.transform.GetPivotPointOffset();
+            bottomRight += entity.transform.Position - entity.transform.GetPivotPointOffset();
             // Draw the rectangle outline
             Color color = new(0, 228, 48, 200);
             if (isSelected)

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -38,11 +39,19 @@ namespace WoopWoop
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
-        public Entity()
+        public Entity() : this(Vector2.Zero) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// <param name="startPos">The initial position of the entity</param>
+        /// </summary>
+        public Entity(Vector2 startPos)
         {
+
             ID = Guid.NewGuid().ToString();
             components = new();
             transform = AddComponent<Transform>();
+            transform.Position = startPos;
             AddComponent<PointCollider>().Size = new(10, 10);
         }
 

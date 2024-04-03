@@ -33,32 +33,7 @@ namespace WoopWoop
                     childTransform.Position += offset;
                 }
 
-                // Update the parent's position
-                switch (pivot)
-                {
-                    case Pivot.Center:
-                        {
-                            value -= Scale * 5;
-                            break;
-                        }
-                    case Pivot.BottomRight:
-                        {
-                            value -= Scale * 10;
-                            break;
-                        }
-                    case Pivot.TopRight:
-                        {
-                            value.X -= Scale.X * 10;
-                            break;
-                        }
-                    case Pivot.BottomLeft:
-                        {
-                            value.Y -= Scale.Y * 10;
-                            break;
-                        }
-                    default:
-                        break;
-                }
+                value += GetPivotPointOffset();
                 position = value;
                 onTransformChanged?.Invoke();
             }
@@ -247,6 +222,37 @@ namespace WoopWoop
         public void RemoveChild(Transform transform)
         {
             childrenUUIDs.Remove(transform.entity.ID);
+        }
+        public Vector2 GetPivotPointOffset()
+        {
+            Vector2 value = Vector2.Zero;
+            // Update the parent's position
+            switch (pivot)
+            {
+                case Pivot.Center:
+                    {
+                        value = -Scale / 2;
+                        break;
+                    }
+                case Pivot.BottomRight:
+                    {
+                        value = -Scale;
+                        break;
+                    }
+                case Pivot.TopRight:
+                    {
+                        value.X = -Scale.X;
+                        break;
+                    }
+                case Pivot.BottomLeft:
+                    {
+                        value.Y = -Scale.Y;
+                        break;
+                    }
+                default:
+                    break;
+            }
+            return value;
         }
     }
     public enum Pivot

@@ -65,35 +65,19 @@ namespace WoopWoop
                 Raylib.BeginDrawing();
                 Raylib.ClearBackground(Color.White);
                 game?.Update();
-#if DEBUG
-                if (Raylib.IsKeyPressed(KeyboardKey.F3))
-                {
-                    IsInDebugMenu = !IsInDebugMenu;
-                }
-                if (IsInDebugMenu)
-                {
-                    DebugMenu();
-                    DebugRender();
-                }
-#endif
-                Raylib.BeginMode2D(IsInDebugMenu ? debugCamera.camera : mainCamera.camera);
-                Render();
-                // Process entities in batches
-                Parallel.ForEach(GetEntityBatches(), batch =>
-                {
-                    foreach (Entity entity in batch)
-                    {
-                        UpdateEntity(entity);
-                    }
-                });
 
-                if (mainCamera != Camera.Main() || !mainCamera.IsMain)
-                {
-                    mainCamera = Camera.Main();
-                    Console.WriteLine(debugCamera.IsMain);
-                    Console.WriteLine(mainCamera.IsMain);
-                }
+                HandleDebugMenu();
+
+                Raylib.BeginMode2D(IsInDebugMenu ? debugCamera.camera : mainCamera.camera);
+
+                RenderFrame();
+                // Process entities in batches
+                UpdateEntities();
+
+                HandleCameraSwitch();
+
                 OnEndOfFrame();
+
                 Raylib.EndMode2D();
                 Raylib.EndDrawing();
             }
@@ -111,16 +95,49 @@ namespace WoopWoop
                 if (!IsInDebugMenu)
                 {
                     e.InternalUpdate(deltaTime);
-#if DEBUG
-                    Editor.Editor.TurnOff();
-#endif
                 }
 #if DEBUG
                 DrawGizmos(e);
 #endif
             }
         }
+        private static void HandleDebugMenu()
+        {
+#if DEBUG
+            if (!IsInDebugMenu)
+            {
+                Editor.Editor.TurnOff();
+            }
+            if (Raylib.IsKeyPressed(KeyboardKey.F3))
+            {
+                IsInDebugMenu = !IsInDebugMenu;
+            }
+            else if (IsInDebugMenu)
+            {
+                DebugMenu();
+                DebugRender();
+            }
+#endif
+        }
 
+        private static void HandleCameraSwitch()
+        {
+            if (mainCamera != Camera.Main() || !mainCamera.IsMain)
+            {
+                mainCamera = Camera.Main();
+            }
+        }
+
+        public static void UpdateEntities()
+        {
+            Parallel.ForEach(GetEntityBatches(), batch =>
+                {
+                    foreach (Entity entity in batch)
+                    {
+                        UpdateEntity(entity);
+                    }
+                });
+        }
         private static IEnumerable<List<Entity>> GetEntityBatches()
         {
             int entityCount = entities.Count;
@@ -203,7 +220,7 @@ namespace WoopWoop
             renderBatches[renderer.Layer].Add(renderer);
         }
 
-        private static void Render()
+        private static void RenderFrame()
         {
             // Iterate through render batches by layer, rendering each batch
             foreach (var batch in renderBatches)
@@ -345,7 +362,7 @@ namespace WoopWoop
         private static void DrawGizmos(Entity entity)
         {
             if (Editor.Editor.debugMenuEntities.Contains(entity)) return;
-            if (!IsInDebugMenu) return;
+            // if (!IsInDebugMenu) return;
             foreach (Component c in entity.GetComponents())
             {
                 c.OnDrawGizmo();

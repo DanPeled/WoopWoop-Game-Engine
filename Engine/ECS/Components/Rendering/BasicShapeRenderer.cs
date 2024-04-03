@@ -12,38 +12,35 @@ namespace WoopWoop
         {
             switch (shape)
             {
+
                 case BasicShape.Ellipse:
                     {
-                        // Calculate the scaled radius for both X and Y axes
-                        float scaledRadiusX = transform.Scale.X * 5;
-                        float scaledRadiusY = transform.Scale.Y * 5;
-
                         // Draw an ellipse with scaled radius
                         Raylib.DrawEllipse(
                             (int)transform.Position.X,
                             (int)transform.Position.Y,
-                            scaledRadiusX,
-                            scaledRadiusY,
+                            (int)(transform.Scale.X), // Scale X as width
+                            (int)(transform.Scale.Y), // Scale Y as height
                             this.Color);
                         break;
                     }
                 case BasicShape.Box:
                     {
-                        Raylib.DrawRectanglePro(
-                             new Rectangle(
-                                transform.Position.X + 5f * transform.Scale.X,
-                                transform.Position.Y + 5f * transform.Scale.Y,
-                                transform.Scale.X * 10,
-                                transform.Scale.Y * 10
-                        ),
-                        new Vector2(
-                            transform.Scale.X * 5,  // origin x
-                            transform.Scale.Y * 5   // origin y
-                        ),
-                        transform.Angle,         // rotation
-                        this.Color
-                        );
+                        // Calculate the position of the rectangle considering rotation
+                        Vector2 position = new Vector2(transform.Position.X, transform.Position.Y) - transform.GetPivotPointOffset();
+                        Vector2 origin = new Vector2(transform.Scale.X / 4, transform.Scale.Y / 4);
+                        Matrix3x2 transformMatrix = Matrix3x2.CreateRotation(transform.Angle * (float)Math.PI / 180f, origin) *
+                            Matrix3x2.CreateTranslation(position - origin);
 
+                        // Apply transformation to the rectangle's position
+                        Vector2 transformedPosition = Vector2.Transform(Vector2.Zero, transformMatrix);
+
+                        // Draw a rectangle with scaled width, height, and rotation
+                        Raylib.DrawRectanglePro(
+                            new Rectangle(transformedPosition.X, transformedPosition.Y, transform.Scale.X, transform.Scale.Y),
+                            origin,
+                            transform.Angle, // Rotation angle in degrees (change this as needed)
+                            this.Color);
                         break;
                     }
             }

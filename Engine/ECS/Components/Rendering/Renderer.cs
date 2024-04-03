@@ -9,6 +9,36 @@ namespace WoopWoop
     {
         public Color Color { get; set; } = Color.Black;
         public byte Layer { get; set; }
+        protected static Vector2 GetOriginalPositionOfTransform(Transform transform, Pivot pivot)
+        {
+            Vector2 value = transform.Position;
+            switch (pivot)
+            {
+                case Pivot.Center:
+                    {
+                        value += transform.Scale / 2;
+                        break;
+                    }
+                case Pivot.BottomRight:
+                    {
+                        value += transform.Scale;
+                        break;
+                    }
+                case Pivot.TopRight:
+                    {
+                        value.X += transform.Scale.X;
+                        break;
+                    }
+                case Pivot.BottomLeft:
+                    {
+                        value.Y += transform.Scale.Y;
+                        break;
+                    }
+                default:
+                    break;
+            }
+            return value;
+        }
     }
     public static class BasicShapes
     {

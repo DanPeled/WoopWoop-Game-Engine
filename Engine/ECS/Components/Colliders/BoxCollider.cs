@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Raylib_cs;
 
 namespace WoopWoop
 {
@@ -20,8 +21,8 @@ namespace WoopWoop
             Transform otherTransform = other.transform;
 
             // Get the corner points of both colliders in world space
-            List<Vector2> thisPoints = GetWorldPoints(transform.Position, transform.Scale, transform.Angle);
-            List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position, otherTransform.Scale, otherTransform.Angle);
+            List<Vector2> thisPoints = GetWorldPoints(transform.Position - transform.GetPivotPointOffset(), transform.Scale, transform.Angle);
+            List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position - otherTransform.GetPivotPointOffset(), otherTransform.Scale, otherTransform.Angle);
 
             // Check for collision using SAT
             return SATCollisionDetection(thisPoints, otherPoints);
@@ -30,25 +31,29 @@ namespace WoopWoop
         private List<Vector2> GetWorldPoints(Vector2 position, Vector2 scale, float angle)
         {
             // Calculate the corner points of the collider in local space
-            List<Vector2> localPoints = new List<Vector2>()
-            {
-                new Vector2(-5f * scale.X, -5 * scale.Y),
-                new Vector2(5f * scale.X, -5f * scale.Y),
-                new Vector2(5f * scale.X, 5f * scale.Y),
-                new Vector2(-5f * scale.X, 5f * scale.Y)
-            };
+            List<Vector2> localPoints = new()
+    {
+        new Vector2(-scale.X / 2, -scale.Y / 2),
+        new Vector2(scale.X / 2, -scale.Y / 2),
+        new Vector2(scale.X / 2, scale.Y / 2),
+        new Vector2(-scale.X / 2, scale.Y / 2)
+    };
 
             // Rotate the points
             List<Vector2> rotatedPoints = new List<Vector2>();
             foreach (var point in localPoints)
             {
-                float x = point.X * (float)Math.Cos(angle) - point.Y * (float)Math.Sin(angle);
-                float y = point.X * (float)Math.Sin(angle) + point.Y * (float)Math.Cos(angle);
-                rotatedPoints.Add(new Vector2(x, y) + position);
+                // Apply rotation
+                float rotatedX = point.X * (float)Math.Cos(angle) - point.Y * (float)Math.Sin(angle);
+                float rotatedY = point.X * (float)Math.Sin(angle) + point.Y * (float)Math.Cos(angle);
+
+                // Translate to world space
+                rotatedPoints.Add(new Vector2(rotatedX, rotatedY) + position);
             }
 
             return rotatedPoints;
         }
+
 
         private bool SATCollisionDetection(List<Vector2> points1, List<Vector2> points2)
         {
@@ -107,5 +112,24 @@ namespace WoopWoop
             }
             return axes;
         }
+
+        public override void OnDrawGizmo()
+        {
+            // Get the corner points of the collider in world space
+            List<Vector2> points = GetWorldPoints(transform.Position - transform.GetPivotPointOffset(), transform.Scale, MathUtil.DegToRad(transform.Angle));
+
+            // Calculate the corner points of the rectangle
+            Vector2 topLeft = points[0];
+            Vector2 topRight = points[1];
+            Vector2 bottomRight = points[2];
+            Vector2 bottomLeft = points[3];
+
+            // Draw the rectangle lines
+            Raylib.DrawLineEx(topLeft, topRight, 2, Color.Red);
+            Raylib.DrawLineEx(topRight, bottomRight, 2, Color.Red);
+            Raylib.DrawLineEx(bottomRight, bottomLeft, 2, Color.Red);
+            Raylib.DrawLineEx(bottomLeft, topLeft, 2, Color.Red);
+        }
+
     }
 }

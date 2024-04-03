@@ -7,8 +7,6 @@ public class PlayerController : Component
     public override void Start()
     {
         textureRenderer = entity.GetComponent<TextureRenderer>();
-        PointCollider collider = entity.GetComponent<PointCollider>();
-        collider.Size = new(70, 70);
         // entity.AddComponent<ImageSpammer>();
         // entity.RemoveComponent<TextureRenderer>();
         // entity.AddComponent<BasicShapeRenderer>().shape = BasicShape.Box;
