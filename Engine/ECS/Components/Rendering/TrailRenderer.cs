@@ -19,6 +19,7 @@ namespace WoopWoop
         }
         public override void Update(float deltaTime)
         {
+            // TODO: Figure out why it not clearing out proprely
             segments.Add(transform.Position);
             if (stopwatch.ElapsedMilliseconds >= lastsFor) // Multiply by 1000 to convert seconds to milliseconds
             {

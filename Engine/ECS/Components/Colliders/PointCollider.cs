@@ -22,6 +22,7 @@ namespace WoopWoop
 
         public bool CheckCollision(Vector2 point)
         {
+            // TODO: Figure out why it is being triggered outside of its suppoused zone
             size = SetSize(size);
             // Translate the point to local space relative to the rectangle
             Vector2 localPoint = point - entity.transform.Position - entity.transform.GetPivotPointOffset();
