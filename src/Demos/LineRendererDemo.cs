@@ -10,7 +10,7 @@ public class LineRendererDemo : Game
         line = new(new(WoopWoopEngine.screenWidth / 2, WoopWoopEngine.screenHeight / 2));
         lineRenderer = line.AddComponent<LineRenderer>();
         lineRenderer.isEndPositionRelative = false;
-        WoopWoopEngine.Instantiate(line);
+        Entity.Instantiate(line);
     }
     public override void Update()
     {

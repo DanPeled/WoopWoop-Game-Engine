@@ -16,13 +16,13 @@ public class DemoGame : Game
         Raylib.ImageResize(ref image, 100, 100);
         textureRenderer.LoadImage(image);
         textureRenderer.Color = Color.White;
-        WoopWoopEngine.Instantiate(e);
+        Entity.Instantiate(e);
 
         Entity e2 = new();
         e2.transform.Position = new Vector2(100, 100);
         BasicShapeRenderer shapeRenderer2 = e2.AddComponent<BasicShapeRenderer>();
         shapeRenderer2.shape = BasicShape.Ellipse;
-        WoopWoopEngine.Instantiate(e2);
+        Entity.Instantiate(e2);
 
         e.transform.AddChild(e2);
 
@@ -31,15 +31,15 @@ public class DemoGame : Game
         Slider compSlider = slider.AddComponent<Slider>();
         compSlider.min = 0;
         compSlider.max = 100;
-        WoopWoopEngine.Instantiate(slider);
+        Entity.Instantiate(slider);
 
         Entity fpsText = new();
         fpsText.AddComponent<FpsText>();
-        WoopWoopEngine.Instantiate(fpsText);
+        Entity.Instantiate(fpsText);
 
         Entity canvas = new();
         canvas.AddComponent<Canvas>();
-        WoopWoopEngine.Instantiate(canvas);
+        Entity.Instantiate(canvas);
 
         canvas.transform.AddChild(fpsText);
         canvas.transform.AddChild(slider);

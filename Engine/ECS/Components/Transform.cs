@@ -109,7 +109,7 @@ namespace WoopWoop
         public void AddChild(string childUUID)
         {
             childrenUUIDs.Add(childUUID);
-            WoopWoopEngine.GetEntityWithUUID(childUUID).transform.parent = this;
+            Entity.GetEntityWithUUID(childUUID).transform.parent = this;
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace WoopWoop
         public Transform[] GetChildren()
         {
             if (childrenUUIDs != null)
-                return childrenUUIDs.Select(WoopWoopEngine.GetEntityWithUUID).Select(e => e.transform).ToArray();
+                return childrenUUIDs.Select(Entity.GetEntityWithUUID).Select(e => e.transform).ToArray();
             return null;
         }
 

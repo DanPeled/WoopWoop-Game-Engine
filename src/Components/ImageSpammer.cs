@@ -17,7 +17,7 @@ public class ImageSpammer : Component
             int x = r.Next(30, 400);
             int y = r.Next(0, 400);
             e.transform.Position = new(x, y);
-            WoopWoopEngine.Instantiate(e);
+            Entity.Instantiate(e);
         }
     }
 }

@@ -35,7 +35,7 @@ public class PlayerController : Component
         }
         else if (Raylib.IsKeyPressed(KeyboardKey.Space))
         {
-            WoopWoopEngine.Destroy(entity);
+            Entity.Destroy(entity);
         }
         transform.Angle += Raylib.GetMouseWheelMove() * 4;
     }

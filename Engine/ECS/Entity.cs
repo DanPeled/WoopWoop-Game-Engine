@@ -36,6 +36,7 @@ namespace WoopWoop
 
             }
         }
+        private static List<Entity> entities = new();
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
@@ -82,7 +83,7 @@ namespace WoopWoop
             lock (componentsLock)
             {
                 components.Add(comp);
-                if (WoopWoopEngine.GetEntityWithUUID(ID) != null)
+                if (GetEntityWithUUID(ID) != null)
                 {
                     comp.Start();
                 }
@@ -239,6 +240,61 @@ namespace WoopWoop
         public bool HasComponent<T>() where T : Component
         {
             return components.FirstOrDefault(c => c is T) != null;
+        }
+
+        public static void Instantiate(Entity entity)
+        {
+            entities.Add(entity);
+            foreach (var component in entity.GetComponents())
+            {
+                component.Awake();
+                if (component.Enabled)
+                {
+                    component.Start();
+                }
+            }
+        }
+        public static Entity[] GetAllEntities()
+        {
+            return entities.ToArray() is null ? new Entity[0] : entities.ToArray();
+        }
+
+        public static Entity GetEntityWithUUID(string uuid)
+        {
+            return entities.Find(e => e.ID.Equals(uuid));
+        }
+        public static Entity[] GetEntitiesWithTag(string tag)
+        {
+            return entities.FindAll(e => e.tag.Equals(tag)).ToArray();
+        }
+
+        public static void Destroy(Entity entity)
+        {
+
+            var entitiesCopy = new List<Entity>(entities);
+            if (entity.transform != null)
+            {
+                foreach (Transform child in entity.transform.GetChildren())
+                {
+                    if (child.entity != null)
+                    {
+                        StopComponents(child.entity);
+                        entitiesCopy.Remove(child.entity);
+                    }
+                }
+            }
+
+            StopComponents(entity);
+            entitiesCopy.Remove(entity);
+            entities = entitiesCopy;
+        }
+
+        private static void StopComponents(Entity entity)
+        {
+            foreach (Component c in entity.GetComponents())
+            {
+                entity.RemoveComponent(c.GetType());
+            }
         }
     }
 }
