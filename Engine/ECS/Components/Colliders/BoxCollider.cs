@@ -5,7 +5,7 @@ using Raylib_cs;
 
 namespace WoopWoop
 {
-    public class BoxCollider : Component
+    public class BoxCollider : Collider
     {
         // We'll keep track of the axes of the collider
         private List<Vector2> axes = new List<Vector2>();
@@ -15,17 +15,22 @@ namespace WoopWoop
             base.Awake();
         }
 
-        public bool IsCollidingWith(BoxCollider other)
+        public override bool IsCollidingWith(Collider other)
         {
-            // Get the transform component of both entities
-            Transform otherTransform = other.transform;
+            if (other is BoxCollider)
+            {
+                other = (BoxCollider)other;
+                // Get the transform component of both entities
+                Transform otherTransform = other.transform;
 
-            // Get the corner points of both colliders in world space
-            List<Vector2> thisPoints = GetWorldPoints(transform.Position - transform.GetPivotPointOffset(), transform.Scale, transform.Angle);
-            List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position - otherTransform.GetPivotPointOffset(), otherTransform.Scale, otherTransform.Angle);
+                // Get the corner points of both colliders in world space
+                List<Vector2> thisPoints = GetWorldPoints(transform.Position - transform.GetPivotPointOffset(), transform.Scale, transform.Angle);
+                List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position - otherTransform.GetPivotPointOffset(), otherTransform.Scale, otherTransform.Angle);
 
-            // Check for collision using SAT
-            return SATCollisionDetection(thisPoints, otherPoints);
+                // Check for collision using SAT
+                return SATCollisionDetection(thisPoints, otherPoints);
+            }
+            return false;
         }
 
         private List<Vector2> GetWorldPoints(Vector2 position, Vector2 scale, float angle)

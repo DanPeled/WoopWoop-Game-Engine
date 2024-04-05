@@ -153,7 +153,7 @@ namespace WoopWoop
                     var requiredComponents = requireComponentAttribute.requiredComponents;
 
                     // Check if all required components are attached to the entity
-                    if (requiredComponents.All(reqType => HasComponentOfType(reqType)))
+                    if (requiredComponents.All(HasComponentOfType))
                     {
                         // Proceed with updating the component
                         if (component.Enabled)
