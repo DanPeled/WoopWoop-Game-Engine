@@ -8,7 +8,16 @@ namespace WoopWoop
     public class Renderer : Component
     {
         public Color Color { get; set; } = Raylib.BLACK;
-        public byte Layer { get; set; }
+        private byte layer = 0;
+        public byte Layer
+        {
+            get { return layer; }
+            set
+            {
+                layer = value;
+                WoopWoopEngine.ChangeRenderLayer(this);
+            }
+        }
         protected static Vector2 GetOriginalPositionOfTransform(Transform transform, Pivot pivot)
         {
             Vector2 value = transform.Position;

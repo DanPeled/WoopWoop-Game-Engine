@@ -15,7 +15,7 @@ namespace WoopWoop
         static Game? game;
         private static readonly object entitiesLock = new();
         private static Stopwatch stopwatch = new(); // Add a Stopwatch for measuring time
-        private static List<List<Renderer>> renderBatches; // List of render batches, each for a specific layer
+        private static Dictionary<int, List<Renderer>> renderBatches; // Dictionary to store render batches by layer
         private static float deltaTime = 0;
         public static readonly int screenWidth = 1080, screenHeight = 720;
         private static int batchSize = 10; // Initial batch size
@@ -32,7 +32,7 @@ namespace WoopWoop
             renderBatch.currentBuffer = 1;
             Raylib.SetTargetFPS(60);
             game = game_;
-            renderBatches = new List<List<Renderer>>();
+            renderBatches = new();
 #if DEBUG
             Editor.Editor.Init();
 #endif
@@ -41,11 +41,11 @@ namespace WoopWoop
 
             Entity.OnEntityDestroyed += (Entity entity) =>
             {
-                foreach (List<Renderer> batch in renderBatches)
+                foreach (int layer in renderBatches.Keys)
                 {
-                    if (batch.Contains(entity.GetComponent<Renderer>()))
+                    if (renderBatches[layer].Contains(entity.GetComponent<Renderer>()))
                     {
-                        batch.Remove(entity.GetComponent<Renderer>());
+                        renderBatches[layer].Remove(entity.GetComponent<Renderer>());
                     }
                 }
             };
@@ -182,20 +182,22 @@ namespace WoopWoop
 
         public static void AddToRenderBatch(Renderer renderer)
         {
-            // Ensure that the renderBatches list has enough elements for each layer
-            while (renderBatches.Count <= renderer.Layer)
+            // Ensure that the renderBatches dictionary has the key for the renderer's layer
+            if (!renderBatches.ContainsKey(renderer.Layer))
             {
-                renderBatches.Add(new List<Renderer>());
+                renderBatches[renderer.Layer] = new List<Renderer>();
             }
+
             renderBatches[renderer.Layer].Add(renderer);
         }
+
 
         private static void RenderFrame()
         {
             // Iterate through render batches by layer, rendering each batch
-            foreach (var batch in renderBatches)
+            foreach (var layer in renderBatches.Keys.OrderBy(k => k))
             {
-                foreach (Renderer r in batch)
+                foreach (Renderer r in renderBatches[layer])
                 {
 #if DEBUG
                     if (Editor.Editor.debugMenuEntities.Contains(r.entity))
@@ -210,6 +212,7 @@ namespace WoopWoop
                 }
             }
         }
+
 
 
         private static void DrawGizmos(Entity entity)
@@ -242,9 +245,9 @@ namespace WoopWoop
         {
             Editor.Editor.debugMenuEntities.ForEach(UpdateEntity);
             // Iterate through render batches by layer, rendering each batch
-            foreach (var batch in renderBatches)
+            foreach (int layer in renderBatches.Keys)
             {
-                foreach (Renderer r in batch)
+                foreach (Renderer r in renderBatches[layer])
                 {
                     if (Editor.Editor.debugMenuEntities.Contains(r.entity) && r.entity.Enabled && r.Enabled)
                     {
@@ -254,5 +257,18 @@ namespace WoopWoop
             }
         }
 #endif
+
+        public static void ChangeRenderLayer(Renderer r)
+        {
+            foreach (int layer in renderBatches.Keys)
+            {
+                if (renderBatches[layer].Contains(r))
+                {
+                    renderBatches[layer].Remove(r);
+                    break;
+                }
+            }
+            AddToRenderBatch(r);
+        }
     }
 }
