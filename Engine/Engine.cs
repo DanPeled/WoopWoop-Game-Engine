@@ -26,11 +26,11 @@ namespace WoopWoop
         static Entity[] currentFrameEntities;
         public static rlRenderBatch renderBatch;
         public static string windowTitle = "Game";
+        private static Thread updateThread;
         private static void Init(Game game_)
         {
             renderBatch.currentDepth = 36;
             renderBatch.currentBuffer = 1;
-            Raylib.SetTargetFPS(60);
             game = game_;
             renderBatches = new();
 #if DEBUG
@@ -59,7 +59,9 @@ namespace WoopWoop
         {
             Init(game_);
             // Raylib.SetConfigFlags(ConfigFlags.FullscreenMode);
+            Raylib.SetTraceLogLevel(7);
             Raylib.InitWindow(screenWidth, screenHeight, windowTitle);
+            Raylib.SetTargetFPS(60);
 
             Entity camera = new();
             Entity debugCameraEntity = new();
@@ -71,42 +73,61 @@ namespace WoopWoop
             // mainCamera = Camera.GetMainCamera();
             game?.Start();
             currentFrameEntities = Entity.GetAllEntities();
+
+            updateThread = new Thread(new ThreadStart(() =>
+            {
+                while (!Raylib.WindowShouldClose())
+                {
+                    HandleUpdateEverything();
+                }
+            }));
+
+            updateThread.Start();
             while (!Raylib.WindowShouldClose())
             {
                 if (currentFrameEntities != Entity.GetAllEntities())
                 {
                     currentFrameEntities = Entity.GetAllEntities();
                 }
-                // Measure the deltaTime
-                deltaTime = (float)stopwatch.Elapsed.TotalSeconds;
-                stopwatch.Restart();
 
-                Raylib.BeginDrawing();
-                Raylib.ClearBackground(Camera.Main().backgroundColor);
-                game?.Update();
+                // HandleUpdateEverything();
+                HandleRenderFrame();
 
                 HandleDebugMenu();
-
-                Raylib.BeginMode2D(IsInDebugMenu ? debugCamera.camera : mainCamera.camera);
-
-                RenderFrame();
-                // Process currentFrameEntities in batches
-                UpdateEntities();
-
-                HandleCameraSwitch();
-
-                OnEndOfFrame();
-
-                Raylib.EndMode2D();
-                Raylib.EndDrawing();
             }
+
             foreach (Entity entity in currentFrameEntities.ToArray())
             {
                 Entity.Destroy(entity);
             }
+            updateThread.Interrupt();
             Raylib.CloseWindow();
         }
+        private static void HandleUpdateEverything()
+        {
+            // Measure the deltaTime
+            deltaTime = (float)stopwatch.Elapsed.TotalSeconds;
+            stopwatch.Restart();
+            game?.Update();
+        }
+        private static void HandleRenderFrame()
+        {
+            Raylib.BeginDrawing();
+            Raylib.ClearBackground(Camera.Main().backgroundColor);
 
+            Raylib.BeginMode2D(IsInDebugMenu ? debugCamera.camera : mainCamera.camera);
+
+            RenderFrame();
+            // Process currentFrameEntities in batches
+            UpdateEntities();
+
+            HandleCameraSwitch();
+
+            OnEndOfFrame();
+
+            Raylib.EndMode2D();
+            Raylib.EndDrawing();
+        }
         private static void UpdateEntity(Entity e)
         {
             if (e.Enabled)

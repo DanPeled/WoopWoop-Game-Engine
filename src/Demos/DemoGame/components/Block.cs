@@ -18,7 +18,6 @@ namespace DemoGame
                 {
                     Ball.Instance.velocity *= -1.15f;
                     Ball.Instance.velocity.X *= Math.Sign(new Random().Next(-12, 10));
-                    Console.WriteLine(Ball.Instance.velocity);
                     PlayerSlideController.Score += 10;
                     Entity.Destroy(entity);
                 }

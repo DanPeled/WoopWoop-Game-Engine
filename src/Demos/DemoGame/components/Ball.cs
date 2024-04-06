@@ -24,7 +24,6 @@ namespace DemoGame
             {
                 Random random = new Random();
                 velocity = new((velocity.X + random.Next(0, 10) / 10f) * (Raylib.GetMouseDelta().X != 0 ? Math.Sign(Raylib.GetMouseDelta().X) : 1), velocity.Y * -1);
-                Console.WriteLine(velocity);
             }
             if (IsCollidingWithScreenBoundsY())
             {
