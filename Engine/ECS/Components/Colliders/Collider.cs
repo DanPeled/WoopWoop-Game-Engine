@@ -4,8 +4,12 @@ namespace WoopWoop
     public class Collider : Component
     {
         public virtual bool IsCollidingWith(Collider other) { return false; }
-        public bool IsCollidingWith(Entity other) { return IsCollidingWith(other.GetComponent<BoxCollider>()); }
-        private Entity[] GetCollidingEntities(List<Entity> allEntities)
+        public bool IsCollidingWith(Entity other)
+        {
+            if (other == null) return false;
+            return IsCollidingWith(other.GetComponent<BoxCollider>());
+        }
+        private Entity[] GetCollidingEntitiesFromList(List<Entity> allEntities)
         {
             List<Entity> collidingEntities = new();
             allEntities.Remove(entity);
@@ -21,11 +25,11 @@ namespace WoopWoop
 
         public Entity[] GetCollidingEntitiesWithTag(string tag)
         {
-            return GetCollidingEntities(Entity.GetEntitiesWithTag(tag).ToList());
+            return GetCollidingEntitiesFromList(Entity.GetEntitiesWithTag(tag).ToList());
         }
         public Entity[] GetAllCollidingEntities()
         {
-            return GetCollidingEntities(Entity.GetAllEntities().ToList());
+            return GetCollidingEntitiesFromList(Entity.GetAllEntities().ToList());
         }
     }
 }

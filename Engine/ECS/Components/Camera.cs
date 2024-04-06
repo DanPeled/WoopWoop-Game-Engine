@@ -1,5 +1,5 @@
 using System.Numerics;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
@@ -10,6 +10,7 @@ namespace WoopWoop
         private static Camera mainCamera;
         public int width, height;
         private bool isMain = false;
+        public Color backgroundColor = Raylib.WHITE;
         public bool IsMain
         {
             get
@@ -29,12 +30,12 @@ namespace WoopWoop
             float centerY = WoopWoopEngine.screenHeight / 2;
 
             // Set camera position to center of the screen
-            camera = new Camera2D(
-                new Vector2(transform.Position.X + centerX, transform.Position.Y + centerY),
-                new Vector2(centerX, centerY),
-                transform.Angle,
-                1.0f
-            );
+            camera = new Camera2D();
+            camera.offset = new Vector2(transform.Position.X + centerX, transform.Position.Y + centerY);
+            camera.target = new Vector2(centerX, centerY);
+            camera.rotation = transform.Angle;
+            camera.zoom = 1f;
+
 
             if (mainCamera == default)
             {
@@ -42,14 +43,14 @@ namespace WoopWoop
             }
 
             transform.onTransformChanged += () =>
-            {
-                camera.Rotation = transform.Angle;
-            };
+                    {
+                        camera.rotation = transform.Angle;
+                    };
         }
         public override void Update(float deltaTime)
         {
             Raylib.BeginMode2D(camera);
-            transform.Position = camera.Target;
+            transform.Position = camera.target;
         }
         public override void OnEndOfFrame()
         {

@@ -1,5 +1,5 @@
 using System.Numerics;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
@@ -14,7 +14,7 @@ namespace WoopWoop
                 // Rotate the vertices using the entity's transform angle
                 Vector2[] rotatedVertices = RotateVertices(vertices, transform.Angle);
                 // Draw the rotated polygon
-                DrawPolygon((int)transform.Position.X, (int)transform.Position.Y, rotatedVertices, this.Color);
+                DrawPolygon((int)transform.Position.X, (int)transform.Position.Y, rotatedVertices, Color);
             }
         }
 

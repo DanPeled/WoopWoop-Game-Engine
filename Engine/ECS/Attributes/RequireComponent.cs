@@ -10,13 +10,13 @@ namespace WoopWoop
         public MessageType messageType;
         public RequireComponent(MessageType type, params Type[] componentTypes)
         {
-            this.messageType = type;
-            this.requiredComponents = componentTypes;
+            messageType = type;
+            requiredComponents = componentTypes;
         }
         public RequireComponent(params Type[] componentTypes)
         {
-            this.messageType = MessageType.Error;
-            this.requiredComponents = componentTypes;
+            messageType = MessageType.Error;
+            requiredComponents = componentTypes;
         }
     }
     public enum MessageType

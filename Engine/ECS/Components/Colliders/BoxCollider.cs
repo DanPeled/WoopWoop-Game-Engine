@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
@@ -24,8 +24,8 @@ namespace WoopWoop
                 Transform otherTransform = other.transform;
 
                 // Get the corner points of both colliders in world space
-                List<Vector2> thisPoints = GetWorldPoints(transform.Position - transform.GetPivotPointOffset(), transform.Scale, transform.Angle);
-                List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position - otherTransform.GetPivotPointOffset(), otherTransform.Scale, otherTransform.Angle);
+                List<Vector2> thisPoints = GetWorldPoints(transform.Position, transform.Scale, transform.Angle);
+                List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position, otherTransform.Scale, otherTransform.Angle);
 
                 // Check for collision using SAT
                 return SATCollisionDetection(thisPoints, otherPoints);
@@ -117,11 +117,22 @@ namespace WoopWoop
             }
             return axes;
         }
+        public Vector2 GetWorldExtents()
+        {
+            // Get the scale of the transform
+            Vector2 scale = transform.Scale;
 
+            // Calculate the half-width and half-height of the collider in world space
+            float halfWidth = scale.X / 2;
+            float halfHeight = scale.Y / 2;
+
+            // Calculate the extents vector
+            return new Vector2(halfWidth, halfHeight);
+        }
         public override void OnDrawGizmo()
         {
             // Get the corner points of the collider in world space
-            List<Vector2> points = GetWorldPoints(transform.Position - transform.GetPivotPointOffset(), transform.Scale, MathUtil.DegToRad(transform.Angle));
+            List<Vector2> points = GetWorldPoints(transform.Position, transform.Scale, MathUtil.DegToRad(transform.Angle));
 
             // Calculate the corner points of the rectangle
             Vector2 topLeft = points[0];
@@ -130,10 +141,10 @@ namespace WoopWoop
             Vector2 bottomLeft = points[3];
 
             // Draw the rectangle lines
-            Raylib.DrawLineEx(topLeft, topRight, 2, Color.Red);
-            Raylib.DrawLineEx(topRight, bottomRight, 2, Color.Red);
-            Raylib.DrawLineEx(bottomRight, bottomLeft, 2, Color.Red);
-            Raylib.DrawLineEx(bottomLeft, topLeft, 2, Color.Red);
+            Raylib.DrawLineEx(topLeft, topRight, 2, Raylib.RED);
+            Raylib.DrawLineEx(topRight, bottomRight, 2, Raylib.RED);
+            Raylib.DrawLineEx(bottomRight, bottomLeft, 2, Raylib.RED);
+            Raylib.DrawLineEx(bottomLeft, topLeft, 2, Raylib.RED);
         }
 
     }

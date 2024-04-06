@@ -1,6 +1,6 @@
 using System.Diagnostics;
 using System.Numerics;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 using WoopWoop.UI;
 
 namespace WoopWoop
@@ -30,7 +30,7 @@ namespace WoopWoop
             {
                 Vector2 segment = segments.ElementAt(i);
                 Vector2 endSegment = i < segments.Count - 1 ? segments.ElementAt(i + 1) : segment;
-                Raylib.DrawLineEx(segment, endSegment, lineThickness, Color.Black);
+                Raylib.DrawLineEx(segment, endSegment, lineThickness, Raylib.BLACK);
             }
         }
     }

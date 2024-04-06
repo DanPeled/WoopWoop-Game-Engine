@@ -4,6 +4,6 @@ class Program
 {
     public static void Main()
     {
-        WoopWoopEngine.Start(new SATChecking());
+        WoopWoopEngine.Start(new UITesting());
     }
 }

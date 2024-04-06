@@ -1,4 +1,4 @@
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 using System;
 using System.Numerics;
 
@@ -7,7 +7,7 @@ namespace WoopWoop
     [RequireComponent(typeof(Transform))]
     public class Renderer : Component
     {
-        public Color Color { get; set; } = Color.Black;
+        public Color Color { get; set; } = Raylib.BLACK;
         public byte Layer { get; set; }
         protected static Vector2 GetOriginalPositionOfTransform(Transform transform, Pivot pivot)
         {

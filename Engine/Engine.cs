@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Linq.Expressions;
 using System.Numerics;
 using System.Threading.Tasks;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 #if DEBUG
 using WoopWoop.Editor;
 #endif
@@ -24,10 +24,13 @@ namespace WoopWoop
         static Camera mainCamera;
         static Camera debugCamera;
         static Entity[] currentFrameEntities;
+        public static rlRenderBatch renderBatch;
         public static string windowTitle = "Game";
         private static void Init(Game game_)
         {
-            Raylib.SetTargetFPS(240);
+            renderBatch.currentDepth = 36;
+            renderBatch.currentBuffer = 1;
+            Raylib.SetTargetFPS(60);
             game = game_;
             renderBatches = new List<List<Renderer>>();
 #if DEBUG
@@ -35,6 +38,17 @@ namespace WoopWoop
 #endif
             // Start the stopwatch
             stopwatch.Start();
+
+            Entity.OnEntityDestroyed += (Entity entity) =>
+            {
+                foreach (List<Renderer> batch in renderBatches)
+                {
+                    if (batch.Contains(entity.GetComponent<Renderer>()))
+                    {
+                        batch.Remove(entity.GetComponent<Renderer>());
+                    }
+                }
+            };
         }
 
         /// <summary>
@@ -68,7 +82,7 @@ namespace WoopWoop
                 stopwatch.Restart();
 
                 Raylib.BeginDrawing();
-                Raylib.ClearBackground(Color.White);
+                Raylib.ClearBackground(Camera.Main().backgroundColor);
                 game?.Update();
 
                 HandleDebugMenu();
@@ -113,7 +127,7 @@ namespace WoopWoop
             {
                 Editor.Editor.TurnOff();
             }
-            if (Raylib.IsKeyPressed(KeyboardKey.F3))
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_F3))
             {
                 IsInDebugMenu = !IsInDebugMenu;
             }
@@ -164,7 +178,7 @@ namespace WoopWoop
         }
 
 
-        
+
 
         public static void AddToRenderBatch(Renderer renderer)
         {

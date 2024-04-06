@@ -1,4 +1,4 @@
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 using WoopWoop;
 
 public class SATChecking : Game
@@ -33,11 +33,11 @@ public class SATChecking : Game
         // // box1.transform.Position = Raylib.GetMousePosition();
         if (boxCollider1.IsCollidingWith(boxCollider2))
         {
-            shapeRenderer1.Color = Color.Gray;
+            shapeRenderer1.Color = Raylib.GRAY;
         }
         else
         {
-            shapeRenderer1.Color = Color.Black;
+            shapeRenderer1.Color = Raylib.BLACK;
         }
     }
 }

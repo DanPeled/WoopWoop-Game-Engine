@@ -18,6 +18,7 @@ namespace WoopWoop
         public readonly string ID;
         public string tag = "";
         public string Name;
+        public static Action<Entity> OnEntityDestroyed;
         public bool Enabled
         {
             get
@@ -27,9 +28,10 @@ namespace WoopWoop
             set
             {
                 //Enable / disable all children
-                transform.GetChildren().ToList().ForEach(e =>
+                transform.GetChildren()?.ToList()?.ForEach(t =>
                 {
-                    e.entity.Enabled = value;
+                    if (t is not null && t.entity.Enabled)
+                        t.entity.Enabled = value;
                 });
 
                 enabled = value;
@@ -41,7 +43,7 @@ namespace WoopWoop
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         public Entity() : this(Vector2.Zero) { }
-
+        public Entity(float x, float y) : this(new(x, y)) { }
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// <param name="startPos">The initial position of the entity</param>
@@ -60,11 +62,6 @@ namespace WoopWoop
         /// Updates the entity.
         /// </summary>
         public virtual void Update(float deltaTime) { }
-
-        /// <summary>
-        /// Draws the entity.
-        /// </summary>
-        public virtual void Draw() { }
 
         /// <summary>
         /// Adds a new component of type T to the entity.
@@ -270,13 +267,13 @@ namespace WoopWoop
 
         public static void Destroy(Entity entity)
         {
-
+            OnEntityDestroyed?.Invoke(entity);
             var entitiesCopy = new List<Entity>(entities);
             if (entity.transform != null)
             {
                 foreach (Transform child in entity.transform.GetChildren())
                 {
-                    if (child.entity != null)
+                    if (child?.entity != null)
                     {
                         StopComponents(child.entity);
                         entitiesCopy.Remove(child.entity);

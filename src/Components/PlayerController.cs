@@ -1,6 +1,6 @@
 using WoopWoop;
 using System.Numerics;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 public class PlayerController : Component
 {
     TextureRenderer textureRenderer;
@@ -17,23 +17,23 @@ public class PlayerController : Component
         transform.Position = new(
             mousePos.X,
              mousePos.Y);
-        if (Raylib.IsKeyDown(KeyboardKey.Up))
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_UP))
         {
             transform.Scale += new Vector2(0, 0.05f);
         }
-        else if (Raylib.IsKeyDown(KeyboardKey.Down))
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_DOWN))
         {
             transform.Scale -= new Vector2(0, 0.05f);
         }
-        else if (Raylib.IsKeyDown(KeyboardKey.Left))
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT))
         {
             transform.Scale -= new Vector2(0.05f, 0);
         }
-        else if (Raylib.IsKeyDown(KeyboardKey.Right))
+        else if (Raylib.IsKeyDown(KeyboardKey.KEY_RIGHT))
         {
             transform.Scale += new Vector2(0.05f, 0);
         }
-        else if (Raylib.IsKeyPressed(KeyboardKey.Space))
+        else if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
         {
             Entity.Destroy(entity);
         }

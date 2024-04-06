@@ -1,3 +1,5 @@
+using ZeroElectric.Vinculum;
+
 namespace WoopWoop
 {
     public static class Debug
@@ -15,6 +17,6 @@ namespace WoopWoop
             Console.WriteLine(msg);
             Console.ResetColor();
         }
-        
+
     }
 }

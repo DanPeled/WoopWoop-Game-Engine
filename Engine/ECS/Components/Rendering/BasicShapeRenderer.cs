@@ -1,4 +1,4 @@
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 using System;
 using System.Numerics;
 
@@ -19,15 +19,15 @@ namespace WoopWoop
                         Raylib.DrawEllipse(
                             (int)transform.Position.X,
                             (int)transform.Position.Y,
-                            (int)(transform.Scale.X), // Scale X as width
-                            (int)(transform.Scale.Y), // Scale Y as height
-                            this.Color);
+                            (int)transform.Scale.X, // Scale X as width
+                            (int)transform.Scale.Y, // Scale Y as height
+                            Color);
                         break;
                     }
                 case BasicShape.Box:
                     {
                         // Calculate the position of the rectangle considering rotation
-                        Vector2 position = new Vector2(transform.Position.X, transform.Position.Y) - transform.GetPivotPointOffset();
+                        Vector2 position = new Vector2(transform.Position.X, transform.Position.Y);
                         Vector2 origin = new Vector2(transform.Scale.X / 4, transform.Scale.Y / 4);
                         Matrix3x2 transformMatrix = Matrix3x2.CreateRotation(transform.Angle * (float)Math.PI / 180f, origin) *
                             Matrix3x2.CreateTranslation(position - origin);
@@ -40,7 +40,7 @@ namespace WoopWoop
                             new Rectangle(transformedPosition.X, transformedPosition.Y, transform.Scale.X, transform.Scale.Y),
                             origin,
                             transform.Angle, // Rotation angle in degrees (change this as needed)
-                            this.Color);
+                            Color);
                         break;
                     }
             }

@@ -4,7 +4,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 using WoopWoop.UI;
 namespace WoopWoop.Editor
 {
@@ -52,7 +52,7 @@ namespace WoopWoop.Editor
             positionText = positionTextEntity.AddComponent<TextRenderer>();
             positionTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 26);
             positionText.text = "Pos: ";
-            positionText.Color = Color.Black;
+            positionText.Color = Raylib.BLACK;
             positionText.Layer = 255;
 
 
@@ -60,21 +60,21 @@ namespace WoopWoop.Editor
             scaleText = scaleTextEntity.AddComponent<TextRenderer>();
             scaleTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 70);
             scaleText.text = "Scale: ";
-            scaleText.Color = Color.Black;
+            scaleText.Color = Raylib.BLACK;
             scaleText.Layer = 255;
 
             Entity angleTextEntity = new();
             angleText = angleTextEntity.AddComponent<TextRenderer>();
             angleTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 130);
             angleText.text = "Angle: ";
-            angleText.Color = Color.Black;
+            angleText.Color = Raylib.BLACK;
             angleText.Layer = 255;
 
             Entity compoenetsTextEntity = new();
             componentsText = compoenetsTextEntity.AddComponent<TextRenderer>();
             compoenetsTextEntity.transform.Position = new(WoopWoopEngine.screenWidth - (editorWindow.transform.Scale.X * 10 - 17), 170);
             componentsText.text = "Components: ";
-            componentsText.Color = Color.Black;
+            componentsText.Color = Raylib.BLACK;
             componentsText.Layer = 255;
 
             editorWindow.Enabled = false;
@@ -134,7 +134,7 @@ namespace WoopWoop.Editor
             if (!WoopWoopEngine.IsInDebugMenu) return;
 
             // Check if the left mouse button is pressed
-            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+            if (Raylib.IsMouseButtonPressed(Raylib.MOUSE_LEFT_BUTTON))
             {
                 SelectedEntity = null;
                 // Get the mouse position
@@ -156,10 +156,10 @@ namespace WoopWoop.Editor
             }
 
             // Check if the left mouse button is being held down and a draggable entity is selected
-            if (Raylib.IsMouseButtonDown(MouseButton.Left) && SelectedEntity != null)
+            if (Raylib.IsMouseButtonDown(Raylib.MOUSE_LEFT_BUTTON) && SelectedEntity != null)
             {
                 float speedScalar = 1f;
-                if (Raylib.IsKeyDown(KeyboardKey.LeftShift))
+                if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
                 {
                     speedScalar = 7f;
                 }
@@ -171,15 +171,15 @@ namespace WoopWoop.Editor
                             // Update the position of the selected entity based on the mouse movement
                             Vector2 mousePos = Raylib.GetMousePosition();
                             Vector2 newPos = mousePos;
-                            if (Raylib.IsKeyDown(KeyboardKey.LeftAlt))
+                            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_ALT))
                             {
-                                if (Raylib.IsKeyDown(KeyboardKey.X))
+                                if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
                                 {
                                     newPos.Y = SelectedEntity.transform.Position.Y;
                                     Raylib.DrawLineEx(new(-100, newPos.Y), new(WoopWoopEngine.screenWidth + 100, newPos.Y), 3, new Color(255, 0, 0, 200));
 
                                 }
-                                else if (Raylib.IsKeyDown(KeyboardKey.Y))
+                                else if (Raylib.IsKeyDown(KeyboardKey.KEY_Y))
                                 {
                                     newPos.X = SelectedEntity.transform.Position.X;
                                     Raylib.DrawLineEx(new(newPos.X, -100), new(newPos.X, WoopWoopEngine.screenHeight + 100), 3, new Color(0, 255, 0, 200));
@@ -211,15 +211,15 @@ namespace WoopWoop.Editor
                         {
                             Vector2 mousePos = Raylib.GetMouseDelta() / 30 / speedScalar;
                             Vector2 newScale = mousePos;
-                            if (Raylib.IsKeyDown(KeyboardKey.LeftAlt))
+                            if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_ALT))
                             {
-                                if (Raylib.IsKeyDown(KeyboardKey.X))
+                                if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
                                 {
                                     newScale.Y = SelectedEntity.transform.Position.Y;
                                     Raylib.DrawLineEx(new(-100, newScale.Y), new(WoopWoopEngine.screenWidth + 100, newScale.Y), 3, new Color(255, 0, 0, 200));
 
                                 }
-                                else if (Raylib.IsKeyDown(KeyboardKey.Y))
+                                else if (Raylib.IsKeyDown(KeyboardKey.KEY_Y))
                                 {
                                     newScale.X = SelectedEntity.transform.Position.X;
                                     Raylib.DrawLineEx(new(newScale.X, -100), new(newScale.X, WoopWoopEngine.screenHeight + 100), 3, new Color(0, 255, 0, 200));
@@ -232,15 +232,15 @@ namespace WoopWoop.Editor
 
                 }
             }
-            else if (Raylib.IsKeyDown(KeyboardKey.R))
+            else if (Raylib.IsKeyDown(KeyboardKey.KEY_R))
             {
                 editorState = EditorState.Rotation;
             }
-            else if (Raylib.IsKeyDown(KeyboardKey.G))
+            else if (Raylib.IsKeyDown(KeyboardKey.KEY_G))
             {
                 editorState = EditorState.Pos;
             }
-            else if (Raylib.IsKeyDown(KeyboardKey.S))
+            else if (Raylib.IsKeyDown(KeyboardKey.KEY_S))
             {
                 editorState = EditorState.Scale;
             }

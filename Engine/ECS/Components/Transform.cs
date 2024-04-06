@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using Raylib_cs;
+using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
@@ -33,7 +33,7 @@ namespace WoopWoop
                     childTransform.Position += offset;
                 }
 
-                value += GetPivotPointOffset();
+                // value += GetPivotPointOffset();
                 position = value;
                 onTransformChanged?.Invoke();
             }
@@ -137,7 +137,7 @@ namespace WoopWoop
         public Transform[] GetChildren()
         {
             if (childrenUUIDs != null)
-                return childrenUUIDs.Select(Entity.GetEntityWithUUID).Select(e => e.transform).ToArray();
+                return childrenUUIDs.Select(Entity.GetEntityWithUUID)?.Select(e => e?.transform).ToArray();
             return null;
         }
 
@@ -162,21 +162,21 @@ namespace WoopWoop
                         Vector2 verticalEnd = position + Vector2.Transform(new Vector2(0, 30), Matrix3x2.CreateRotation(MathUtil.DegToRad(angle)));
 
                         // Draw the horizontal line (with arrow)
-                        Raylib.DrawLineEx(position, horizontalEnd, 10, Color.Red);
-                        DrawArrow(position, horizontalEnd, 10, Color.Red);
+                        Raylib.DrawLineEx(position, horizontalEnd, 10, Raylib.RED);
+                        DrawArrow(position, horizontalEnd, 10, Raylib.RED);
 
                         // Draw the vertical line (with arrow)
-                        Raylib.DrawLineEx(position, verticalEnd, 10, Color.Green);
-                        DrawArrow(position, verticalEnd, 10, Color.Green);
+                        Raylib.DrawLineEx(position, verticalEnd, 10, Raylib.GREEN);
+                        DrawArrow(position, verticalEnd, 10, Raylib.GREEN);
                         break;
                     }
                 case Editor.Editor.EditorState.Rotation:
                     {
-                        DrawCircleWithThickness(position, 30, 4, Color.Red);
+                        DrawCircleWithThickness(position, 30, 4, Raylib.RED);
                         Vector2 endPoint = position + Vector2.Transform(new Vector2(0, 50), Matrix3x2.CreateRotation(MathUtil.DegToRad(angle)));
 
                         // Draw the line indicating rotation direction
-                        Raylib.DrawLineEx(position, endPoint, 4, Color.Red);
+                        Raylib.DrawLineEx(position, endPoint, 4, Raylib.RED);
 
                         break;
                     }

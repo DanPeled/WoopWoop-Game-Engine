@@ -1,80 +1,40 @@
-using System.Numerics;
-using Raylib_cs;
+using System.Text;
+using ZeroElectric.Vinculum;
 
 namespace WoopWoop.UI
 {
-    [RequireComponent(typeof(Transform))]
-    public class Slider : Component
+    public class Slider : Renderer
     {
-        public float min;
-        public float max;
-        public float intervals;
-
-        public float value; // Current value of the slider
-
-        private bool isDragging; // Flag to track if the knob is being dragged
-        public float SliderWidth
-        {
-            get { return (int)(max - min); }
-        }
-        public override void Awake()
-        {
-        }
-
+        public Rectangle bounds;
+        public float value;
+        public string minText = "", maxText = "";
+        public float minValue = 0, maxValue = 100;
+        public Action<float> OnValueChange;
         public override void Update(float deltaTime)
         {
-            // Get the transform component
-            Transform transform = entity.GetComponent<Transform>();
-
-            // Calculate the position of the slider's knob based on its value
-            float normalizedValue = (value - min) / (max - min);
-            float knobX = transform.Position.X + normalizedValue * (max - min) - 5;
-            float knobY = transform.Position.Y - 5;
-
-            // Check for mouse input
-            if (Raylib.IsMouseButtonPressed(MouseButton.Left))
+            float prevValue = value;
+            bounds = new Rectangle(transform.Position.X, transform.Position.Y, transform.Scale.X, transform.Scale.Y);
+            unsafe
             {
-                // Get mouse position
-                Vector2 mousePos = Raylib.GetMousePosition();
+                byte[] minBytes = Encoding.ASCII.GetBytes(minText);
+                byte[] maxBytes = Encoding.ASCII.GetBytes(maxText);
 
-                // Check if mouse is over the knob
-                if (Raylib.CheckCollisionPointRec(mousePos, new Raylib_cs.Rectangle(knobX, knobY, 10, 20)))
+                fixed (byte* minBytePtr = minBytes, maxBytePtr = maxBytes)
                 {
-                    isDragging = true; // Start dragging
+                    fixed (float* valuePtr = &value) // Allocate memory for the float value
+                    {
+                        Render((sbyte*)minBytePtr, (sbyte*)maxBytePtr, valuePtr);
+                    }
                 }
             }
-
-            // If mouse button is released, stop dragging
-            if (Raylib.IsMouseButtonReleased(MouseButton.Left))
+            if (value != prevValue)
             {
-                isDragging = false;
-            }
-
-            // If dragging, update value based on mouse position
-            if (isDragging)
-            {
-                Vector2 mousePos = Raylib.GetMousePosition();
-                float newValue = min + (mousePos.X - transform.Position.X) * (max - min) / (max - min);
-                newValue = Math.Clamp(newValue, min, max);
-                value = newValue;
-            }
-
-            // Draw the slider
-            if (SliderWidth > 0) // Ensure the width is valid
-            {
-                DrawSliderBody();
-                // Draw the slider's knob
-                DrawKnob((int)knobX, (int)knobY);
+                OnValueChange?.Invoke(value);
             }
         }
-        public virtual void DrawKnob(int knobX, int knobY)
+        public unsafe virtual void Render(sbyte* minBytePtr, sbyte* maxBytePtr, float* valuePtr)
         {
-            Raylib.DrawRectangle(knobX, knobY, 10, 20, Color.Red);
-        }
-        public virtual void DrawSliderBody()
-        {
-            Raylib.DrawRectangleLines((int)transform.Position.X, (int)transform.Position.Y, (int)SliderWidth, 10, Color.Black);
+            RayGui.GuiSlider(bounds, minBytePtr, maxBytePtr, valuePtr, minValue, maxValue);
         }
     }
-
 }
