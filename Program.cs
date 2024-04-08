@@ -1,5 +1,4 @@
-﻿using DemoGame;
-using WoopWoop;
+﻿using WoopWoop;
 
 class Program
 {

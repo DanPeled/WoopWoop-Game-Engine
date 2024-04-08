@@ -75,10 +75,10 @@ namespace WoopWoop
             bottomRight = RotateVector(bottomRight, angleRadians);
 
             // Translate the corner points to world space
-            topLeft += entity.transform.Position - entity.transform.GetPivotPointOffset();
-            topRight += entity.transform.Position - entity.transform.GetPivotPointOffset();
-            bottomLeft += entity.transform.Position - entity.transform.GetPivotPointOffset();
-            bottomRight += entity.transform.Position - entity.transform.GetPivotPointOffset();
+            topLeft += entity.transform.Position ;
+            topRight += entity.transform.Position ;
+            bottomLeft += entity.transform.Position ;
+            bottomRight += entity.transform.Position;
             // Draw the rectangle outline
             Color color = new(0, 228, 48, 200);
             if (isSelected)

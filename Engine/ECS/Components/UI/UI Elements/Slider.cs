@@ -3,17 +3,16 @@ using ZeroElectric.Vinculum;
 
 namespace WoopWoop.UI
 {
-    public class Slider : Renderer
+    public class Slider : UIBoundsComponent
     {
-        public Rectangle bounds;
         public float value;
         public string minText = "", maxText = "";
         public float minValue = 0, maxValue = 100;
         public Action<float> OnValueChange;
         public override void Update(float deltaTime)
         {
+            base.Update(deltaTime);
             float prevValue = value;
-            bounds = new Rectangle(transform.Position.X, transform.Position.Y, transform.Scale.X, transform.Scale.Y);
             unsafe
             {
                 byte[] minBytes = Encoding.ASCII.GetBytes(minText);

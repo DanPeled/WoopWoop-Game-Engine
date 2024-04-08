@@ -12,21 +12,29 @@ namespace WoopWoop
 {
     public class WoopWoopEngine
     {
+        public static bool IsInDebugMenu { get; set; } = false;
+
+        #region  Game Data
         static Game? game;
-        private static readonly object entitiesLock = new();
-        private static Stopwatch stopwatch = new(); // Add a Stopwatch for measuring time
-        private static Dictionary<int, List<Renderer>> renderBatches; // Dictionary to store render batches by layer
-        private static float deltaTime = 0;
-        public static readonly int screenWidth = 1080, screenHeight = 720;
-        private static int batchSize = 10; // Initial batch size
-        private static int maxThreads = Environment.ProcessorCount; // Max threads based on the processor count
-        public static bool IsInDebugMenu { get; private set; } = false;
-        static Camera mainCamera;
-        static Camera debugCamera;
-        static Entity[] currentFrameEntities;
-        public static rlRenderBatch renderBatch;
         public static string windowTitle = "Game";
+        public static readonly int screenWidth = 1920, screenHeight = 1080;
+        #endregion
+
+        #region  Update Loop Variables
+        private static Stopwatch stopwatch = new();
+        private static float deltaTime = 0;
+        private static int batchSize = 30; // Initial batch size
         private static Thread updateThread;
+        private static Entity[] currentFrameEntities;
+        #endregion
+
+        #region Rendering
+        private static Camera mainCamera;
+        private static Camera debugCamera;
+        public static rlRenderBatch renderBatch;
+        private static Dictionary<int, List<Renderer>> renderBatches; // Dictionary to store render batches by layer
+        #endregion
+
         private static void Init(Game game_)
         {
             renderBatch.currentDepth = 36;
@@ -49,6 +57,7 @@ namespace WoopWoop
                     }
                 }
             };
+
         }
 
         /// <summary>
@@ -59,7 +68,8 @@ namespace WoopWoop
         {
             Init(game_);
             // Raylib.SetConfigFlags(ConfigFlags.FullscreenMode);
-            Raylib.SetTraceLogLevel(7);
+            Raylib.SetTraceLogLevel(4);
+            Raylib.SetConfigFlags(ConfigFlags.FLAG_FULLSCREEN_MODE);
             Raylib.InitWindow(screenWidth, screenHeight, windowTitle);
             Raylib.SetTargetFPS(60);
 
@@ -85,15 +95,20 @@ namespace WoopWoop
             updateThread.Start();
             while (!Raylib.WindowShouldClose())
             {
+
                 if (currentFrameEntities != Entity.GetAllEntities())
                 {
                     currentFrameEntities = Entity.GetAllEntities();
                 }
 
                 // HandleUpdateEverything();
+                Raylib.BeginDrawing();
+
                 HandleRenderFrame();
 
                 HandleDebugMenu();
+                Raylib.EndDrawing();
+
             }
 
             foreach (Entity entity in currentFrameEntities.ToArray())
@@ -112,7 +127,6 @@ namespace WoopWoop
         }
         private static void HandleRenderFrame()
         {
-            Raylib.BeginDrawing();
             Raylib.ClearBackground(Camera.Main().backgroundColor);
 
             Raylib.BeginMode2D(IsInDebugMenu ? debugCamera.camera : mainCamera.camera);
@@ -120,13 +134,11 @@ namespace WoopWoop
             RenderFrame();
             // Process currentFrameEntities in batches
             UpdateEntities();
-
             HandleCameraSwitch();
 
             OnEndOfFrame();
 
             Raylib.EndMode2D();
-            Raylib.EndDrawing();
         }
         private static void UpdateEntity(Entity e)
         {
@@ -226,7 +238,7 @@ namespace WoopWoop
                         continue;
                     }
 #endif
-                    if (r.entity.Enabled && r.Enabled)
+                    if ((r.entity.Enabled && r.Enabled) || IsInDebugMenu)
                     {
                         r.Update(deltaTime);
                     }
@@ -238,12 +250,12 @@ namespace WoopWoop
 
         private static void DrawGizmos(Entity entity)
         {
-            if (Editor.Editor.debugMenuEntities.Contains(entity)) return;
-            if (!IsInDebugMenu) return;
-            foreach (Component c in entity.GetComponents())
-            {
-                c.OnDrawGizmo();
-            }
+            // if (Editor.Editor.debugMenuEntities.Contains(entity)) return;
+            // if (!IsInDebugMenu) return;
+            // foreach (Component c in entity.GetComponents())
+            // {
+            //     c.OnDrawGizmo();
+            // }
         }
 
         public static Entity[] GetEntities()

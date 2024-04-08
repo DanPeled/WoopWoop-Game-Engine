@@ -41,7 +41,6 @@ namespace DemoGame
             }
 
             transform.Position += velocity;
-
             velocity *= 1.0001f;
 
             velocity.X = Math.Clamp(velocity.X, -15, 15);

@@ -2,9 +2,9 @@ using ZeroElectric.Vinculum;
 
 namespace WoopWoop.UI
 {
-    public class Button : Renderer
+    public class Button : UIBoundsComponent
     {
-        Rectangle bounds;
+
         public string text = "Button";
         public bool state = false;
         public bool prevState = false;
@@ -13,7 +13,7 @@ namespace WoopWoop.UI
         public override void Update(float deltaTime)
         {
             prevState = state;
-            bounds = new Rectangle(transform.Position.X, transform.Position.Y, transform.Scale.X, transform.Scale.Y);
+            base.Update(deltaTime);
 
             bool pressed = RayGui.GuiButton(bounds, text) == 1;
 

@@ -11,6 +11,8 @@ namespace WoopWoop
         public int width, height;
         private bool isMain = false;
         public Color backgroundColor = Raylib.WHITE;
+        public readonly float centerX = WoopWoopEngine.screenWidth / 2;
+        public readonly float centerY = WoopWoopEngine.screenHeight / 2;
         public bool IsMain
         {
             get
@@ -25,16 +27,14 @@ namespace WoopWoop
         }
         public override void Start()
         {
-            // Calculate the center of the screen
-            float centerX = WoopWoopEngine.screenWidth / 2;
-            float centerY = WoopWoopEngine.screenHeight / 2;
-
             // Set camera position to center of the screen
-            camera = new Camera2D();
-            camera.offset = new Vector2(transform.Position.X + centerX, transform.Position.Y + centerY);
-            camera.target = new Vector2(centerX, centerY);
-            camera.rotation = transform.Angle;
-            camera.zoom = 1f;
+            camera = new Camera2D
+            {
+                offset = new Vector2(transform.Position.X + centerX, transform.Position.Y + centerY),
+                target = new Vector2(centerX, centerY),
+                rotation = transform.Angle,
+                zoom = 1f
+            };
 
 
             if (mainCamera == default)
@@ -50,11 +50,23 @@ namespace WoopWoop
         public override void Update(float deltaTime)
         {
             Raylib.BeginMode2D(camera);
-            transform.Position = camera.target;
+            // transform.Position = camera.target;
+
         }
         public override void OnEndOfFrame()
         {
             Raylib.EndMode2D();
+#if DEBUG
+            if (WoopWoopEngine.IsInDebugMenu)
+            {
+                camera.offset = new Vector2(transform.Position.X + centerX + 500, transform.Position.Y + centerY);
+            }
+            else
+            {
+                camera.offset = new Vector2(transform.Position.X + centerX, transform.Position.Y + centerY);
+            }
+#endif
+            // TODO: Fix pointer collision with objects when changing camera position
         }
         public static Camera Main()
         {

@@ -42,17 +42,21 @@ namespace WoopWoop
         /// Called every frame to update the component's state.
         /// </summary>
         public virtual void Update(float deltaTime) { }
-
+        /// <summary>
+        /// Called on the end of every frame.
+        /// </summary>
         public virtual void OnEndOfFrame() { }
 
         /// <summary>
         /// Called when the component is removed
         /// </summary>
-
         public virtual void Stop()
         {
 
         }
+        /// <summary>
+        /// Tells the renderer how to draw the object's editor gizmos.
+        /// </summary>
         public virtual void OnDrawGizmo() { }
     }
 }

@@ -22,10 +22,14 @@ namespace WoopWoop
                 other = (BoxCollider)other;
                 // Get the transform component of both entities
                 Transform otherTransform = other.transform;
-
+                Vector2 offset = new(0, 0);
+                if (other.entity == Editor.Editor.cursor)
+                {
+                    offset = new(500, 0);
+                }
                 // Get the corner points of both colliders in world space
                 List<Vector2> thisPoints = GetWorldPoints(transform.Position, transform.Scale, transform.Angle);
-                List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position, otherTransform.Scale, otherTransform.Angle);
+                List<Vector2> otherPoints = GetWorldPoints(otherTransform.Position - offset, otherTransform.Scale, otherTransform.Angle);
 
                 // Check for collision using SAT
                 return SATCollisionDetection(thisPoints, otherPoints);

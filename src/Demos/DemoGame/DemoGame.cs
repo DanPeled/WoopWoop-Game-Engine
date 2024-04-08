@@ -19,13 +19,14 @@ namespace DemoGame
             startupText.GetComponent<TextRenderer>().Layer = 255;
             startupText.transform.Position = new(WoopWoopEngine.screenWidth / 2 - 20 * 5, WoopWoopEngine.screenHeight / 2);
 
-            player = new(new(WoopWoopEngine.screenWidth / 2, 700));
-            player.AddComponent<BoxCollider>();
-            player.AddComponent<BasicShapeRenderer>();
+            player = Entity.CreateEntity()
+            .SetPosition(new(WoopWoopEngine.screenWidth / 2, 700))
+            .SetScale(new(70, 10))
+            .AddComponent<BoxCollider>()
+            .AddComponent<BasicShapeRenderer>()
+            .AddComponent<PlayerSlideController>()
+            .Tag("player").Create();
 
-            player.AddComponent<PlayerSlideController>();
-            player.tag = "player";
-            player.transform.Scale = new(70, 10);
             Entity.Instantiate(player);
 
 
@@ -41,13 +42,14 @@ namespace DemoGame
 
             for (int i = 100; i < 500; i += 40)
             {
-                for (int j = 100; j < 900; j += 40)
+                for (int j = 100; j < WoopWoopEngine.screenWidth - 200; j += 40)
                 {
-                    Entity block = new(new(j, i));
-                    block.transform.Scale = new(30, 30);
-                    block.AddComponent<BoxCollider>();
-                    block.AddComponent<BasicShapeRenderer>().Color = Raylib.GOLD;
-                    block.AddComponent<Block>();
+                    Entity block = Entity.CreateEntity()
+                    .SetPosition(new(j, i)).SetScale(new(30, 30))
+                    .AddComponent<BoxCollider>()
+                    .AddComponent<BasicShapeRenderer>()
+                    .AddComponent<Block>().Create();
+                    block.GetComponent<BasicShapeRenderer>().Color = Raylib.GOLD;
                     Entity.Instantiate(block);
                     blocks.Add(block);
                     block.Enabled = false;
