@@ -6,6 +6,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using ZeroElectric.Vinculum;
 using WoopWoop.UI;
+using System.Reflection;
 namespace WoopWoop.Editor
 {
     public static class Editor
@@ -27,10 +28,10 @@ namespace WoopWoop.Editor
         }
         public static List<Entity> debugMenuEntities = new();
         private static Entity editorWindow = new();
-        private static TextRenderer UUIDText, positionText, scaleText, angleText;
+        private static TextRenderer UUIDText, positionText, scaleText, angleText, componentDataText;
         private static DropdownMenu dropdownMenu;
         public static Entity cursor;
-
+        private static int selectedComponentIndex = 0;
         public static void Init()
         {
             cursor = Entity.CreateEntity().AddComponent<BoxCollider>().SetScale(new(1, 1)).SetPosition(new(0, 0)).Create();
@@ -81,6 +82,14 @@ namespace WoopWoop.Editor
             .Create();
             dropdown.RemoveComponent<PointCollider>();
             dropdownMenu = dropdown.GetComponent<DropdownMenu>();
+            dropdownMenu.OnSelectionChanged += (int selection) =>
+            {
+                selectedComponentIndex = selection;
+                Console.WriteLine(selectedComponentIndex);
+            };
+
+            Entity componentDataEntity = Entity.CreateEntity().AddComponent<TextRenderer>().SetPosition(dropdown.transform.Position).Create();
+            componentDataText = componentDataEntity.GetComponent<TextRenderer>();
 
             editorWindow.RemoveComponent<PointCollider>();
             Entity.Instantiate(editorWindow);
@@ -89,12 +98,14 @@ namespace WoopWoop.Editor
             Entity.Instantiate(positionTextEntity);
             Entity.Instantiate(angleTextEntity);
             Entity.Instantiate(scaleTextEntity);
+            Entity.Instantiate(componentDataEntity);
 
             editorWindow.transform.AddChild(uuidTextEntity);
             editorWindow.transform.AddChild(positionTextEntity);
             editorWindow.transform.AddChild(angleTextEntity);
             editorWindow.transform.AddChild(scaleTextEntity);
             editorWindow.transform.AddChild(dropdown);
+            editorWindow.transform.AddChild(componentDataEntity);
 
             List<Entity> entities = new() { editorWindow };
             entities.AddRange(editorWindow.transform.GetChildren().ToList().Select(t => t.entity));
@@ -104,6 +115,7 @@ namespace WoopWoop.Editor
         {
             editorWindow.Enabled = true;
             UpdateText();
+            HandleUpdate();
         }
         public static void TurnOff()
         {
@@ -111,22 +123,68 @@ namespace WoopWoop.Editor
         }
         public static void UpdateText()
         {
-            if (UUIDText != null && selectedEntity != null)
+            if (selectedEntity != null)
             {
                 UUIDText.text = $"UUID: {SelectedEntity.ID}";
-                positionText.text = $"Pos: \n\tX:  {selectedEntity.transform.Position.X}\n\tY:  {selectedEntity.transform.Position.Y}";
-                scaleText.text = $"Scale: \n\tX:  {selectedEntity.transform.Scale.X}\n\tY:  {selectedEntity.transform.Scale.Y}";
-                angleText.text = $"Angle: {selectedEntity.transform.Angle}";
+                positionText.text = $"Pos: \n\tX:  {SelectedEntity.transform.Position.X}\n\tY:  {SelectedEntity.transform.Position.Y}";
+                scaleText.text = $"Scale: \n\tX:  {SelectedEntity.transform.Scale.X}\n\tY:  {SelectedEntity.transform.Scale.Y}";
+                angleText.text = $"Angle: {SelectedEntity.transform.Angle}";
                 string componentsString = "";
-                Component[] components = selectedEntity.GetComponents();
+                Component[] components = SelectedEntity.GetComponents();
+                Component selectedComponent = null;
+                List<Component> choosableComponens = new();
                 for (int i = 0; i < components.Length; i++)
                 {
                     Component component = components[i];
                     if (component.GetType() != typeof(PointCollider) && component.GetType() != typeof(Transform))
+                    {
                         componentsString += component.GetType().Name + (i < components.Length - 1 ? "\n" : "");
+                        choosableComponens.Add(component);
+                    }
                 }
-
+                for (int i = 0; i < choosableComponens.Count; i++)
+                {
+                    if (i == selectedComponentIndex)
+                    {
+                        Component component = choosableComponens[i];
+                        selectedComponent = component;
+                    }
+                }
                 dropdownMenu.itemsString = componentsString;
+
+                #region Component Data Text
+                if (selectedComponent != null)
+                {
+                    string dataText = "";
+                    PropertyInfo[] props = selectedComponent.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    for (int i = 0; i < props.Length; i++)
+                    {
+                        if (props[i].CanWrite)
+                        {
+                            object? value = props[i].GetValue(selectedComponent);
+                            if (value != null)
+                            {
+                                if (props[i].PropertyType == typeof(Color))
+                                {
+                                    Color color = (Color)value;
+                                    string colorData = $"{color.r}, {color.g}, {color.b}, {color.a}";
+                                    dataText += $"{props[i].Name}: {colorData}\n";
+                                }
+                                else
+                                {
+                                    string data = value.ToString();
+                                    dataText += $"{props[i].Name}: {data}\n";
+                                }
+                            }
+                        }
+                    }
+                    componentDataText.text = dataText;
+                }
+                else
+                {
+                    componentDataText.text = "";
+                }
+                #endregion
             }
         }
         public static void DebugMenu()
@@ -140,9 +198,10 @@ namespace WoopWoop.Editor
             // Check if the left mouse button is pressed
             if (Raylib.IsMouseButtonPressed(Raylib.MOUSE_LEFT_BUTTON))
             {
-                SelectedEntity = null;
                 // Get the mouse position
                 Vector2 mousePosition = Raylib.GetMousePosition();
+                if (mousePosition.X < 500) return;
+                selectedEntity = null;
                 // Iterate through entities to check for collision with the mouse position
                 // List<Entity> collidedEntities = new();
                 foreach (Entity entity in Entity.GetAllEntities())
@@ -159,12 +218,12 @@ namespace WoopWoop.Editor
                         }
                     }
                 }
-
             }
 
             // Check if the left mouse button is being held down and a draggable entity is selected
             if (Raylib.IsMouseButtonDown(Raylib.MOUSE_LEFT_BUTTON) && SelectedEntity != null)
             {
+                if (Raylib.GetMousePosition().X < 500) return;
                 float speedScalar = 1f;
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
                 {
@@ -254,6 +313,10 @@ namespace WoopWoop.Editor
 
             DrawMenu();
         }
+        public static void HandleUpdate()
+        {
+            componentDataText.transform.Position = dropdownMenu.transform.Position + new Vector2(130, 0);
+        }
         private static void KeepMouseInScreen()
         {
             if (Raylib.GetMousePosition().X >= WoopWoopEngine.screenWidth - 2)
@@ -273,6 +336,6 @@ namespace WoopWoop.Editor
                 Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, WoopWoopEngine.screenHeight);
             }
         }
-    }
 
+    }
 }

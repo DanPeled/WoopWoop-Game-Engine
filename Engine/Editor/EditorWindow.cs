@@ -4,8 +4,8 @@ namespace WoopWoop.Editor
 {
     public abstract class EditorWindow
     {
-        public static Entity window;
-        public virtual void OnDrawGUI()
+        public string windowData;
+        public virtual void OnDrawGUI(Entity forEntity)
         {
 
         }
