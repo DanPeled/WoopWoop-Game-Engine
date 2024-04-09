@@ -6,6 +6,7 @@ namespace WoopWoop
     public class PolygonRenderer : Renderer
     {
         public Vector2[]? vertices; // Vertices of the polygon
+        public float thickness = 10f;
 
         public override void Update(float deltaTime)
         {
@@ -27,27 +28,24 @@ namespace WoopWoop
                 throw new ArgumentException("Invalid vertices for polygon");
             }
 
-            // Draw lines between consecutive vertices to form the polygon
             for (int i = 0; i < vertices.Length - 1; i++)
             {
-                Raylib.DrawLine(
-                    (int)(vertices[i].X * transform.Scale.X) + posX,
-                    (int)(vertices[i].Y * transform.Scale.Y) + posY,
-                    (int)(vertices[i + 1].X * transform.Scale.X) + posX,
-                    (int)(vertices[i + 1].Y * transform.Scale.Y) + posY,
+                Raylib.DrawLineEx(
+                    new Vector2((vertices[i].X * transform.Scale.X) + posX, (vertices[i].Y * transform.Scale.Y) + posY),
+                    new Vector2((vertices[i + 1].X * transform.Scale.X) + posX, (vertices[i + 1].Y * transform.Scale.Y) + posY),
+                    thickness,
                     color
                 );
             }
 
-            // Draw a line connecting the last vertex to the first to close the polygon
-            Raylib.DrawLine(
-                (int)(vertices[vertices.Length - 1].X * transform.Scale.X) + posX,
-                (int)(vertices[vertices.Length - 1].Y * transform.Scale.Y) + posY,
-                (int)(vertices[0].X * transform.Scale.X) + posX,
-                (int)(vertices[0].Y * transform.Scale.Y) + posY,
+            Raylib.DrawLineEx(
+                new Vector2((vertices[vertices.Length - 1].X * transform.Scale.X) + posX, (vertices[vertices.Length - 1].Y * transform.Scale.Y) + posY),
+                new Vector2((vertices[0].X * transform.Scale.X) + posX, (vertices[0].Y * transform.Scale.Y) + posY),
+                thickness,
                 color
             );
         }
+
 
 
         // Custom method to rotate vertices

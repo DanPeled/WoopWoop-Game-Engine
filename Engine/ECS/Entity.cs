@@ -398,6 +398,17 @@ namespace WoopWoop
             }
 
             /// <summary>
+            /// Sets the scale of the entity.
+            /// </summary>
+            /// <param name="width">The width to set.</param>
+            /// <param name="height">The height to set.</param>
+            /// <returns>This <see cref="EntityCreator"/> instance.</returns>
+            public EntityCreator SetScale(float width, float height)
+            {
+                return SetScale(new Vector2(width, height));
+            }
+
+            /// <summary>
             /// Sets the position and scale of the entity based on a rectangle.
             /// </summary>
             /// <param name="rectangle">The rectangle defining position and scale.</param>
@@ -422,10 +433,21 @@ namespace WoopWoop
             /// <summary>
             /// Sets the tag for the entity.
             /// <param name="tag">The requested tag</param>
-            /// <returns>This <see cref="EntityCreator"/> instance. </returns>
+            /// <returns>This <see cref="EntityCreator"/> instance.</returns>
             public EntityCreator Tag(string tag)
             {
                 entityToCreate.tag = tag;
+                return this;
+            }
+
+            /// <summary>
+            /// Sets the initial state of the entity.
+            /// </summary>
+            /// <param name="enabled">The state of the entity</param>
+            /// <returns>This <see cref="EntityCreator"/> instance.</returns>
+            public EntityCreator SetEnabled(bool enabled)
+            {
+                entityToCreate.enabled = enabled;
                 return this;
             }
         }

@@ -11,12 +11,8 @@ namespace WoopWoop.Editor
 {
     public static class Editor
     {
-        public enum EditorState
-        {
-            Pos, Scale, Rotation
-        }
-        public static EditorState editorState;
-        private static Entity selectedEntity;
+        public static Entity cursor;
+        public static List<Entity> debugMenuEntities { get; private set; } = new();
         public static Entity SelectedEntity
         {
             get { return selectedEntity; }
@@ -26,15 +22,25 @@ namespace WoopWoop.Editor
                 UpdateText();
             }
         }
-        public static List<Entity> debugMenuEntities = new();
+        public static EditorState editorState;
+
+        private static Entity selectedEntity;
         private static Entity editorWindow = new();
         private static TextRenderer UUIDText, positionText, scaleText, angleText, componentDataText;
         private static DropdownMenu dropdownMenu;
-        public static Entity cursor;
+        private static Checkbox entityEnabledButton;
+        private static Transform selectedEntityMarker;
         private static int selectedComponentIndex = 0;
         public static void Init()
         {
             cursor = Entity.CreateEntity().AddComponent<BoxCollider>().SetScale(new(1, 1)).SetPosition(new(0, 0)).Create();
+
+
+            selectedEntityMarker = Entity.CreateEntity().AddComponent<PolygonRenderer>().SetPosition(new(0, 0)).SetEnabled(false).SetScale(10, 10).Create().transform;
+            selectedEntityMarker.entity.GetComponent<PolygonRenderer>().Color = new Color(0, 0, 0, 255);
+            selectedEntityMarker.entity.GetComponent<PolygonRenderer>().Layer = 255;
+            selectedEntityMarker.entity.GetComponent<PolygonRenderer>().vertices = BasicShapes.SquareVertices;
+            selectedEntityMarker.entity.GetComponent<PolygonRenderer>().thickness = 3;
 
             // BasicShapeRenderer renderer = new()s
             editorWindow.AddComponent<UIWindow>();
@@ -57,6 +63,9 @@ namespace WoopWoop.Editor
             positionText.Color = Raylib.BLACK;
             positionText.Layer = 255;
 
+            Entity componentsDataLabel = Entity.CreateEntity().SetScale(1, 1).SetPosition(new(xPos, 12)).AddComponent<TextRenderer>().Create();
+            componentsDataLabel.GetComponent<TextRenderer>().text = "Components Data: ";
+
 
             Entity scaleTextEntity = new();
             scaleText = scaleTextEntity.AddComponent<TextRenderer>();
@@ -72,7 +81,7 @@ namespace WoopWoop.Editor
             angleText.Color = Raylib.BLACK;
             angleText.Layer = 255;
 
-            editorWindow.AddComponent<VerticalGrid>().spacing = 50;
+            editorWindow.AddComponent<VerticalGrid>().spacing = 70;
 
             editorWindow.Enabled = false;
 
@@ -88,6 +97,14 @@ namespace WoopWoop.Editor
                 Console.WriteLine(selectedComponentIndex);
             };
 
+            Entity enabledButtonEntity = Entity.CreateEntity()
+            .AddComponent<Checkbox>().SetPosition(new(400, 12)).SetScale(40, 40).Create();
+            entityEnabledButton = enabledButtonEntity.GetComponent<Checkbox>();
+            entityEnabledButton.OnIsCheckedChanged += (bool isChecked) =>
+            {
+                SelectedEntity.Enabled = isChecked;
+            };
+
             Entity componentDataEntity = Entity.CreateEntity().AddComponent<TextRenderer>().SetPosition(dropdown.transform.Position).Create();
             componentDataText = componentDataEntity.GetComponent<TextRenderer>();
 
@@ -98,28 +115,34 @@ namespace WoopWoop.Editor
             Entity.Instantiate(positionTextEntity);
             Entity.Instantiate(angleTextEntity);
             Entity.Instantiate(scaleTextEntity);
+            Entity.Instantiate(enabledButtonEntity);
+            Entity.Instantiate(componentsDataLabel);
             Entity.Instantiate(componentDataEntity);
 
             editorWindow.transform.AddChild(uuidTextEntity);
             editorWindow.transform.AddChild(positionTextEntity);
             editorWindow.transform.AddChild(angleTextEntity);
             editorWindow.transform.AddChild(scaleTextEntity);
+            editorWindow.transform.AddChild(componentsDataLabel);
             editorWindow.transform.AddChild(dropdown);
             editorWindow.transform.AddChild(componentDataEntity);
 
             List<Entity> entities = new() { editorWindow };
             entities.AddRange(editorWindow.transform.GetChildren().ToList().Select(t => t.entity));
+            entities.Add(enabledButtonEntity);
             debugMenuEntities.AddRange(entities);
         }
         public static void DrawMenu()
         {
             editorWindow.Enabled = true;
+            entityEnabledButton.entity.Enabled = editorWindow.Enabled;
             UpdateText();
             HandleUpdate();
         }
         public static void TurnOff()
         {
             editorWindow.Enabled = false;
+            entityEnabledButton.entity.Enabled = editorWindow.Enabled;
         }
         public static void UpdateText()
         {
@@ -186,6 +209,16 @@ namespace WoopWoop.Editor
                 }
                 #endregion
             }
+            else
+            {
+                UUIDText.text = $"UUID: ";
+                positionText.text = $"Pos: ";
+                scaleText.text = $"Scale: ";
+                angleText.text = $"Angle: ";
+                dropdownMenu.itemsString = " ";
+                componentDataText.text = "";
+
+            }
         }
         public static void DebugMenu()
         {
@@ -213,6 +246,9 @@ namespace WoopWoop.Editor
                         {
                             // Store the selected entity
                             SelectedEntity = entity;
+                            entityEnabledButton.isChecked = SelectedEntity.Enabled;
+                            selectedEntityMarker.transform.Scale = SelectedEntity.transform.Scale;
+                            selectedEntityMarker.transform.Position = SelectedEntity.transform.Position;
                             // collidedEntities.Add(collider.entity);
                             break; // Exit the loop after finding the first entity
                         }
@@ -316,6 +352,11 @@ namespace WoopWoop.Editor
         public static void HandleUpdate()
         {
             componentDataText.transform.Position = dropdownMenu.transform.Position + new Vector2(130, 0);
+            if (SelectedEntity != null)
+            {
+                selectedEntityMarker.transform.Scale = SelectedEntity.transform.Scale;
+                selectedEntityMarker.transform.Position = SelectedEntity.transform.Position;
+            }
         }
         private static void KeepMouseInScreen()
         {
@@ -336,6 +377,9 @@ namespace WoopWoop.Editor
                 Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, WoopWoopEngine.screenHeight);
             }
         }
-
+        public enum EditorState
+        {
+            Pos, Scale, Rotation
+        }
     }
 }

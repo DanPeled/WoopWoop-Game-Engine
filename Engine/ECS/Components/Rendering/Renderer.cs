@@ -54,10 +54,10 @@ namespace WoopWoop
         // Static property for a square
         public static Vector2[] SquareVertices { get; } = new Vector2[]
         {
-            new(-10, -10), // Top-left
-            new(10, -10),  // Top-right
-            new(10, 10),   // Bottom-right
-            new(-10, 10)   // Bottom-left
+            new(-0.5f, -0.5f), // Top-left
+            new(0.5f, -0.5f),  // Top-right
+            new(0.5f, 0.5f),   // Bottom-right
+            new(-0.5f, 0.5f)   // Bottom-left
         };
 
         // Static property for a triangle
