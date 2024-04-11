@@ -2,7 +2,8 @@
 > A game engine built in C# using the Raylib library.
 
 # Importing the library:
-In order to import the library using nuget use the `dotnet add package WoopWoopEngine` command.
+In order to import the library using nuget use the following command:
+> `dotnet add package WoopWoopEngine`.
 
 # Core features:
 - Entity Components System (ECS) : used to handle entity events and actions
