@@ -3,7 +3,13 @@
 
 # Importing the library:
 In order to import the library using nuget use the following command:
-> `dotnet add package WoopWoopEngine`.
+# [NuGet](#tab/nuget)
+
+`dotnet add package WoopWoopEngine`.
+
+# [Package Manager](#tab/package-manager)
+
+`NuGet\Install-Package WoopWoopEngine -Version 1.0.1`
 
 # Core features:
 - Entity Components System (ECS) : used to handle entity events and actions
