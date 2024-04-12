@@ -24,17 +24,21 @@ namespace WoopWoop.Editor
         }
         public static EditorState editorState;
 
-        private static Entity selectedEntity;
-        private static Entity editorWindow = new();
+        private static Entity selectedEntity, seperatingLine, editorWindow = new();
         private static TextRenderer UUIDText, positionText, scaleText, angleText, componentDataText;
         private static DropdownMenu dropdownMenu;
         private static Checkbox entityEnabledButton;
         private static Transform selectedEntityMarker;
         private static int selectedComponentIndex = 0;
+        public static readonly int dividingLineX = 500;
         public static void Init()
         {
             cursor = Entity.CreateEntity().AddComponent<BoxCollider>().SetScale(new(1, 1)).SetPosition(new(0, 0)).Create();
-
+            seperatingLine = Entity.CreateEntity().SetPosition(new(498, 0)).AddComponent<LineRenderer>().Create();
+            seperatingLine.GetComponent<LineRenderer>().thickness = 1;
+            seperatingLine.GetComponent<LineRenderer>().isEndPositionRelative = false;
+            seperatingLine.GetComponent<LineRenderer>().endPosition = new(498, 1080);
+            Entity.Instantiate(seperatingLine);
 
             selectedEntityMarker = Entity.CreateEntity().AddComponent<PolygonRenderer>().SetPosition(new(0, 0)).SetEnabled(false).SetScale(10, 10).Create().transform;
             selectedEntityMarker.entity.GetComponent<PolygonRenderer>().Color = new Color(0, 0, 0, 255);
@@ -45,7 +49,7 @@ namespace WoopWoop.Editor
             // BasicShapeRenderer renderer = new()s
             editorWindow.AddComponent<UIWindow>();
             editorWindow.transform.pivot = Pivot.TopLeft;
-            editorWindow.transform.Scale = new(450, WoopWoopEngine.screenHeight - 20);
+            editorWindow.transform.Scale = new(480, WoopWoopEngine.screenHeight - 20);
             editorWindow.transform.Position = new(10, 10);
             float xPos = 13;
 
@@ -94,7 +98,7 @@ namespace WoopWoop.Editor
             dropdownMenu.OnSelectionChanged += (int selection) =>
             {
                 selectedComponentIndex = selection;
-                Console.WriteLine(selectedComponentIndex);
+                // Console.WriteLine(selectedComponentIndex);
             };
 
             Entity enabledButtonEntity = Entity.CreateEntity()
@@ -130,12 +134,14 @@ namespace WoopWoop.Editor
             List<Entity> entities = new() { editorWindow };
             entities.AddRange(editorWindow.transform.GetChildren().ToList().Select(t => t.entity));
             entities.Add(enabledButtonEntity);
+            entities.Add(seperatingLine);
             debugMenuEntities.AddRange(entities);
         }
         public static void DrawMenu()
         {
             editorWindow.Enabled = true;
             entityEnabledButton.entity.Enabled = editorWindow.Enabled;
+            seperatingLine.Enabled = editorWindow.Enabled;
             UpdateText();
             HandleUpdate();
         }
@@ -143,6 +149,7 @@ namespace WoopWoop.Editor
         {
             editorWindow.Enabled = false;
             entityEnabledButton.entity.Enabled = editorWindow.Enabled;
+            seperatingLine.Enabled = editorWindow.Enabled;
         }
         public static void UpdateText()
         {
@@ -233,7 +240,7 @@ namespace WoopWoop.Editor
             {
                 // Get the mouse position
                 Vector2 mousePosition = Raylib.GetMousePosition();
-                if (mousePosition.X < 500) return;
+                if (mousePosition.X < dividingLineX) return;
                 selectedEntity = null;
                 // Iterate through entities to check for collision with the mouse position
                 // List<Entity> collidedEntities = new();
@@ -259,7 +266,7 @@ namespace WoopWoop.Editor
             // Check if the left mouse button is being held down and a draggable entity is selected
             if (Raylib.IsMouseButtonDown(Raylib.MOUSE_LEFT_BUTTON) && SelectedEntity != null)
             {
-                if (Raylib.GetMousePosition().X < 500) return;
+                if (Raylib.GetMousePosition().X < dividingLineX) return;
                 float speedScalar = 1f;
                 if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_SHIFT))
                 {
@@ -271,7 +278,7 @@ namespace WoopWoop.Editor
                     default:
                         {
                             // Update the position of the selected entity based on the mouse movement
-                            Vector2 mousePos = Raylib.GetMousePosition() - new Vector2(500, 0);
+                            Vector2 mousePos = Raylib.GetMousePosition() - new Vector2(dividingLineX, 0);
                             Vector2 newPos = mousePos;
                             if (Raylib.IsKeyDown(KeyboardKey.KEY_LEFT_ALT))
                             {

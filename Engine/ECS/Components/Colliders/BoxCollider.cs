@@ -23,9 +23,9 @@ namespace WoopWoop
                 // Get the transform component of both entities
                 Transform otherTransform = other.transform;
                 Vector2 offset = new(0, 0);
-                if (other.entity == Editor.Editor.cursor)
+                if (other.entity == Editor.Editor.cursor && WoopWoopEngine.IsInDebugMenu)
                 {
-                    offset = new(500, 0);
+                    offset = new(Editor.Editor.dividingLineX, 0);
                 }
                 // Get the corner points of both colliders in world space
                 List<Vector2> thisPoints = GetWorldPoints(transform.Position, transform.Scale, transform.Angle);

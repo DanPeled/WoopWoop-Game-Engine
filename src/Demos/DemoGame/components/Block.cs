@@ -1,4 +1,5 @@
 using WoopWoop;
+using WoopWoop.Audio;
 using ZeroElectric.Vinculum;
 
 namespace DemoGame
@@ -6,6 +7,8 @@ namespace DemoGame
     public class Block : Component
     {
         BoxCollider collider;
+        public static AudioClip blockDestroyed = new AudioClip(Raylib.LoadSound("resources/break.wav"), 100);
+
         public override void Start()
         {
             collider = entity.GetComponent<BoxCollider>();
@@ -20,6 +23,8 @@ namespace DemoGame
                     Ball.Instance.velocity.X *= Math.Sign(new Random().Next(-12, 10));
                     PlayerSlideController.Score += 10;
                     Entity.Destroy(entity);
+                    blockDestroyed.PlayOnce();
+
                 }
             }
         }

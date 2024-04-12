@@ -59,7 +59,7 @@ namespace WoopWoop
 #if DEBUG
             if (WoopWoopEngine.IsInDebugMenu)
             {
-                camera.offset = new Vector2(transform.Position.X + centerX + 500, transform.Position.Y + centerY);
+                camera.offset = new Vector2(transform.Position.X + centerX + Editor.Editor.dividingLineX, transform.Position.Y + centerY);
             }
             else
             {
