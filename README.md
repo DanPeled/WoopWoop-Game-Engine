@@ -1,5 +1,6 @@
 # WoopWoop Game Engine
 [![GitHub](https://img.shields.io/badge/GitHub-000000?style=flat&logo=github)](https://github.com/DanPeled/WoopWoop-Game-Engine)
+[![Docs](https://img.shields.io/badge/docs-visit-blue)](https://danpeled.github.io/WoopWoop-Game-Engine/annotated.html)
 [![Version](https://badgen.net/nuget/v/WoopWoopEngine)](https://www.nuget.org/packages/WoopWoopEngine/) ![](https://img.shields.io/badge/language-C%23-blue) ![](https://img.shields.io/badge/.NET-7.0-blue
 ) ![](https://img.shields.io/badge/-Raylib-orange)
 > A game engine built in C# using the Raylib library.
