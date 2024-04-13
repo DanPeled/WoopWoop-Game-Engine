@@ -11,8 +11,8 @@ var searchData=
   ['seperatingline_8',['seperatingLine',['../d6/d74/class_woop_woop_1_1_editor_1_1_editor.html#ae7c7f99d781372e39459d6ed309a292b',1,'WoopWoop::Editor::Editor']]],
   ['shape_9',['shape',['../d4/d08/class_woop_woop_1_1_basic_shape_renderer.html#a4b8f1f437620d535f6af5c4bd235438b',1,'WoopWoop::BasicShapeRenderer']]],
   ['size_10',['size',['../d5/d27/class_woop_woop_1_1_point_collider.html#a6d20ee600de2bcda6bdf9d75542de26b',1,'WoopWoop::PointCollider']]],
-  ['spacing_11',['spacing',['../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html#afcd26b972b91e44e593f604d91a055d6',1,'WoopWoop.UI.VerticalGrid.spacing'],['../d5/d8c/class_woop_woop_1_1_u_i_1_1_text_renderer.html#a5bd9c212132e8d6826a4dc15ebd1001f',1,'WoopWoop.UI.TextRenderer.spacing']]],
-  ['spacingtop_12',['spacingTop',['../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html#ab21509e5406e71c67f21f7b16952b641',1,'WoopWoop::UI::VerticalGrid']]],
+  ['spacing_11',['spacing',['../dc/d43/class_woop_woop_1_1_u_i_1_1_horizontal_grid.html#aa47143d65083425ce7efb04902928cc5',1,'WoopWoop.UI.HorizontalGrid.spacing'],['../d5/d8c/class_woop_woop_1_1_u_i_1_1_text_renderer.html#a5bd9c212132e8d6826a4dc15ebd1001f',1,'WoopWoop.UI.TextRenderer.spacing']]],
+  ['spacingleft_12',['spacingLeft',['../dc/d43/class_woop_woop_1_1_u_i_1_1_horizontal_grid.html#acf550bda1b7169e9e8db58d0e89a8709',1,'WoopWoop::UI::HorizontalGrid']]],
   ['state_13',['state',['../da/d6b/class_woop_woop_1_1_u_i_1_1_button.html#a03389f625cf0b8b08dc389910b1c4b65',1,'WoopWoop::UI::Button']]],
   ['stopwatch_14',['stopwatch',['../da/d81/class_woop_woop_1_1_trail_renderer.html#a90c5368d257dc72e3660dfe6bbc7fc48',1,'WoopWoop.TrailRenderer.stopwatch'],['../db/d47/class_woop_woop_1_1_woop_woop_engine.html#adfcb0afd153df3dd406e7df85a2a0878',1,'WoopWoop.WoopWoopEngine.stopwatch']]]
 ];

@@ -76,6 +76,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#properties">Properties</a> &#124;
 <a href="#pri-attribs">Private Attributes</a> &#124;
@@ -83,48 +84,59 @@ $(function() {
   <div class="headertitle"><div class="title">WoopWoop.Renderer Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Base class for rendering components.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for WoopWoop.Renderer:</div>
 <div class="dyncontent">
  <div class="center">
   <img src="../../d5/d6e/class_woop_woop_1_1_renderer.png" usemap="#WoopWoop.Renderer_map" alt=""/>
   <map id="WoopWoop.Renderer_map" name="WoopWoop.Renderer_map">
-<area href="../../d1/d45/class_woop_woop_1_1_component.html" title="Represents a component that can be attached to an entity in the game world." alt="WoopWoop.Component" shape="rect" coords="663,0,874,24"/>
-<area href="../../d4/d08/class_woop_woop_1_1_basic_shape_renderer.html" alt="WoopWoop.BasicShapeRenderer" shape="rect" coords="0,112,211,136"/>
-<area href="../../d8/dc2/class_woop_woop_1_1_line_renderer.html" alt="WoopWoop.LineRenderer" shape="rect" coords="221,112,432,136"/>
-<area href="../../dc/da2/class_woop_woop_1_1_polygon_renderer.html" alt="WoopWoop.PolygonRenderer" shape="rect" coords="442,112,653,136"/>
-<area href="../../d8/d3b/class_woop_woop_1_1_texture_renderer.html" alt="WoopWoop.TextureRenderer" shape="rect" coords="663,112,874,136"/>
-<area href="../../d5/d8c/class_woop_woop_1_1_u_i_1_1_text_renderer.html" alt="WoopWoop.UI.TextRenderer" shape="rect" coords="884,112,1095,136"/>
-<area href="../../dd/dc3/class_woop_woop_1_1_u_i_1_1_u_i_bounds_component.html" alt="WoopWoop.UI.UIBoundsComponent" shape="rect" coords="1105,112,1316,136"/>
-<area href="../../de/d4c/class_woop_woop_1_1_u_i_1_1_u_i_window.html" alt="WoopWoop.UI.UIWindow" shape="rect" coords="1326,112,1537,136"/>
-<area href="../../da/d6b/class_woop_woop_1_1_u_i_1_1_button.html" title="Represents a button UI element." alt="WoopWoop.UI.Button" shape="rect" coords="552,168,763,192"/>
-<area href="../../d4/d12/class_woop_woop_1_1_u_i_1_1_checkbox.html" title="Represents a checkbox UI element." alt="WoopWoop.UI.Checkbox" shape="rect" coords="773,168,984,192"/>
-<area href="../../d5/d5f/class_woop_woop_1_1_u_i_1_1_color_picker.html" alt="WoopWoop.UI.ColorPicker" shape="rect" coords="994,168,1205,192"/>
-<area href="../../dc/d9c/class_woop_woop_1_1_u_i_1_1_dropdown_menu.html" title="Represents a dropdown menu UI element." alt="WoopWoop.UI.DropdownMenu" shape="rect" coords="1215,168,1426,192"/>
-<area href="../../d6/d08/class_woop_woop_1_1_u_i_1_1_label.html" alt="WoopWoop.UI.Label" shape="rect" coords="1436,168,1647,192"/>
-<area href="../../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html" title="Represents a slider UI element." alt="WoopWoop.UI.Slider" shape="rect" coords="1657,168,1868,192"/>
-<area href="../../dc/d80/class_woop_woop_1_1_u_i_1_1_slider_bar.html" alt="WoopWoop.UI.SliderBar" shape="rect" coords="1657,224,1868,248"/>
+<area href="../../d1/d45/class_woop_woop_1_1_component.html" title="Represents a component that can be attached to an entity in the game world." alt="WoopWoop.Component" shape="rect" coords="552,0,763,24"/>
+<area href="../../d4/d08/class_woop_woop_1_1_basic_shape_renderer.html" title="A renderer for basic shapes such as ellipses and rectangles." alt="WoopWoop.BasicShapeRenderer" shape="rect" coords="0,112,211,136"/>
+<area href="../../d8/dc2/class_woop_woop_1_1_line_renderer.html" title="Renders a line between two points." alt="WoopWoop.LineRenderer" shape="rect" coords="221,112,432,136"/>
+<area href="../../dc/da2/class_woop_woop_1_1_polygon_renderer.html" title="Renders a polygon with given vertices." alt="WoopWoop.PolygonRenderer" shape="rect" coords="442,112,653,136"/>
+<area href="../../d8/d3b/class_woop_woop_1_1_texture_renderer.html" title="Renders a texture on an entity." alt="WoopWoop.TextureRenderer" shape="rect" coords="663,112,874,136"/>
+<area href="../../d5/d8c/class_woop_woop_1_1_u_i_1_1_text_renderer.html" title="Represents a text renderer UI element." alt="WoopWoop.UI.TextRenderer" shape="rect" coords="884,112,1095,136"/>
+<area href="../../dd/dc3/class_woop_woop_1_1_u_i_1_1_u_i_bounds_component.html" title="Represents a UI component with defined bounds." alt="WoopWoop.UI.UIBoundsComponent" shape="rect" coords="1105,112,1316,136"/>
+<area href="../../da/d6b/class_woop_woop_1_1_u_i_1_1_button.html" title="Represents a button UI element." alt="WoopWoop.UI.Button" shape="rect" coords="442,168,653,192"/>
+<area href="../../d4/d12/class_woop_woop_1_1_u_i_1_1_checkbox.html" title="Represents a checkbox UI element." alt="WoopWoop.UI.Checkbox" shape="rect" coords="663,168,874,192"/>
+<area href="../../d5/d5f/class_woop_woop_1_1_u_i_1_1_color_picker.html" title="Represents a color picker UI element." alt="WoopWoop.UI.ColorPicker" shape="rect" coords="884,168,1095,192"/>
+<area href="../../dc/d9c/class_woop_woop_1_1_u_i_1_1_dropdown_menu.html" title="Represents a dropdown menu UI element." alt="WoopWoop.UI.DropdownMenu" shape="rect" coords="1105,168,1316,192"/>
+<area href="../../d6/d08/class_woop_woop_1_1_u_i_1_1_label.html" alt="WoopWoop.UI.Label" shape="rect" coords="1326,168,1537,192"/>
+<area href="../../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html" title="Represents a slider UI element." alt="WoopWoop.UI.Slider" shape="rect" coords="1547,168,1758,192"/>
+<area href="../../de/d4c/class_woop_woop_1_1_u_i_1_1_u_i_window.html" title="Represents a window UI element." alt="WoopWoop.UI.UIWindow" shape="rect" coords="1768,168,1979,192"/>
+<area href="../../dc/d80/class_woop_woop_1_1_u_i_1_1_slider_bar.html" alt="WoopWoop.UI.SliderBar" shape="rect" coords="1547,224,1758,248"/>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
+Public Attributes</h2></td></tr>
+<tr class="memitem:aa3484477d8f0218306c54ae6bd0f6837" id="r_aa3484477d8f0218306c54ae6bd0f6837"><td class="memItemLeft" align="right" valign="top">Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3484477d8f0218306c54ae6bd0f6837">Color</a> = Raylib.BLACK</td></tr>
+<tr class="memdesc:aa3484477d8f0218306c54ae6bd0f6837"><td class="mdescLeft">&#160;</td><td class="mdescRight">The color of the renderer.  <br /></td></tr>
+<tr class="separator:aa3484477d8f0218306c54ae6bd0f6837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr class="memitem:a5c8ff5c6f2b8e1bb83acfbb88dbb45da" id="r_a5c8ff5c6f2b8e1bb83acfbb88dbb45da"><td class="memItemLeft" align="right" valign="top">static Vector2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5c8ff5c6f2b8e1bb83acfbb88dbb45da">GetOriginalPositionOfTransform</a> (<a class="el" href="../../dc/d1e/class_woop_woop_1_1_transform.html">Transform</a> <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a935c06f07b1f36d3f52ca9a563b74c50">transform</a>, <a class="el" href="../../de/d35/namespace_woop_woop.html#a1aa991cb5ce5132246b18d5f85c6f86c">Pivot</a> pivot)</td></tr>
+<tr class="memdesc:a5c8ff5c6f2b8e1bb83acfbb88dbb45da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the original position of the transform based on the pivot.  <br /></td></tr>
 <tr class="separator:a5c8ff5c6f2b8e1bb83acfbb88dbb45da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="properties" name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:aa3484477d8f0218306c54ae6bd0f6837" id="r_aa3484477d8f0218306c54ae6bd0f6837"><td class="memItemLeft" align="right" valign="top">Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa3484477d8f0218306c54ae6bd0f6837">Color</a> = Raylib.BLACK<code> [get, set]</code></td></tr>
-<tr class="separator:aa3484477d8f0218306c54ae6bd0f6837"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ce2feaccc2360f649c4cc89f580868c" id="r_a3ce2feaccc2360f649c4cc89f580868c"><td class="memItemLeft" align="right" valign="top">byte&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ce2feaccc2360f649c4cc89f580868c">Layer</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a3ce2feaccc2360f649c4cc89f580868c"><td class="mdescLeft">&#160;</td><td class="mdescRight">The rendering layer of the renderer.  <br /></td></tr>
 <tr class="separator:a3ce2feaccc2360f649c4cc89f580868c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header properties_class_woop_woop_1_1_component"><td colspan="2" onclick="javascript:dynsection.toggleInherit('properties_class_woop_woop_1_1_component')"><img src="../../closed.png" alt="-"/>&#160;Properties inherited from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html">WoopWoop.Component</a></td></tr>
 <tr class="memitem:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component" id="r_a0fd78a44414b8e0c7b516e2b72890f87"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a0fd78a44414b8e0c7b516e2b72890f87">entity</a><code> [get, private set]</code></td></tr>
 <tr class="memdesc:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component" id="r_a935c06f07b1f36d3f52ca9a563b74c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1e/class_woop_woop_1_1_transform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a935c06f07b1f36d3f52ca9a563b74c50">transform</a><code> [get]</code></td></tr>
+<tr class="memdesc:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transform of the entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component" id="r_aeff9490dbdf3721244b3ff0c503e10d5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#aeff9490dbdf3721244b3ff0c503e10d5">Enabled</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the component is enabled.  <br /></td></tr>
 <tr class="separator:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-attribs" name="pri-attribs"></a>
@@ -139,7 +151,7 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a823aecd37de8cf6a7ac9109f65488487 inherit pub_methods_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches the component to an entity.  <br /></td></tr>
 <tr class="separator:a823aecd37de8cf6a7ac9109f65488487 inherit pub_methods_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaaddfc6da0c4c8194881a9fb6f81482 inherit pub_methods_class_woop_woop_1_1_component" id="r_aaaaddfc6da0c4c8194881a9fb6f81482"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#aaaaddfc6da0c4c8194881a9fb6f81482">Awake</a> ()</td></tr>
-<tr class="memdesc:aaaaddfc6da0c4c8194881a9fb6f81482 inherit pub_methods_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the component is initialised, regardless of whether or not the script is enabled.  <br /></td></tr>
+<tr class="memdesc:aaaaddfc6da0c4c8194881a9fb6f81482 inherit pub_methods_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the component is initialized, regardless of whether or not the script is enabled.  <br /></td></tr>
 <tr class="separator:aaaaddfc6da0c4c8194881a9fb6f81482 inherit pub_methods_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56619f37b12f2b32d63bc32a5c6ef70a inherit pub_methods_class_woop_woop_1_1_component" id="r_a56619f37b12f2b32d63bc32a5c6ef70a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a56619f37b12f2b32d63bc32a5c6ef70a">Start</a> ()</td></tr>
 <tr class="memdesc:a56619f37b12f2b32d63bc32a5c6ef70a inherit pub_methods_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the component is started if it's enabled.  <br /></td></tr>
@@ -157,7 +169,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:ac9299bd09a9c90c09c558b129aacc664 inherit pub_methods_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the renderer how to draw the object's editor gizmos.  <br /></td></tr>
 <tr class="separator:ac9299bd09a9c90c09c558b129aacc664 inherit pub_methods_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Base class for rendering components. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5c8ff5c6f2b8e1bb83acfbb88dbb45da" name="a5c8ff5c6f2b8e1bb83acfbb88dbb45da"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5c8ff5c6f2b8e1bb83acfbb88dbb45da">&#9670;&#160;</a></span>GetOriginalPositionOfTransform()</h2>
 
@@ -185,9 +199,35 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Gets the original position of the transform based on the pivot. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">transform</td><td>The transform.</td></tr>
+    <tr><td class="paramname">pivot</td><td>The pivot point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The original position of the transform.</dd></dl>
+
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
+<a id="aa3484477d8f0218306c54ae6bd0f6837" name="aa3484477d8f0218306c54ae6bd0f6837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3484477d8f0218306c54ae6bd0f6837">&#9670;&#160;</a></span>Color</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Color WoopWoop.Renderer.Color = Raylib.BLACK</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The color of the renderer. </p>
+
+</div>
+</div>
 <a id="ab311ee9bbc30e6954977b8513770e2c9" name="ab311ee9bbc30e6954977b8513770e2c9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab311ee9bbc30e6954977b8513770e2c9">&#9670;&#160;</a></span>layer</h2>
 
@@ -211,28 +251,6 @@ Additional Inherited Members</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Property Documentation</h2>
-<a id="aa3484477d8f0218306c54ae6bd0f6837" name="aa3484477d8f0218306c54ae6bd0f6837"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa3484477d8f0218306c54ae6bd0f6837">&#9670;&#160;</a></span>Color</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Color WoopWoop.Renderer.Color = Raylib.BLACK</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a3ce2feaccc2360f649c4cc89f580868c" name="a3ce2feaccc2360f649c4cc89f580868c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ce2feaccc2360f649c4cc89f580868c">&#9670;&#160;</a></span>Layer</h2>
 
@@ -252,6 +270,8 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The rendering layer of the renderer. </p>
 
 </div>
 </div>

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['slider_0',['Slider',['../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html',1,'WoopWoop::UI']]],
-  ['sliderbar_1',['SliderBar',['../dc/d80/class_woop_woop_1_1_u_i_1_1_slider_bar.html',1,'WoopWoop::UI']]]
+  ['renderer_0',['Renderer',['../d5/d6e/class_woop_woop_1_1_renderer.html',1,'WoopWoop']]],
+  ['requirecomponent_1',['RequireComponent',['../dc/d6f/class_woop_woop_1_1_require_component.html',1,'WoopWoop']]]
 ];

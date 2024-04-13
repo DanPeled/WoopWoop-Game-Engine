@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['editmode_0',['editMode',['../dc/d9c/class_woop_woop_1_1_u_i_1_1_dropdown_menu.html#a7df7e9c93c3dc1d2d4e57b5d5a1bbadc',1,'WoopWoop::UI::DropdownMenu']]],
+  ['editmode_0',['EditMode',['../dc/d9c/class_woop_woop_1_1_u_i_1_1_dropdown_menu.html#a86d8d6b38b4d98a36e3c85297397ce53',1,'WoopWoop::UI::DropdownMenu']]],
   ['editorstate_1',['editorState',['../d6/d74/class_woop_woop_1_1_editor_1_1_editor.html#a6968ffd4ec7fe3cdd0357c5e7f8fc00f',1,'WoopWoop::Editor::Editor']]],
   ['editorwindow_2',['editorWindow',['../d6/d74/class_woop_woop_1_1_editor_1_1_editor.html#a8d8b354feb2d7b1204d642089f32047d',1,'WoopWoop::Editor::Editor']]],
   ['enabled_3',['enabled',['../df/d22/class_woop_woop_1_1_entity.html#a052d19d1a219fb963ac18377c697c040',1,'WoopWoop::Entity']]],

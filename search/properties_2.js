@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['debugmenuentities_0',['debugMenuEntities',['../d6/d74/class_woop_woop_1_1_editor_1_1_editor.html#ab9514f3e6cedf65474f24f4ac7ed9d9a',1,'WoopWoop::Editor::Editor']]]
+  ['enabled_0',['Enabled',['../d1/d45/class_woop_woop_1_1_component.html#aeff9490dbdf3721244b3ff0c503e10d5',1,'WoopWoop.Component.Enabled'],['../df/d22/class_woop_woop_1_1_entity.html#ad57a805bc9c933509f0ba63501ee9cb1',1,'WoopWoop.Entity.Enabled']]],
+  ['entity_1',['entity',['../d1/d45/class_woop_woop_1_1_component.html#a0fd78a44414b8e0c7b516e2b72890f87',1,'WoopWoop::Component']]]
 ];

@@ -5,7 +5,7 @@ var searchData=
   ['centery_2',['centerY',['../d1/d35/class_woop_woop_1_1_camera.html#a8742163f86faefeebba631db7c00cccc',1,'WoopWoop::Camera']]],
   ['childrenuuids_3',['childrenUUIDs',['../dc/d1e/class_woop_woop_1_1_transform.html#ab72cb65bc7b748fbada441b4e1ec1fe9',1,'WoopWoop::Transform']]],
   ['clip_4',['clip',['../db/dbb/class_woop_woop_1_1_audio_1_1_audio_clip.html#a30a49ed895fbbd5944771795dbec970e',1,'WoopWoop::Audio::AudioClip']]],
-  ['color_5',['color',['../d5/d5f/class_woop_woop_1_1_u_i_1_1_color_picker.html#a47051cc174a4b4397fab5f10f77c8bf2',1,'WoopWoop::UI::ColorPicker']]],
+  ['color_5',['Color',['../d5/d6e/class_woop_woop_1_1_renderer.html#aa3484477d8f0218306c54ae6bd0f6837',1,'WoopWoop::Renderer']]],
   ['componentdatatext_6',['componentDataText',['../d6/d74/class_woop_woop_1_1_editor_1_1_editor.html#a739ab9f9556eee21f46d998157beeee4',1,'WoopWoop::Editor::Editor']]],
   ['components_7',['components',['../df/d22/class_woop_woop_1_1_entity.html#abc3aeacd6c00225aa08c0877916b5447',1,'WoopWoop::Entity']]],
   ['componentslock_8',['componentsLock',['../df/d22/class_woop_woop_1_1_entity.html#aa09e1bc06cc0f268135aadbbfc62ea0c',1,'WoopWoop::Entity']]],

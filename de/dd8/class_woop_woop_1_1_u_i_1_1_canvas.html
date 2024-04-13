@@ -82,6 +82,9 @@ $(function() {
   <div class="headertitle"><div class="title">WoopWoop.UI.Canvas Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a canvas UI element.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for WoopWoop.UI.Canvas:</div>
 <div class="dyncontent">
@@ -95,13 +98,13 @@ Inheritance diagram for WoopWoop.UI.Canvas:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a197cfa501dd5102197db1d8dee91897b" id="r_a197cfa501dd5102197db1d8dee91897b"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a197cfa501dd5102197db1d8dee91897b">Awake</a> ()</td></tr>
-<tr class="memdesc:a197cfa501dd5102197db1d8dee91897b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the component is initialised, regardless of whether or not the script is enabled.  <br /></td></tr>
+<tr class="memdesc:a197cfa501dd5102197db1d8dee91897b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the canvas by assigning a default camera if none is provided.  <br /></td></tr>
 <tr class="separator:a197cfa501dd5102197db1d8dee91897b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a88f0292dbe365299c258e07852aec2b5" id="r_a88f0292dbe365299c258e07852aec2b5"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a88f0292dbe365299c258e07852aec2b5">Update</a> (float deltaTime)</td></tr>
-<tr class="memdesc:a88f0292dbe365299c258e07852aec2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every frame to update the component's state.  <br /></td></tr>
+<tr class="memdesc:a88f0292dbe365299c258e07852aec2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the canvas position to match the camera's position.  <br /></td></tr>
 <tr class="separator:a88f0292dbe365299c258e07852aec2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6978cac2220142e1935e78cfd0db96d" id="r_af6978cac2220142e1935e78cfd0db96d"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af6978cac2220142e1935e78cfd0db96d">OnDrawGizmo</a> ()</td></tr>
-<tr class="memdesc:af6978cac2220142e1935e78cfd0db96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tells the renderer how to draw the object's editor gizmos.  <br /></td></tr>
+<tr class="memdesc:af6978cac2220142e1935e78cfd0db96d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the canvas boundaries as a rectangle in the editor.  <br /></td></tr>
 <tr class="separator:af6978cac2220142e1935e78cfd0db96d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_woop_woop_1_1_component"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_woop_woop_1_1_component')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html">WoopWoop.Component</a></td></tr>
 <tr class="memitem:a823aecd37de8cf6a7ac9109f65488487 inherit pub_methods_class_woop_woop_1_1_component" id="r_a823aecd37de8cf6a7ac9109f65488487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a823aecd37de8cf6a7ac9109f65488487">Attach</a> (<a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a0fd78a44414b8e0c7b516e2b72890f87">entity</a>)</td></tr>
@@ -120,6 +123,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:a18560523c6e7f66daca149fa4cf5c1b4" id="r_a18560523c6e7f66daca149fa4cf5c1b4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d1/d35/class_woop_woop_1_1_camera.html">Camera</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a18560523c6e7f66daca149fa4cf5c1b4">camera</a></td></tr>
+<tr class="memdesc:a18560523c6e7f66daca149fa4cf5c1b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">The camera associated with the canvas.  <br /></td></tr>
 <tr class="separator:a18560523c6e7f66daca149fa4cf5c1b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
@@ -129,11 +133,15 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component" id="r_a935c06f07b1f36d3f52ca9a563b74c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1e/class_woop_woop_1_1_transform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a935c06f07b1f36d3f52ca9a563b74c50">transform</a><code> [get]</code></td></tr>
+<tr class="memdesc:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transform of the entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component" id="r_aeff9490dbdf3721244b3ff0c503e10d5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#aeff9490dbdf3721244b3ff0c503e10d5">Enabled</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the component is enabled.  <br /></td></tr>
 <tr class="separator:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a canvas UI element. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a197cfa501dd5102197db1d8dee91897b" name="a197cfa501dd5102197db1d8dee91897b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a197cfa501dd5102197db1d8dee91897b">&#9670;&#160;</a></span>Awake()</h2>
 
@@ -157,7 +165,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Awake is called when the component is initialised, regardless of whether or not the script is enabled. </p>
+<p>Initializes the canvas by assigning a default camera if none is provided. </p>
 
 <p>Reimplemented from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#aaaaddfc6da0c4c8194881a9fb6f81482">WoopWoop.Component</a>.</p>
 
@@ -186,7 +194,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Tells the renderer how to draw the object's editor gizmos. </p>
+<p>Draws the canvas boundaries as a rectangle in the editor. </p>
 
 <p>Reimplemented from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#ac9299bd09a9c90c09c558b129aacc664">WoopWoop.Component</a>.</p>
 
@@ -215,7 +223,13 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called every frame to update the component's state. </p>
+<p>Updates the canvas position to match the camera's position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td>The time since the last frame.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#ade1d2129bc244104643bf2f12e61539b">WoopWoop.Component</a>.</p>
 
@@ -233,6 +247,8 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>The camera associated with the canvas. </p>
 
 </div>
 </div>

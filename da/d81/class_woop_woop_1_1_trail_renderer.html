@@ -83,6 +83,9 @@ $(function() {
   <div class="headertitle"><div class="title">WoopWoop.TrailRenderer Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Renders a trail behind an entity.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for WoopWoop.TrailRenderer:</div>
 <div class="dyncontent">
@@ -96,10 +99,10 @@ Inheritance diagram for WoopWoop.TrailRenderer:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a392715f1916c095c704ca4937f68dbb4" id="r_a392715f1916c095c704ca4937f68dbb4"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a392715f1916c095c704ca4937f68dbb4">Awake</a> ()</td></tr>
-<tr class="memdesc:a392715f1916c095c704ca4937f68dbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the component is initialised, regardless of whether or not the script is enabled.  <br /></td></tr>
+<tr class="memdesc:a392715f1916c095c704ca4937f68dbb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the TrailRenderer.  <br /></td></tr>
 <tr class="separator:a392715f1916c095c704ca4937f68dbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa74720dae8c7d1623ce0187ea5954cbd" id="r_aa74720dae8c7d1623ce0187ea5954cbd"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa74720dae8c7d1623ce0187ea5954cbd">Update</a> (float deltaTime)</td></tr>
-<tr class="memdesc:aa74720dae8c7d1623ce0187ea5954cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called every frame to update the component's state.  <br /></td></tr>
+<tr class="memdesc:aa74720dae8c7d1623ce0187ea5954cbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the TrailRenderer.  <br /></td></tr>
 <tr class="separator:aa74720dae8c7d1623ce0187ea5954cbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_woop_woop_1_1_component"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_woop_woop_1_1_component')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html">WoopWoop.Component</a></td></tr>
 <tr class="memitem:a823aecd37de8cf6a7ac9109f65488487 inherit pub_methods_class_woop_woop_1_1_component" id="r_a823aecd37de8cf6a7ac9109f65488487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a823aecd37de8cf6a7ac9109f65488487">Attach</a> (<a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a0fd78a44414b8e0c7b516e2b72890f87">entity</a>)</td></tr>
@@ -139,11 +142,15 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a0fd78a44414b8e0c7b516e2b72890f87 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component" id="r_a935c06f07b1f36d3f52ca9a563b74c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1e/class_woop_woop_1_1_transform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a935c06f07b1f36d3f52ca9a563b74c50">transform</a><code> [get]</code></td></tr>
+<tr class="memdesc:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transform of the entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a935c06f07b1f36d3f52ca9a563b74c50 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component" id="r_aeff9490dbdf3721244b3ff0c503e10d5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#aeff9490dbdf3721244b3ff0c503e10d5">Enabled</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the component is enabled.  <br /></td></tr>
 <tr class="separator:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Renders a trail behind an entity. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a392715f1916c095c704ca4937f68dbb4" name="a392715f1916c095c704ca4937f68dbb4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a392715f1916c095c704ca4937f68dbb4">&#9670;&#160;</a></span>Awake()</h2>
 
@@ -167,7 +174,7 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Awake is called when the component is initialised, regardless of whether or not the script is enabled. </p>
+<p>Initializes the TrailRenderer. </p>
 
 <p>Reimplemented from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#aaaaddfc6da0c4c8194881a9fb6f81482">WoopWoop.Component</a>.</p>
 
@@ -196,7 +203,13 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called every frame to update the component's state. </p>
+<p>Updates the TrailRenderer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">deltaTime</td><td>The time elapsed since the last update.</td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Reimplemented from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#ade1d2129bc244104643bf2f12e61539b">WoopWoop.Component</a>.</p>
 

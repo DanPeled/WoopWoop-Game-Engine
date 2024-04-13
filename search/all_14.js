@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['value_0',['value',['../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html#a015c1990f0d47fbc16baaf85b66a156a',1,'WoopWoop::UI::Slider']]],
+  ['value_0',['Value',['../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html#a93a045ed6677e9c8cd58ec83adb43085',1,'WoopWoop::UI::Slider']]],
   ['vectorangle_1',['VectorAngle',['../d2/d92/class_woop_woop_1_1_math_util.html#a6f74ae40bc93761bb924eeb375f26b0f',1,'WoopWoop::MathUtil']]],
   ['verticalgrid_2',['VerticalGrid',['../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html',1,'WoopWoop::UI']]],
   ['verticalgrid_2ecs_3',['VerticalGrid.cs',['../d9/df5/_vertical_grid_8cs.html',1,'']]],

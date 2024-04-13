@@ -91,14 +91,15 @@ Inheritance diagram for WoopWoop.Component:</div>
  <div class="center">
   <img src="../../d1/d45/class_woop_woop_1_1_component.png" usemap="#WoopWoop.Component_map" alt=""/>
   <map id="WoopWoop.Component_map" name="WoopWoop.Component_map">
-<area href="../../d1/d35/class_woop_woop_1_1_camera.html" alt="WoopWoop.Camera" shape="rect" coords="173,56,336,80"/>
-<area href="../../d2/d31/class_woop_woop_1_1_collider.html" alt="WoopWoop.Collider" shape="rect" coords="173,112,336,136"/>
-<area href="../../d5/d27/class_woop_woop_1_1_point_collider.html" alt="WoopWoop.PointCollider" shape="rect" coords="173,168,336,192"/>
-<area href="../../d5/d6e/class_woop_woop_1_1_renderer.html" alt="WoopWoop.Renderer" shape="rect" coords="173,224,336,248"/>
-<area href="../../da/d81/class_woop_woop_1_1_trail_renderer.html" alt="WoopWoop.TrailRenderer" shape="rect" coords="173,280,336,304"/>
-<area href="../../dc/d1e/class_woop_woop_1_1_transform.html" title="Represents the transformation component of an entity." alt="WoopWoop.Transform" shape="rect" coords="173,336,336,360"/>
-<area href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html" alt="WoopWoop.UI.Canvas" shape="rect" coords="173,392,336,416"/>
-<area href="../../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html" alt="WoopWoop.UI.VerticalGrid" shape="rect" coords="173,448,336,472"/>
+<area href="../../d1/d35/class_woop_woop_1_1_camera.html" title="Represents a camera that can be used to view the scene." alt="WoopWoop.Camera" shape="rect" coords="186,56,362,80"/>
+<area href="../../d2/d31/class_woop_woop_1_1_collider.html" alt="WoopWoop.Collider" shape="rect" coords="186,112,362,136"/>
+<area href="../../d5/d27/class_woop_woop_1_1_point_collider.html" alt="WoopWoop.PointCollider" shape="rect" coords="186,168,362,192"/>
+<area href="../../d5/d6e/class_woop_woop_1_1_renderer.html" title="Base class for rendering components." alt="WoopWoop.Renderer" shape="rect" coords="186,224,362,248"/>
+<area href="../../da/d81/class_woop_woop_1_1_trail_renderer.html" title="Renders a trail behind an entity." alt="WoopWoop.TrailRenderer" shape="rect" coords="186,280,362,304"/>
+<area href="../../dc/d1e/class_woop_woop_1_1_transform.html" title="Represents the transformation component of an entity." alt="WoopWoop.Transform" shape="rect" coords="186,336,362,360"/>
+<area href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html" title="Represents a canvas UI element." alt="WoopWoop.UI.Canvas" shape="rect" coords="186,392,362,416"/>
+<area href="../../dc/d43/class_woop_woop_1_1_u_i_1_1_horizontal_grid.html" title="Represents a horizontal grid component that arranges its child elements horizontally." alt="WoopWoop.UI.HorizontalGrid" shape="rect" coords="186,448,362,472"/>
+<area href="../../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html" title="Represents a component that arranges child entities in a vertical grid layout." alt="WoopWoop.UI.VerticalGrid" shape="rect" coords="186,504,362,528"/>
   </map>
 </div></div>
 <table class="memberdecls">
@@ -108,7 +109,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a823aecd37de8cf6a7ac9109f65488487"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attaches the component to an entity.  <br /></td></tr>
 <tr class="separator:a823aecd37de8cf6a7ac9109f65488487"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaaaddfc6da0c4c8194881a9fb6f81482" id="r_aaaaddfc6da0c4c8194881a9fb6f81482"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaaaddfc6da0c4c8194881a9fb6f81482">Awake</a> ()</td></tr>
-<tr class="memdesc:aaaaddfc6da0c4c8194881a9fb6f81482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the component is initialised, regardless of whether or not the script is enabled.  <br /></td></tr>
+<tr class="memdesc:aaaaddfc6da0c4c8194881a9fb6f81482"><td class="mdescLeft">&#160;</td><td class="mdescRight">Awake is called when the component is initialized, regardless of whether or not the script is enabled.  <br /></td></tr>
 <tr class="separator:aaaaddfc6da0c4c8194881a9fb6f81482"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56619f37b12f2b32d63bc32a5c6ef70a" id="r_a56619f37b12f2b32d63bc32a5c6ef70a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a56619f37b12f2b32d63bc32a5c6ef70a">Start</a> ()</td></tr>
 <tr class="memdesc:a56619f37b12f2b32d63bc32a5c6ef70a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the component is started if it's enabled.  <br /></td></tr>
@@ -132,8 +133,10 @@ Properties</h2></td></tr>
 <tr class="memdesc:a0fd78a44414b8e0c7b516e2b72890f87"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a0fd78a44414b8e0c7b516e2b72890f87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a935c06f07b1f36d3f52ca9a563b74c50" id="r_a935c06f07b1f36d3f52ca9a563b74c50"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dc/d1e/class_woop_woop_1_1_transform.html">Transform</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a935c06f07b1f36d3f52ca9a563b74c50">transform</a><code> [get]</code></td></tr>
+<tr class="memdesc:a935c06f07b1f36d3f52ca9a563b74c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">The transform of the entity to which this component is attached.  <br /></td></tr>
 <tr class="separator:a935c06f07b1f36d3f52ca9a563b74c50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff9490dbdf3721244b3ff0c503e10d5" id="r_aeff9490dbdf3721244b3ff0c503e10d5"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeff9490dbdf3721244b3ff0c503e10d5">Enabled</a> = true<code> [get, set]</code></td></tr>
+<tr class="memdesc:aeff9490dbdf3721244b3ff0c503e10d5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the component is enabled.  <br /></td></tr>
 <tr class="separator:aeff9490dbdf3721244b3ff0c503e10d5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -187,7 +190,7 @@ Properties</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Awake is called when the component is initialised, regardless of whether or not the script is enabled. </p>
+<p>Awake is called when the component is initialized, regardless of whether or not the script is enabled. </p>
 
 <p>Reimplemented in <a class="el" href="../../dc/d8d/class_woop_woop_1_1_box_collider.html#a63254953c96fcd366398bb720b6bedb0">WoopWoop.BoxCollider</a>, <a class="el" href="../../da/d81/class_woop_woop_1_1_trail_renderer.html#a392715f1916c095c704ca4937f68dbb4">WoopWoop.TrailRenderer</a>, and <a class="el" href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html#a197cfa501dd5102197db1d8dee91897b">WoopWoop.UI.Canvas</a>.</p>
 
@@ -218,7 +221,7 @@ Properties</h2></td></tr>
 
 <p>Tells the renderer how to draw the object's editor gizmos. </p>
 
-<p>Reimplemented in <a class="el" href="../../dc/d8d/class_woop_woop_1_1_box_collider.html#aa4507bb1fba34932e01235e94b6aba0a">WoopWoop.BoxCollider</a>, <a class="el" href="../../d5/d27/class_woop_woop_1_1_point_collider.html#ab4804692be360a066885f28a05e5f8c1">WoopWoop.PointCollider</a>, <a class="el" href="../../dc/d1e/class_woop_woop_1_1_transform.html#ac1f8d632c30c15fa920e3ea76ebbab68">WoopWoop.Transform</a>, and <a class="el" href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html#af6978cac2220142e1935e78cfd0db96d">WoopWoop.UI.Canvas</a>.</p>
+<p>Reimplemented in <a class="el" href="../../dc/d8d/class_woop_woop_1_1_box_collider.html#aa4507bb1fba34932e01235e94b6aba0a">WoopWoop.BoxCollider</a>, <a class="el" href="../../d5/d27/class_woop_woop_1_1_point_collider.html#ab4804692be360a066885f28a05e5f8c1">WoopWoop.PointCollider</a>, and <a class="el" href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html#af6978cac2220142e1935e78cfd0db96d">WoopWoop.UI.Canvas</a>.</p>
 
 </div>
 </div>
@@ -334,7 +337,7 @@ Properties</h2></td></tr>
 
 <p>Called every frame to update the component's state. </p>
 
-<p>Reimplemented in <a class="el" href="../../d1/d35/class_woop_woop_1_1_camera.html#adbfc33ea779e4774ec182e2732e2d7ab">WoopWoop.Camera</a>, <a class="el" href="../../d5/d27/class_woop_woop_1_1_point_collider.html#a999abd1858eb2a0864b42c115011ee5f">WoopWoop.PointCollider</a>, <a class="el" href="../../d4/d08/class_woop_woop_1_1_basic_shape_renderer.html#a52c4330ec12984d4064528c0ab985fff">WoopWoop.BasicShapeRenderer</a>, <a class="el" href="../../d8/dc2/class_woop_woop_1_1_line_renderer.html#aa6a85f6191171c04d3332cc0a8c61891">WoopWoop.LineRenderer</a>, <a class="el" href="../../dc/da2/class_woop_woop_1_1_polygon_renderer.html#a752769f4480ef0e18a5642d5526d49b0">WoopWoop.PolygonRenderer</a>, <a class="el" href="../../d8/d3b/class_woop_woop_1_1_texture_renderer.html#a7747ffc6544479d9c89e897f7823a0e3">WoopWoop.TextureRenderer</a>, <a class="el" href="../../da/d81/class_woop_woop_1_1_trail_renderer.html#aa74720dae8c7d1623ce0187ea5954cbd">WoopWoop.TrailRenderer</a>, <a class="el" href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html#a88f0292dbe365299c258e07852aec2b5">WoopWoop.UI.Canvas</a>, <a class="el" href="../../da/d6b/class_woop_woop_1_1_u_i_1_1_button.html#aeb1f615ee62fc9d1d52aa5c71a3e3fb4">WoopWoop.UI.Button</a>, <a class="el" href="../../d4/d12/class_woop_woop_1_1_u_i_1_1_checkbox.html#ac2ba4e01bf69d8eb23d0bfe1f2e76c7e">WoopWoop.UI.Checkbox</a>, <a class="el" href="../../d5/d5f/class_woop_woop_1_1_u_i_1_1_color_picker.html#ae894bd226ede5fd4cb2be512a9c09b41">WoopWoop.UI.ColorPicker</a>, <a class="el" href="../../dc/d9c/class_woop_woop_1_1_u_i_1_1_dropdown_menu.html#a20f13d6fc5adf4e5ac12aeff8aed5d63">WoopWoop.UI.DropdownMenu</a>, <a class="el" href="../../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html#aa280e453d29dabb5b006d0d9b21a5cf5">WoopWoop.UI.VerticalGrid</a>, <a class="el" href="../../d6/d08/class_woop_woop_1_1_u_i_1_1_label.html#a9f14c799f3ddaebc2cde6a198dfe82a9">WoopWoop.UI.Label</a>, <a class="el" href="../../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html#ad0030001eafec5df6ab50f2f70f30f7c">WoopWoop.UI.Slider</a>, <a class="el" href="../../d5/d8c/class_woop_woop_1_1_u_i_1_1_text_renderer.html#a3f0c493400a2f5bf9eceb823d8288270">WoopWoop.UI.TextRenderer</a>, <a class="el" href="../../dd/dc3/class_woop_woop_1_1_u_i_1_1_u_i_bounds_component.html#a13ddbbd2a0d5ef6c9453aadd99d7403b">WoopWoop.UI.UIBoundsComponent</a>, and <a class="el" href="../../de/d4c/class_woop_woop_1_1_u_i_1_1_u_i_window.html#a5a13932bfa81bfb98031eb5bcd47140d">WoopWoop.UI.UIWindow</a>.</p>
+<p>Reimplemented in <a class="el" href="../../d1/d35/class_woop_woop_1_1_camera.html#adbfc33ea779e4774ec182e2732e2d7ab">WoopWoop.Camera</a>, <a class="el" href="../../d5/d27/class_woop_woop_1_1_point_collider.html#a999abd1858eb2a0864b42c115011ee5f">WoopWoop.PointCollider</a>, <a class="el" href="../../d4/d08/class_woop_woop_1_1_basic_shape_renderer.html#a52c4330ec12984d4064528c0ab985fff">WoopWoop.BasicShapeRenderer</a>, <a class="el" href="../../d8/dc2/class_woop_woop_1_1_line_renderer.html#aa6a85f6191171c04d3332cc0a8c61891">WoopWoop.LineRenderer</a>, <a class="el" href="../../dc/da2/class_woop_woop_1_1_polygon_renderer.html#a752769f4480ef0e18a5642d5526d49b0">WoopWoop.PolygonRenderer</a>, <a class="el" href="../../d8/d3b/class_woop_woop_1_1_texture_renderer.html#a7747ffc6544479d9c89e897f7823a0e3">WoopWoop.TextureRenderer</a>, <a class="el" href="../../da/d81/class_woop_woop_1_1_trail_renderer.html#aa74720dae8c7d1623ce0187ea5954cbd">WoopWoop.TrailRenderer</a>, <a class="el" href="../../de/dd8/class_woop_woop_1_1_u_i_1_1_canvas.html#a88f0292dbe365299c258e07852aec2b5">WoopWoop.UI.Canvas</a>, <a class="el" href="../../da/d6b/class_woop_woop_1_1_u_i_1_1_button.html#aeb1f615ee62fc9d1d52aa5c71a3e3fb4">WoopWoop.UI.Button</a>, <a class="el" href="../../d4/d12/class_woop_woop_1_1_u_i_1_1_checkbox.html#ac2ba4e01bf69d8eb23d0bfe1f2e76c7e">WoopWoop.UI.Checkbox</a>, <a class="el" href="../../d5/d5f/class_woop_woop_1_1_u_i_1_1_color_picker.html#ae894bd226ede5fd4cb2be512a9c09b41">WoopWoop.UI.ColorPicker</a>, <a class="el" href="../../dc/d9c/class_woop_woop_1_1_u_i_1_1_dropdown_menu.html#a20f13d6fc5adf4e5ac12aeff8aed5d63">WoopWoop.UI.DropdownMenu</a>, <a class="el" href="../../dc/d43/class_woop_woop_1_1_u_i_1_1_horizontal_grid.html#adc64b3253dd2bcfa099d4a423f1c0e92">WoopWoop.UI.HorizontalGrid</a>, <a class="el" href="../../d5/d1a/class_woop_woop_1_1_u_i_1_1_vertical_grid.html#aa280e453d29dabb5b006d0d9b21a5cf5">WoopWoop.UI.VerticalGrid</a>, <a class="el" href="../../d6/d08/class_woop_woop_1_1_u_i_1_1_label.html#a9f14c799f3ddaebc2cde6a198dfe82a9">WoopWoop.UI.Label</a>, <a class="el" href="../../da/dd5/class_woop_woop_1_1_u_i_1_1_slider.html#ad0030001eafec5df6ab50f2f70f30f7c">WoopWoop.UI.Slider</a>, <a class="el" href="../../d5/d8c/class_woop_woop_1_1_u_i_1_1_text_renderer.html#a3f0c493400a2f5bf9eceb823d8288270">WoopWoop.UI.TextRenderer</a>, <a class="el" href="../../dd/dc3/class_woop_woop_1_1_u_i_1_1_u_i_bounds_component.html#a13ddbbd2a0d5ef6c9453aadd99d7403b">WoopWoop.UI.UIBoundsComponent</a>, and <a class="el" href="../../de/d4c/class_woop_woop_1_1_u_i_1_1_u_i_window.html#a5a13932bfa81bfb98031eb5bcd47140d">WoopWoop.UI.UIWindow</a>.</p>
 
 </div>
 </div>
@@ -358,6 +361,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Determines whether the component is enabled. </p>
 
 </div>
 </div>
@@ -404,6 +409,8 @@ Properties</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>The transform of the entity to which this component is attached. </p>
 
 </div>
 </div>

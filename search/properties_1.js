@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['color_0',['Color',['../d5/d6e/class_woop_woop_1_1_renderer.html#aa3484477d8f0218306c54ae6bd0f6837',1,'WoopWoop::Renderer']]]
+  ['debugmenuentities_0',['debugMenuEntities',['../d6/d74/class_woop_woop_1_1_editor_1_1_editor.html#ab9514f3e6cedf65474f24f4ac7ed9d9a',1,'WoopWoop::Editor::Editor']]]
 ];
