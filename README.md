@@ -1,4 +1,6 @@
 # WoopWoop Game Engine
+[![Version](https://badgen.net/nuget/v/WoopWoopEngine)](https://www.nuget.org/packages/WoopWoopEngine/) ![](https://img.shields.io/badge/language-C%23-blue) ![](https://img.shields.io/badge/.NET-7.0-blue
+) ![](https://img.shields.io/badge/-Raylib-orange)
 > A game engine built in C# using the Raylib library.
 
 # Importing the library:
