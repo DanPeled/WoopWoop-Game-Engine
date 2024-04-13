@@ -1,3 +1,4 @@
+using System;
 using ZeroElectric.Vinculum;
 
 namespace WoopWoop.UI
@@ -32,6 +33,10 @@ namespace WoopWoop.UI
         /// </summary>
         public Action OnPressed;
 
+        /// <summary>
+        /// Updates the state of the button.
+        /// </summary>
+        /// <param name="deltaTime">The time elapsed since the last update.</param>
         public override void Update(float deltaTime)
         {
             prevState = state;

@@ -1,20 +1,29 @@
-using System;
-using System.Collections.Generic;
 using System.Numerics;
 using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
+    /// <summary>
+    /// Represents a collider component for a rectangular box.
+    /// </summary>
     public class BoxCollider : Collider
     {
         // We'll keep track of the axes of the collider
         private List<Vector2> axes = new List<Vector2>();
 
+        /// <summary>
+        /// Initializes the collider.
+        /// </summary>
         public override void Awake()
         {
             base.Awake();
         }
 
+        /// <summary>
+        /// Checks if the collider is colliding with another collider.
+        /// </summary>
+        /// <param name="other">The other collider to check against.</param>
+        /// <returns>True if colliding, otherwise false.</returns>
         public override bool IsCollidingWith(Collider other)
         {
             if (other is BoxCollider)
@@ -37,16 +46,23 @@ namespace WoopWoop
             return false;
         }
 
+        /// <summary>
+        /// Gets the corner points of the collider in world space.
+        /// </summary>
+        /// <param name="position">The position of the collider.</param>
+        /// <param name="scale">The scale of the collider.</param>
+        /// <param name="angle">The angle of rotation of the collider (in radians).</param>
+        /// <returns>List of corner points in world space.</returns>
         private List<Vector2> GetWorldPoints(Vector2 position, Vector2 scale, float angle)
         {
             // Calculate the corner points of the collider in local space
             List<Vector2> localPoints = new()
-    {
-        new Vector2(-scale.X / 2, -scale.Y / 2),
-        new Vector2(scale.X / 2, -scale.Y / 2),
-        new Vector2(scale.X / 2, scale.Y / 2),
-        new Vector2(-scale.X / 2, scale.Y / 2)
-    };
+            {
+                new Vector2(-scale.X / 2, -scale.Y / 2),
+                new Vector2(scale.X / 2, -scale.Y / 2),
+                new Vector2(scale.X / 2, scale.Y / 2),
+                new Vector2(-scale.X / 2, scale.Y / 2)
+            };
 
             // Rotate the points
             List<Vector2> rotatedPoints = new List<Vector2>();
@@ -64,6 +80,12 @@ namespace WoopWoop
         }
 
 
+        /// <summary>
+        /// Performs Separating Axis Theorem (SAT) collision detection.
+        /// </summary>
+        /// <param name="points1">Corner points of the first collider.</param>
+        /// <param name="points2">Corner points of the second collider.</param>
+        /// <returns>True if colliding, otherwise false.</returns>
         private bool SATCollisionDetection(List<Vector2> points1, List<Vector2> points2)
         {
             // Combine the axes of both colliders
@@ -105,6 +127,11 @@ namespace WoopWoop
             return true;
         }
 
+        /// <summary>
+        /// Calculates the axes of the collider.
+        /// </summary>
+        /// <param name="points">Corner points of the collider.</param>
+        /// <returns>List of axes.</returns>
         private List<Vector2> GetAxes(List<Vector2> points)
         {
             // Calculate the axes perpendicular to the edges of the collider
@@ -121,6 +148,11 @@ namespace WoopWoop
             }
             return axes;
         }
+
+        /// <summary>
+        /// Gets the extents of the collider in world space.
+        /// </summary>
+        /// <returns>Extents vector.</returns>
         public Vector2 GetWorldExtents()
         {
             // Get the scale of the transform
@@ -133,6 +165,10 @@ namespace WoopWoop
             // Calculate the extents vector
             return new Vector2(halfWidth, halfHeight);
         }
+
+        /// <summary>
+        /// Draws the collider's gizmo in the editor.
+        /// </summary>
         public override void OnDrawGizmo()
         {
             // Get the corner points of the collider in world space
@@ -150,6 +186,5 @@ namespace WoopWoop
             Raylib.DrawLineEx(bottomRight, bottomLeft, 2, Raylib.RED);
             Raylib.DrawLineEx(bottomLeft, topLeft, 2, Raylib.RED);
         }
-
     }
 }

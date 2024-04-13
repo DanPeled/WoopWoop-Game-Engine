@@ -1,4 +1,4 @@
-using ZeroElectric.Vinculum;
+using System;
 
 namespace WoopWoop.UI
 {
@@ -22,6 +22,10 @@ namespace WoopWoop.UI
         /// </summary>
         public Action<bool> OnIsCheckedChanged;
 
+        /// <summary>
+        /// Updates the state of the checkbox.
+        /// </summary>
+        /// <param name="deltaTime">The time elapsed since the last update.</param>
         public override void Update(float deltaTime)
         {
             bool prev = isChecked;

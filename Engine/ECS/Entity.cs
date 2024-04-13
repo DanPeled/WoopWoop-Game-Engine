@@ -1,9 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Numerics;
 using System.Reflection;
-using System.Threading.Tasks;
+using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
@@ -152,7 +149,7 @@ namespace WoopWoop
                 if (requireComponentAttribute != null)
                 {
                     // Get the required component types
-                    var requiredComponents = requireComponentAttribute.requiredComponents;
+                    var requiredComponents = requireComponentAttribute.RequiredComponents;
 
                     // Check if all required components are attached to the entity
                     if (requiredComponents.All(HasComponentOfType))
@@ -169,13 +166,13 @@ namespace WoopWoop
                         var missingComponents = string.Join(", ", requiredComponents
                             .Where(reqType => !HasComponentOfType(reqType))
                             .Select(reqType => reqType.Name));
-                        if (requireComponentAttribute.messageType == MessageType.Error)
+                        if (requireComponentAttribute.MessageType == MessageType.Error)
                         {
                             Debug.WriteError(
                                 $"Cannot update component {component.GetType().Name} because required components ({missingComponents}) are missing.");
                             return;
                         }
-                        else if (requireComponentAttribute.messageType == MessageType.Warning)
+                        else if (requireComponentAttribute.MessageType == MessageType.Warning)
                         {
                             Debug.WriteWarning(
                                 $"{component.GetType().Name} may not function properly because required components ({missingComponents}) are missing.");

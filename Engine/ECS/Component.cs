@@ -1,5 +1,3 @@
-using System.Reflection.Metadata.Ecma335;
-
 namespace WoopWoop
 {
     /// <summary>
@@ -11,6 +9,10 @@ namespace WoopWoop
         /// The entity to which this component is attached.
         /// </summary>
         public Entity entity { get; private set; }
+
+        /// <summary>
+        /// The transform of the entity to which this component is attached.
+        /// </summary>
         public Transform transform
         {
             get
@@ -18,6 +20,10 @@ namespace WoopWoop
                 return entity.transform;
             }
         }
+
+        /// <summary>
+        /// Determines whether the component is enabled.
+        /// </summary>
         public bool Enabled { get; set; } = true;
 
         /// <summary>
@@ -28,8 +34,9 @@ namespace WoopWoop
         {
             this.entity = entity;
         }
+
         /// <summary>
-        /// Awake is called when the component is initialised, regardless of whether or not the script is enabled.
+        /// Awake is called when the component is initialized, regardless of whether or not the script is enabled.
         /// </summary>
         public virtual void Awake() { }
 
@@ -42,18 +49,17 @@ namespace WoopWoop
         /// Called every frame to update the component's state.
         /// </summary>
         public virtual void Update(float deltaTime) { }
+
         /// <summary>
         /// Called on the end of every frame.
         /// </summary>
         public virtual void OnEndOfFrame() { }
 
         /// <summary>
-        /// Called when the component is removed
+        /// Called when the component is removed.
         /// </summary>
-        public virtual void Stop()
-        {
+        public virtual void Stop() { }
 
-        }
         /// <summary>
         /// Tells the renderer how to draw the object's editor gizmos.
         /// </summary>

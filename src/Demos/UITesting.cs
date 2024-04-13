@@ -37,6 +37,9 @@ public class UITesting : Game
         sliderbar.AddComponent<SliderBar>();
         Entity.Instantiate(sliderbar);
 
+        // Entity textInput = Entity.CreateEntity().AddComponent<TextInput>().SetScale(300, 300).Create();
+        // Entity.Instantiate(textInput);
+
         Entity colorpicker = new();
         colorpicker.transform.Scale = new(200, 200);
         colorpicker.transform.Position = new(220, 40);

@@ -1,27 +1,37 @@
 using System.Diagnostics;
 using System.Numerics;
 using ZeroElectric.Vinculum;
-using WoopWoop.UI;
 
 namespace WoopWoop
 {
+    /// <summary>
+    /// Renders a trail behind an entity.
+    /// </summary>
     public class TrailRenderer : Component
     {
         private List<Vector2> segments;
         public float lastsFor = 10;
         private Stopwatch stopwatch;
         public float lineThickness = 5f;
+
+        /// <summary>
+        /// Initializes the TrailRenderer.
+        /// </summary>
         public override void Awake()
         {
-            segments = new();
-            stopwatch = new();
+            segments = new List<Vector2>();
+            stopwatch = new Stopwatch();
             stopwatch.Start();
         }
+
+        /// <summary>
+        /// Updates the TrailRenderer.
+        /// </summary>
+        /// <param name="deltaTime">The time elapsed since the last update.</param>
         public override void Update(float deltaTime)
         {
-            // TODO: Figure out why it not clearing out proprely
             segments.Add(transform.Position);
-            if (stopwatch.ElapsedMilliseconds >= lastsFor) // Multiply by 1000 to convert seconds to milliseconds
+            if (stopwatch.ElapsedMilliseconds >= lastsFor * 1000) // Convert seconds to milliseconds
             {
                 segments.RemoveAt(0);
                 stopwatch.Restart();

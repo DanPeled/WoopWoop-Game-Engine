@@ -7,8 +7,15 @@ namespace WoopWoop.Audio
     /// </summary>
     public class AudioClip
     {
-        Sound clip; // The sound clip to be played.
-        byte volume; // The volume of the audio clip.
+        /// <summary>
+        /// The sound clip to be played.
+        /// </summary>
+        public Sound clip;
+
+        /// <summary>
+        /// The volume of the audio clip.
+        /// </summary>
+        public byte volume;
 
         /// <summary>
         /// Initializes a new instance of the AudioClip class with the specified sound clip and volume.

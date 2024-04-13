@@ -1,18 +1,27 @@
 using ZeroElectric.Vinculum;
-using System;
 using System.Numerics;
 
 namespace WoopWoop
 {
+    /// <summary>
+    /// A renderer for basic shapes such as ellipses and rectangles.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class BasicShapeRenderer : Renderer
     {
+        /// <summary>
+        /// The shape to render.
+        /// </summary>
         public BasicShape shape = BasicShape.Box;
+
+        /// <summary>
+        /// Updates the basic shape renderer.
+        /// </summary>
+        /// <param name="deltaTime">The time elapsed since the last update.</param>
         public override void Update(float deltaTime)
         {
             switch (shape)
             {
-
                 case BasicShape.Ellipse:
                     {
                         // Draw an ellipse with scaled radius
@@ -47,9 +56,19 @@ namespace WoopWoop
         }
     }
 
+    /// <summary>
+    /// Represents basic shapes that can be rendered.
+    /// </summary>
     public enum BasicShape
     {
+        /// <summary>
+        /// Ellipse shape.
+        /// </summary>
         Ellipse = 0,
+
+        /// <summary>
+        /// Rectangle shape.
+        /// </summary>
         Box = 1
     }
 }

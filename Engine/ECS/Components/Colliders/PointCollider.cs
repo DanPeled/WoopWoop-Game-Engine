@@ -1,10 +1,11 @@
-using System;
 using System.Numerics;
 using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
+    
     [RequireComponent(typeof(Transform))]
+    [Obsolete("hard", false)]
     public class PointCollider : Component
     {
         private Vector2 size = new(1, 1);

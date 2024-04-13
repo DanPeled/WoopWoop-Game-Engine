@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.Linq;
 using System.Numerics;
-using System.Threading.Tasks;
 using ZeroElectric.Vinculum;
 using WoopWoop.UI;
 using System.Reflection;
@@ -43,7 +38,7 @@ namespace WoopWoop.Editor
             selectedEntityMarker = Entity.CreateEntity().AddComponent<PolygonRenderer>().SetPosition(new(0, 0)).SetEnabled(false).SetScale(10, 10).Create().transform;
             selectedEntityMarker.entity.GetComponent<PolygonRenderer>().Color = new Color(0, 0, 0, 255);
             selectedEntityMarker.entity.GetComponent<PolygonRenderer>().Layer = 255;
-            selectedEntityMarker.entity.GetComponent<PolygonRenderer>().vertices = BasicShapes.SquareVertices;
+            selectedEntityMarker.entity.GetComponent<PolygonRenderer>().vertices = PolygonRenderer.BasicShapes.SquareVertices;
             selectedEntityMarker.entity.GetComponent<PolygonRenderer>().thickness = 3;
 
             // BasicShapeRenderer renderer = new()s
@@ -85,7 +80,7 @@ namespace WoopWoop.Editor
             angleText.Color = Raylib.BLACK;
             angleText.Layer = 255;
 
-            editorWindow.AddComponent<VerticalGrid>().spacing = 70;
+            editorWindow.AddComponent<VerticalGrid>().Spacing = 70;
 
             editorWindow.Enabled = false;
 
@@ -180,7 +175,7 @@ namespace WoopWoop.Editor
                         selectedComponent = component;
                     }
                 }
-                dropdownMenu.itemsString = componentsString;
+                dropdownMenu.ItemsString = componentsString;
 
                 #region Component Data Text
                 if (selectedComponent != null)
@@ -222,7 +217,7 @@ namespace WoopWoop.Editor
                 positionText.text = $"Pos: ";
                 scaleText.text = $"Scale: ";
                 angleText.text = $"Angle: ";
-                dropdownMenu.itemsString = " ";
+                dropdownMenu.ItemsString = " ";
                 componentDataText.text = "";
 
             }

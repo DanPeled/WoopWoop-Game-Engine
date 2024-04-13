@@ -6,7 +6,7 @@ namespace WoopWoop.UI
     {
         public override unsafe void Render(sbyte* minBytePtr, sbyte* maxBytePtr, float* valuePtr)
         {
-            RayGui.GuiSliderBar(bounds, (sbyte*)minBytePtr, (sbyte*)maxBytePtr, valuePtr, minValue, maxValue);
+            RayGui.GuiSliderBar(bounds, (sbyte*)minBytePtr, (sbyte*)maxBytePtr, valuePtr, MinValue, MaxValue);
         }
     }
 }

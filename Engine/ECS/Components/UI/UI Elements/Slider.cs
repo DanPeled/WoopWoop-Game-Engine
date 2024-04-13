@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using ZeroElectric.Vinculum;
 
@@ -11,27 +12,27 @@ namespace WoopWoop.UI
         /// <summary>
         /// The current value of the slider.
         /// </summary>
-        public float value;
+        public float Value;
 
         /// <summary>
         /// The text displayed for the minimum value of the slider.
         /// </summary>
-        public string minText = "";
+        public string MinText = "";
 
         /// <summary>
         /// The text displayed for the maximum value of the slider.
         /// </summary>
-        public string maxText = "";
+        public string MaxText = "";
 
         /// <summary>
         /// The minimum value of the slider.
         /// </summary>
-        public float minValue = 0;
+        public float MinValue = 0;
 
         /// <summary>
         /// The maximum value of the slider.
         /// </summary>
-        public float maxValue = 100;
+        public float MaxValue = 100;
 
         /// <summary>
         /// Action invoked when the value of the slider changes.
@@ -41,23 +42,23 @@ namespace WoopWoop.UI
         public override void Update(float deltaTime)
         {
             base.Update(deltaTime);
-            float prevValue = value;
+            float prevValue = Value;
             unsafe
             {
-                byte[] minBytes = Encoding.ASCII.GetBytes(minText);
-                byte[] maxBytes = Encoding.ASCII.GetBytes(maxText);
+                byte[] minBytes = Encoding.ASCII.GetBytes(MinText);
+                byte[] maxBytes = Encoding.ASCII.GetBytes(MaxText);
 
                 fixed (byte* minBytePtr = minBytes, maxBytePtr = maxBytes)
                 {
-                    fixed (float* valuePtr = &value) // Allocate memory for the float value
+                    fixed (float* valuePtr = &Value) // Allocate memory for the float value
                     {
                         Render((sbyte*)minBytePtr, (sbyte*)maxBytePtr, valuePtr);
                     }
                 }
             }
-            if (value != prevValue)
+            if (Value != prevValue)
             {
-                OnValueChange?.Invoke(value);
+                OnValueChange?.Invoke(Value);
             }
         }
 
@@ -69,7 +70,7 @@ namespace WoopWoop.UI
         /// <param name="valuePtr">Pointer to the value of the slider.</param>
         public unsafe virtual void Render(sbyte* minBytePtr, sbyte* maxBytePtr, float* valuePtr)
         {
-            RayGui.GuiSlider(bounds, minBytePtr, maxBytePtr, valuePtr, minValue, maxValue);
+            RayGui.GuiSlider(bounds, minBytePtr, maxBytePtr, valuePtr, MinValue, MaxValue);
         }
     }
 }

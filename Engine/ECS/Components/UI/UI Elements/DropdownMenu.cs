@@ -10,17 +10,17 @@ namespace WoopWoop.UI
         /// <summary>
         /// The index of the currently active selection.
         /// </summary>
-        public int activeSelection;
+        public int ActiveSelection;
 
         /// <summary>
         /// Indicates whether the dropdown menu is in edit mode.
         /// </summary>
-        public bool editMode = true;
+        public bool EditMode = true;
 
         /// <summary>
         /// The string containing items for the dropdown menu.
         /// </summary>
-        public string itemsString = " ";
+        public string ItemsString = " ";
 
         /// <summary>
         /// Action invoked when the selection in the dropdown menu changes.
@@ -29,12 +29,12 @@ namespace WoopWoop.UI
 
         public override void Update(float deltaTime)
         {
-            int prev = activeSelection;
+            int prev = ActiveSelection;
             base.Update(deltaTime);
-            RayGui.GuiDropdownBox(bounds, itemsString, ref activeSelection, editMode);
-            if (activeSelection != prev)
+            RayGui.GuiDropdownBox(bounds, ItemsString, ref ActiveSelection, EditMode);
+            if (ActiveSelection != prev)
             {
-                OnSelectionChanged?.Invoke(activeSelection);
+                OnSelectionChanged?.Invoke(ActiveSelection);
             }
         }
     }

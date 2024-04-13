@@ -2,10 +2,20 @@ using ZeroElectric.Vinculum;
 
 namespace WoopWoop.UI
 {
+    /// <summary>
+    /// Represents a canvas UI element.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class Canvas : Component
     {
+        /// <summary>
+        /// The camera associated with the canvas.
+        /// </summary>
         public Camera camera;
+
+        /// <summary>
+        /// Initializes the canvas by assigning a default camera if none is provided.
+        /// </summary>
         public override void Awake()
         {
             if (camera == null)
@@ -14,11 +24,18 @@ namespace WoopWoop.UI
             }
         }
 
+        /// <summary>
+        /// Updates the canvas position to match the camera's position.
+        /// </summary>
+        /// <param name="deltaTime">The time since the last frame.</param>
         public override void Update(float deltaTime)
         {
             transform.Position = camera.transform.Position;
         }
 
+        /// <summary>
+        /// Draws the canvas boundaries as a rectangle in the editor.
+        /// </summary>
         public override void OnDrawGizmo()
         {
             // Calculate the center of the object

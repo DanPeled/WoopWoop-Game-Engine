@@ -1,33 +1,33 @@
+// using System;
 // using System.Text;
 // using ZeroElectric.Vinculum;
 // using ZeroElectric.Vinculum.Extensions;
 
 // namespace WoopWoop.UI
 // {
-//     public class TextInput : Renderer
+//     public class TextInput : UIBoundsComponent
 //     {
-//         public string value = "yes";
-//         public bool editMode = true;
+//         public string Value { get; set; } = "                                                "; // Property to access the value
 
-//         Rectangle bounds;
+//         public bool EditMode { get; set; } = true; // Property to toggle edit mode
 
 //         public override void Update(float deltaTime)
 //         {
-//             bounds = new Rectangle(transform.Position.X, transform.Position.Y, transform.Scale.X, transform.Scale.Y);
+//             base.Update(deltaTime);
+//             // Cast string to sbyte* to pass to Raygui
+//             byte[] valueBytes = Encoding.ASCII.GetBytes(Value);
 //             unsafe
 //             {
-//                 string title = "hello", message = "yee", buttons = " ";
-//                 byte[] valueBytes = Encoding.ASCII.GetBytes(value);
-//                 byte[] titleBytes = Encoding.ASCII.GetBytes(title);
-//                 byte[] messageBytes = Encoding.ASCII.GetBytes(message);
-//                 byte[] buttonsBytes = Encoding.ASCII.GetBytes(buttons);
-//                 fixed (byte* valueBytesPtr = valueBytes, titleBytesPtr = titleBytes, buttonBytesPtr = buttonsBytes, messageBytesPtr = buttonsBytes)
+//                 fixed (byte* valueBytesPtr = valueBytes)
 //                 {
-//                     Bool b = new Bool(true);
-//                     RayGui.GuiTextInputBox(bounds, (sbyte*)titleBytesPtr, (sbyte*)messageBytesPtr, (sbyte*)buttonBytesPtr, (sbyte*)valueBytesPtr, 20, &b);
+//                     RayGui.GuiTextBox(bounds, (sbyte*)valueBytesPtr, 30, EditMode);
+//                     // Update value after editing
+//                     // if (!EditMode)
+//                     // {
+//                     Value = Encoding.ASCII.GetString(valueBytes);
+//                     // }
 //                 }
 //             }
 //         }
 //     }
 // }
-//TODO: figure out why the input didnt work

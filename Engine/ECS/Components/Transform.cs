@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Numerics;
-using ZeroElectric.Vinculum;
 
 namespace WoopWoop
 {
@@ -10,10 +7,29 @@ namespace WoopWoop
     /// </summary>
     public class Transform : Component
     {
+        /// <summary>
+        /// The pivot point of the transform.
+        /// </summary>
         public Pivot pivot = Pivot.Center;
+
+        /// <summary>
+        /// The position of the transform.
+        /// </summary>
         private Vector2 position = Vector2.Zero;
-        private List<string> childrenUUIDs = new();
+
+        /// <summary>
+        /// The UUIDs of child entities.
+        /// </summary>
+        private List<string> childrenUUIDs = new List<string>();
+
+        /// <summary>
+        /// The parent transform of this transform.
+        /// </summary>
         public Transform parent { get; private set; }
+
+        /// <summary>
+        /// Event invoked when the transform is changed.
+        /// </summary>
         public Action? onTransformChanged;
 
         /// <summary>
@@ -33,7 +49,6 @@ namespace WoopWoop
                     childTransform.Position += offset;
                 }
 
-                // value += GetPivotPointOffset();
                 position = value;
                 onTransformChanged?.Invoke();
             }
@@ -48,8 +63,6 @@ namespace WoopWoop
             get { return scale; }
             set
             {
-                PointCollider pointCollider = entity.GetComponent<PointCollider>();
-
                 // Calculate the scale factor relative to the current scale
                 Vector2 scaleFactor = value / scale;
 
@@ -67,7 +80,6 @@ namespace WoopWoop
                 onTransformChanged?.Invoke();
             }
         }
-
 
         private float angle = 0;
         /// <summary>
@@ -100,7 +112,6 @@ namespace WoopWoop
                 onTransformChanged?.Invoke();
             }
         }
-
 
         /// <summary>
         /// Adds a child entity to this transform.
@@ -150,79 +161,10 @@ namespace WoopWoop
             return childrenUUIDs.Count;
         }
 
-        public override void OnDrawGizmo()
-        {
-            switch (Editor.Editor.editorState)
-            {
-                case Editor.Editor.EditorState.Pos:
-                default:
-                    {
-                        // Calculate the end points of the lines based on the angle and position
-                        Vector2 horizontalEnd = position + Vector2.Transform(new Vector2(30, 0), Matrix3x2.CreateRotation(MathUtil.DegToRad(angle)));
-                        Vector2 verticalEnd = position + Vector2.Transform(new Vector2(0, 30), Matrix3x2.CreateRotation(MathUtil.DegToRad(angle)));
-
-                        // Draw the horizontal line (with arrow)
-                        Raylib.DrawLineEx(position, horizontalEnd, 10, Raylib.RED);
-                        DrawArrow(position, horizontalEnd, 10, Raylib.RED);
-
-                        // Draw the vertical line (with arrow)
-                        Raylib.DrawLineEx(position, verticalEnd, 10, Raylib.GREEN);
-                        DrawArrow(position, verticalEnd, 10, Raylib.GREEN);
-                        break;
-                    }
-                case Editor.Editor.EditorState.Rotation:
-                    {
-                        DrawCircleWithThickness(position, 30, 4, Raylib.RED);
-                        Vector2 endPoint = position + Vector2.Transform(new Vector2(0, 50), Matrix3x2.CreateRotation(MathUtil.DegToRad(angle)));
-
-                        // Draw the line indicating rotation direction
-                        Raylib.DrawLineEx(position, endPoint, 4, Raylib.RED);
-
-                        break;
-                    }
-            }
-        }
-        private void DrawCircleWithThickness(Vector2 center, float radius, int thickness, Color color)
-        {
-            for (int i = 0; i < thickness; i++)
-            {
-                Raylib.DrawCircleLines((int)center.X, (int)center.Y, (int)(radius + i), color);
-            }
-        }
-
-        private void DrawArrow(Vector2 start, Vector2 end, float size, Color color)
-        {
-            // Calculate the direction of the line
-            Vector2 direction = Vector2.Normalize(end - start);
-
-            // Calculate the perpendicular vector (to get the arrow's width)
-            Vector2 perpendicular = new(-direction.Y, direction.X);
-
-            // Normalize the perpendicular vector and scale it to adjust the arrowhead width
-            perpendicular = Vector2.Normalize(perpendicular);
-            perpendicular *= size / 4; // Adjust this factor to control the arrowhead width
-
-            // Rotate the arrow points based on the angle
-            Matrix3x2 rotationMatrix = Matrix3x2.CreateRotation(MathUtil.DegToRad(Angle));
-            Vector2 rotatedPerpendicular = Vector2.Transform(perpendicular, rotationMatrix);
-
-            // Calculate points for arrowhead
-            Vector2 arrowPoint1 = end - (direction * size) + rotatedPerpendicular;
-            Vector2 arrowPoint2 = end - (direction * size) - rotatedPerpendicular;
-
-            // Draw arrowhead
-            Raylib.DrawLineEx(end, arrowPoint1, size, color);
-            Raylib.DrawLineEx(end, arrowPoint2, size, color);
-        }
-
-        public void RemoveChild(Entity entity)
-        {
-            childrenUUIDs.Remove(entity.ID);
-        }
-        public void RemoveChild(Transform transform)
-        {
-            childrenUUIDs.Remove(transform.entity.ID);
-        }
+        /// <summary>
+        /// Calculates the pivot-point offset of the transform.
+        /// </summary>
+        /// <returns>The calculated pivot-point offset.</returns>
         public Vector2 GetPivotPointOffset()
         {
             Vector2 value = Vector2.Zero;
@@ -255,6 +197,10 @@ namespace WoopWoop
             return value;
         }
     }
+
+    /// <summary>
+    /// The pivot points for positioning.
+    /// </summary>
     public enum Pivot
     {
         TopLeft, TopRight, Center, BottomLeft, BottomRight

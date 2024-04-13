@@ -1,14 +1,24 @@
 using ZeroElectric.Vinculum;
-using System;
 using System.Numerics;
 
 namespace WoopWoop
 {
+    /// <summary>
+    /// Base class for rendering components.
+    /// </summary>
     [RequireComponent(typeof(Transform))]
     public class Renderer : Component
     {
-        public Color Color { get; set; } = Raylib.BLACK;
+        /// <summary>
+        /// The color of the renderer.
+        /// </summary>
+        public Color Color = Raylib.BLACK;
+
         private byte layer = 0;
+
+        /// <summary>
+        /// The rendering layer of the renderer.
+        /// </summary>
         public byte Layer
         {
             get { return layer; }
@@ -18,6 +28,13 @@ namespace WoopWoop
                 WoopWoopEngine.ChangeRenderLayer(this);
             }
         }
+
+        /// <summary>
+        /// Gets the original position of the transform based on the pivot.
+        /// </summary>
+        /// <param name="transform">The transform.</param>
+        /// <param name="pivot">The pivot point.</param>
+        /// <returns>The original position of the transform.</returns>
         protected static Vector2 GetOriginalPositionOfTransform(Transform transform, Pivot pivot)
         {
             Vector2 value = transform.Position;
@@ -48,25 +65,5 @@ namespace WoopWoop
             }
             return value;
         }
-    }
-    public static class BasicShapes
-    {
-        // Static property for a square
-        public static Vector2[] SquareVertices { get; } = new Vector2[]
-        {
-            new(-0.5f, -0.5f), // Top-left
-            new(0.5f, -0.5f),  // Top-right
-            new(0.5f, 0.5f),   // Bottom-right
-            new(-0.5f, 0.5f)   // Bottom-left
-        };
-
-        // Static property for a triangle
-        public static Vector2[] TriangleVertices { get; } = new Vector2[]
-        {
-            new(0, -50),   // Top
-            new(43.3f, 25), // Bottom-right
-            new(-43.3f, 25) // Bottom-left
-        };
-
     }
 }

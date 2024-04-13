@@ -1,7 +1,6 @@
 using ZeroElectric.Vinculum;
 using WoopWoop;
 using WoopWoop.UI;
-using WoopWoop.Audio;
 namespace DemoGame
 {
     public class DemoGame : Game
