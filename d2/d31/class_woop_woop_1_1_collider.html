@@ -82,6 +82,9 @@ $(function() {
   <div class="headertitle"><div class="title">WoopWoop.Collider Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Represents a collider component attached to an entity.  
+ <a href="#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for WoopWoop.Collider:</div>
 <div class="dyncontent">
@@ -96,12 +99,16 @@ Inheritance diagram for WoopWoop.Collider:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ade808906ab4a5381d47271fa3410ab29" id="r_ade808906ab4a5381d47271fa3410ab29"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade808906ab4a5381d47271fa3410ab29">IsCollidingWith</a> (<a class="el" href="../../d2/d31/class_woop_woop_1_1_collider.html">Collider</a> other)</td></tr>
+<tr class="memdesc:ade808906ab4a5381d47271fa3410ab29"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the collider is colliding with another collider.  <br /></td></tr>
 <tr class="separator:ade808906ab4a5381d47271fa3410ab29"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adab398eec9a289b8850b3e9553c7eb69" id="r_adab398eec9a289b8850b3e9553c7eb69"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adab398eec9a289b8850b3e9553c7eb69">IsCollidingWith</a> (<a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> other)</td></tr>
+<tr class="memdesc:adab398eec9a289b8850b3e9553c7eb69"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the collider is colliding with an entity.  <br /></td></tr>
 <tr class="separator:adab398eec9a289b8850b3e9553c7eb69"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ce9f5abee8eb7816c8fc31004074c57" id="r_a3ce9f5abee8eb7816c8fc31004074c57"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ce9f5abee8eb7816c8fc31004074c57">GetCollidingEntitiesWithTag</a> (string tag)</td></tr>
+<tr class="memdesc:a3ce9f5abee8eb7816c8fc31004074c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an array of entities colliding with entities having a specific tag.  <br /></td></tr>
 <tr class="separator:a3ce9f5abee8eb7816c8fc31004074c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af84dbf6bc5484288ec1603c54dd0d29a" id="r_af84dbf6bc5484288ec1603c54dd0d29a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af84dbf6bc5484288ec1603c54dd0d29a">GetAllCollidingEntities</a> ()</td></tr>
+<tr class="memdesc:af84dbf6bc5484288ec1603c54dd0d29a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets an array of all entities colliding with the collider's entity.  <br /></td></tr>
 <tr class="separator:af84dbf6bc5484288ec1603c54dd0d29a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_woop_woop_1_1_component"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_class_woop_woop_1_1_component')"><img src="../../closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html">WoopWoop.Component</a></td></tr>
 <tr class="memitem:a823aecd37de8cf6a7ac9109f65488487 inherit pub_methods_class_woop_woop_1_1_component" id="r_a823aecd37de8cf6a7ac9109f65488487"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a823aecd37de8cf6a7ac9109f65488487">Attach</a> (<a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> <a class="el" href="../../d1/d45/class_woop_woop_1_1_component.html#a0fd78a44414b8e0c7b516e2b72890f87">entity</a>)</td></tr>
@@ -128,8 +135,9 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pri-methods" name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:a33a10627396fdbdacc269c0c1665ed79" id="r_a33a10627396fdbdacc269c0c1665ed79"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a33a10627396fdbdacc269c0c1665ed79">GetCollidingEntitiesFromList</a> (List&lt; <a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> &gt; allEntities)</td></tr>
-<tr class="separator:a33a10627396fdbdacc269c0c1665ed79"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b950861692b08410ba5518a5a0dae53" id="r_a9b950861692b08410ba5518a5a0dae53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a>[]&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9b950861692b08410ba5518a5a0dae53">GetCollidingEntitiesFromList</a> (List&lt; <a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> &gt; entitiesList)</td></tr>
+<tr class="memdesc:a9b950861692b08410ba5518a5a0dae53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Retrieves entities colliding with a list of entities.  <br /></td></tr>
+<tr class="separator:a9b950861692b08410ba5518a5a0dae53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -144,7 +152,9 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memdesc:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines whether the component is enabled.  <br /></td></tr>
 <tr class="separator:aeff9490dbdf3721244b3ff0c503e10d5 inherit properties_class_woop_woop_1_1_component"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Represents a collider component attached to an entity. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af84dbf6bc5484288ec1603c54dd0d29a" name="af84dbf6bc5484288ec1603c54dd0d29a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af84dbf6bc5484288ec1603c54dd0d29a">&#9670;&#160;</a></span>GetAllCollidingEntities()</h2>
 
@@ -160,10 +170,13 @@ Additional Inherited Members</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Gets an array of all entities colliding with the collider's entity. </p>
+<dl class="section return"><dt>Returns</dt><dd>An array of colliding entities.</dd></dl>
+
 </div>
 </div>
-<a id="a33a10627396fdbdacc269c0c1665ed79" name="a33a10627396fdbdacc269c0c1665ed79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33a10627396fdbdacc269c0c1665ed79">&#9670;&#160;</a></span>GetCollidingEntitiesFromList()</h2>
+<a id="a9b950861692b08410ba5518a5a0dae53" name="a9b950861692b08410ba5518a5a0dae53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b950861692b08410ba5518a5a0dae53">&#9670;&#160;</a></span>GetCollidingEntitiesFromList()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -174,7 +187,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a>[] WoopWoop.Collider.GetCollidingEntitiesFromList </td>
           <td>(</td>
-          <td class="paramtype">List&lt; <a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>allEntities</em></span></td><td>)</td>
+          <td class="paramtype">List&lt; <a class="el" href="../../df/d22/class_woop_woop_1_1_entity.html">Entity</a> &gt;</td>          <td class="paramname"><span class="paramname"><em>entitiesList</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -184,6 +197,15 @@ Additional Inherited Members</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Retrieves entities colliding with a list of entities. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">entitiesList</td><td>The list of entities to check against.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Array of colliding entities.</dd></dl>
 
 </div>
 </div>
@@ -201,6 +223,15 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Gets an array of entities colliding with entities having a specific tag. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">tag</td><td>The tag to filter entities.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An array of colliding entities.</dd></dl>
 
 </div>
 </div>
@@ -227,6 +258,15 @@ Additional Inherited Members</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Checks if the collider is colliding with another collider. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other collider to check against.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if colliding, otherwise false.</dd></dl>
+
 <p>Reimplemented in <a class="el" href="../../dc/d8d/class_woop_woop_1_1_box_collider.html#a0dd24d1ce54faeb5ec4dca3c139c335d">WoopWoop.BoxCollider</a>.</p>
 
 </div>
@@ -245,6 +285,15 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Checks if the collider is colliding with an entity. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>The other entity to check against.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>True if colliding, otherwise false.</dd></dl>
 
 </div>
 </div>
