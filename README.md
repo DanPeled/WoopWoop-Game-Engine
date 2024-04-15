@@ -15,3 +15,19 @@ In order to import the library using nuget use the following command: `dotnet ad
 - Built in support for in-game UI
 - Textures support
 - Built in box-collider using SAT collision checking
+
+# Change Logs
+## 1.0.1.1
+- Added a CollisionData class in order to collect data about collisions, which are accessed by the `BoxCollider::GetCollisionData(Entity)` method.
+- Added audio support, used by the AudioClip class.
+- Refactoring of collection of the `currentFrameEntities` array in the `Engine` in order to reduce function calls.
+- Added an `OnEntityInstantiated` event in the `Entity` class.
+- Added the [Fody](https://github.com/Fody/Fody) library for future features.
+
+## 1.0.0 & 1.0.1 (same version, accidentaly uploaded twice)
+- Entity Components System (ECS) : used to handle entity events and actions
+- In-code editor built with the engine itself to provide customizability to users willing to make changes
+- Event-based actions in systems
+- Built in support for in-game UI
+- Textures support
+- Built in box-collider using SAT collision checking
