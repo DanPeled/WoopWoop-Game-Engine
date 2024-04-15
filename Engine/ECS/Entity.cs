@@ -9,14 +9,59 @@ namespace WoopWoop
     /// </summary>
     public class Entity
     {
-        private HashSet<Component> components; // List of components attached to the entity
-        public Transform transform; // The transform component of the entity
-        private readonly object componentsLock = new(); // Lock object for synchronizing access to the components list
+        /// <summary>
+        /// List of components attached to the entity.
+        /// </summary>
+        private HashSet<Component> components;
+
+        /// <summary>
+        /// The transform component of the entity.
+        /// </summary>
+        public Transform transform;
+
+        /// <summary>
+        /// Lock object for synchronizing access to the components list.
+        /// </summary>
+        private readonly object componentsLock = new();
+
+        /// <summary>
+        /// Indicates whether the entity is enabled.
+        /// </summary>
         private bool enabled = true;
+
+        /// <summary>
+        /// Unique identifier for the entity.
+        /// </summary>
         public readonly string ID;
+
+        /// <summary>
+        /// The tag of the entity.
+        /// </summary>
         public string tag = "";
+
+        /// <summary>
+        /// The name of the entity.
+        /// </summary>
         public string Name;
+
+        /// <summary>
+        /// Event invoked when an entity is destroyed.
+        /// </summary>
         public static Action<Entity> OnEntityDestroyed;
+
+        /// <summary>
+        /// Event invoked when an entity is instantiated.
+        /// </summary>
+        public static Action<Entity> OnEntityInstantiated;
+
+        /// <summary>
+        /// List of all entities in the game.
+        /// </summary>
+        private static List<Entity> entities = new();
+
+        /// <summary>
+        /// Gets or sets a value indicating whether the entity is enabled.
+        /// </summary>
         public bool Enabled
         {
             get
@@ -35,12 +80,19 @@ namespace WoopWoop
                 enabled = value;
             }
         }
-        private static List<Entity> entities = new();
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
         public Entity() : this(Vector2.Zero) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Entity"/> class.
+        /// </summary>
+        /// <param name="x">The initial x-coordinate of the entity.</param>
+        /// <param name="y">The initial y-coordinate of the entity.</param>
         public Entity(float x, float y) : this(new(x, y)) { }
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Entity"/> class.
         /// </summary>
@@ -259,6 +311,7 @@ namespace WoopWoop
                     component.Start();
                 }
             }
+            OnEntityInstantiated?.Invoke(entity);
         }
 
         /// <summary>

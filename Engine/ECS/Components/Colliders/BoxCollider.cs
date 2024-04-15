@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Numerics;
 using ZeroElectric.Vinculum;
 
@@ -79,7 +81,6 @@ namespace WoopWoop
             return rotatedPoints;
         }
 
-
         /// <summary>
         /// Performs Separating Axis Theorem (SAT) collision detection.
         /// </summary>
@@ -147,6 +148,99 @@ namespace WoopWoop
                 axes.Add(normal);
             }
             return axes;
+        }
+
+        /// <summary>
+        /// Gets collision data with a given entity.
+        /// </summary>
+        /// <param name="other">The other collider to check against.</param>
+        /// <returns>Collision data if colliding, otherwise null.</returns>
+        public CollisionData? GetCollisionData(Collider other)
+        {
+            if (IsCollidingWith(other))
+            {
+                CollisionData collisionData = new CollisionData
+                {
+                    // Populate collision data
+                    collider = other,
+                    contactCount = 0,
+                    contactPoints = new Vector2[0] // Initialize with empty array
+                };
+
+                // Get the corner points of both colliders in world space
+                List<Vector2> thisPoints = GetWorldPoints(transform.Position, transform.Scale, transform.Angle);
+                List<Vector2> otherPoints = GetWorldPoints(other.transform.Position, other.transform.Scale, other.transform.Angle);
+
+                // Calculate the contact points using SAT
+                List<Vector2> contactPoints = SATContactPoints(thisPoints, otherPoints);
+
+                if (contactPoints.Count > 0)
+                {
+                    collisionData.contactCount = contactPoints.Count;
+                    collisionData.contactPoints = contactPoints.ToArray();
+                }
+
+                collisionData.entity = other.entity;
+                collisionData.transform = other.transform;
+
+                return collisionData;
+            }
+            else
+            {
+                return null; // No collision, return null
+            }
+        }
+
+        /// <summary>
+        /// Calculates the contact points using the Separating Axis Theorem (SAT).
+        /// </summary>
+        /// <param name="points1">The points of the first collider.</param>
+        /// <param name="points2">The points of the second collider.</param>
+        /// <returns>A list of contact points.</returns>
+        private List<Vector2> SATContactPoints(List<Vector2> points1, List<Vector2> points2)
+        {
+            List<Vector2> contactPoints = new List<Vector2>();
+
+            // Combine the axes of both colliders
+            List<Vector2> axes = GetAxes(points1);
+            axes.AddRange(GetAxes(points2));
+
+            // Project the points of both colliders onto each axis
+            foreach (var axis in axes)
+            {
+                float min1 = float.MaxValue;
+                float max1 = float.MinValue;
+                float min2 = float.MaxValue;
+                float max2 = float.MinValue;
+
+                foreach (var point in points1)
+                {
+                    float projection = Vector2.Dot(point, axis);
+                    min1 = Math.Min(min1, projection);
+                    max1 = Math.Max(max1, projection);
+                }
+
+                foreach (var point in points2)
+                {
+                    float projection = Vector2.Dot(point, axis);
+                    min2 = Math.Min(min2, projection);
+                    max2 = Math.Max(max2, projection);
+                }
+
+                // Check for overlap
+                if (!(max1 >= min2 && max2 >= min1))
+                {
+                    // No overlap found, hence there's no collision
+                    return contactPoints;
+                }
+            }
+
+            // If all axes have overlapping projections, then the colliders are intersecting.
+            // In this case, we can assume the contact points to be the corners of the overlapping area.
+            contactPoints.AddRange(points1);
+            contactPoints.AddRange(points2);
+
+            return contactPoints;
         }
 
         /// <summary>

@@ -1,8 +1,6 @@
 using System.Diagnostics;
 using ZeroElectric.Vinculum;
 
-#if DEBUG
-#endif
 
 namespace WoopWoop
 {
@@ -18,28 +16,80 @@ namespace WoopWoop
 
         #region Game Data
 
+        /// <summary>
+        /// Reference to the current game instance.
+        /// </summary>
         static Game? game;
+
+        /// <summary>
+        /// The title of the game window.
+        /// </summary>
         public static string windowTitle = "Game";
-        public static readonly int screenWidth = 1920, screenHeight = 1080;
+
+        /// <summary>
+        /// The width of the screen.
+        /// </summary>
+        public static readonly int screenWidth = 1920;
+
+        /// <summary>
+        /// The height of the screen.
+        /// </summary>
+        public static readonly int screenHeight = 1080;
 
         #endregion
 
         #region Update Loop Variables
 
+        /// <summary>
+        /// Stopwatch for measuring delta time.
+        /// </summary>
         private static Stopwatch stopwatch = new();
+
+        /// <summary>
+        /// The time between two consecutive frames.
+        /// </summary>
         private static float deltaTime = 0;
+
+        /// <summary>
+        /// The size of entity batches for processing.
+        /// </summary>
         private static int batchSize = 30; // Initial batch size
-        private static System.Threading.Thread updateGameInstanceThread;
+
+        /// <summary>
+        /// Thread for updating the game instance.
+        /// </summary>
+        private static Thread updateGameInstanceThread;
+
+        /// <summary>
+        /// Array of entities for the current frame.
+        /// </summary>
         private static Entity[] currentFrameEntities;
+        private static bool updateEntitiesArray = false;
 
         #endregion
 
         #region Rendering
 
+        /// <summary>
+        /// The main camera used for rendering.
+        /// </summary>
         private static Camera mainCamera;
+
+        /// <summary>
+        /// The debug camera used for rendering debug views.
+        /// </summary>
         private static Camera debugCamera;
+
+        /// <summary>
+        /// The render batch for organizing rendering.
+        /// </summary>
         public static rlRenderBatch renderBatch;
-        private static Dictionary<int, List<Renderer>> renderBatches; // Dictionary to store render batches by layer
+
+        /// <summary>
+        /// Dictionary to store render batches by layer.
+        /// </summary>
+        private static Dictionary<int, List<Renderer>> renderBatches;
+
 
         #endregion
 
@@ -57,20 +107,13 @@ namespace WoopWoop
 #if DEBUG
             Editor.Editor.Init();
 #endif
-
             // Start the stopwatch
             stopwatch.Start();
 
-            Entity.OnEntityDestroyed += (Entity entity) =>
-            {
-                foreach (int layer in renderBatches.Keys)
-                {
-                    if (renderBatches[layer].Contains(entity.GetComponent<Renderer>()))
-                    {
-                        renderBatches[layer].Remove(entity.GetComponent<Renderer>());
-                    }
-                }
-            };
+            InitEvents();
+
+            InitRaylibSystems();
+            InitCamera();
         }
 
         /// <summary>
@@ -111,9 +154,6 @@ namespace WoopWoop
         {
             Init(game_);
 
-            InitRaylibSystems();
-
-            InitCamera();
 
             game?.Start();
 
@@ -126,16 +166,10 @@ namespace WoopWoop
                     HandleUpdateGameInstance();
                 }
             }));
-
             updateGameInstanceThread.Start();
 
             while (!Raylib.WindowShouldClose())
             {
-                if (currentFrameEntities != Entity.GetAllEntities())
-                {
-                    currentFrameEntities = Entity.GetAllEntities();
-                }
-
                 Raylib.BeginDrawing();
 
                 HandleRenderFrame();
@@ -165,6 +199,27 @@ namespace WoopWoop
             Raylib.CloseWindow();
         }
 
+        /// <summary>
+        /// Initializes all of the event listeners around the engine.
+        /// </summary>
+        private static void InitEvents()
+        {
+            Entity.OnEntityInstantiated += (Entity entity) =>
+            {
+                updateEntitiesArray = true;
+            };
+            Entity.OnEntityDestroyed += (Entity entity) =>
+            {
+                updateEntitiesArray = true;
+                foreach (int layer in renderBatches.Keys)
+                {
+                    if (renderBatches[layer].Contains(entity.GetComponent<Renderer>()))
+                    {
+                        renderBatches[layer].Remove(entity.GetComponent<Renderer>());
+                    }
+                }
+            };
+        }
         /// <summary>
         /// Handles the game update logic.
         /// </summary>
@@ -339,6 +394,11 @@ namespace WoopWoop
                 {
                     component.OnEndOfFrame();
                 }
+            }
+            if (updateEntitiesArray)
+            {
+                currentFrameEntities = Entity.GetAllEntities();
+                updateEntitiesArray = false;
             }
         }
 
