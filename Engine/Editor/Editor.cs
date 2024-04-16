@@ -6,26 +6,106 @@ namespace WoopWoop.Editor
 {
     public static class Editor
     {
+        /// <summary>
+        /// The cursor entity used in the editor.
+        /// </summary>
         public static Entity cursor;
+
+        /// <summary>
+        /// List of entities in the debug menu.
+        /// </summary>
         public static List<Entity> debugMenuEntities { get; private set; } = new();
+
+        /// <summary>
+        /// The currently selected entity in the editor.
+        /// </summary>
         public static Entity SelectedEntity
         {
             get { return selectedEntity; }
             set
             {
                 selectedEntity = value;
+                selectedEntityMarker.Enabled = selectedEntity == null;
+                selectedEntityMarker.transform.Scale = selectedEntity == null ? new Vector2(0, 0) : selectedEntity.transform.Scale;
                 UpdateText();
             }
         }
+
+        /// <summary>
+        /// The state of the editor.
+        /// </summary>
         public static EditorState editorState;
 
-        private static Entity selectedEntity, seperatingLine, editorWindow = new();
-        private static TextRenderer UUIDText, positionText, scaleText, angleText, componentDataText;
+        // Private fields with documentation comments
+
+        /// <summary>
+        /// The currently selected entity.
+        /// </summary>
+        private static Entity selectedEntity;
+
+        /// <summary>
+        /// The line used to separate editor windows.
+        /// </summary>
+        private static Entity seperatingLine;
+
+        /// <summary>
+        /// The main editor window.
+        /// </summary>
+        private static Entity editorWindow = new();
+
+        /// <summary>
+        /// Text renderer for displaying UUID.
+        /// </summary>
+        private static TextRenderer UUIDText;
+
+        /// <summary>
+        /// Text renderer for displaying position.
+        /// </summary>
+        private static TextRenderer positionText;
+
+        /// <summary>
+        /// Text renderer for displaying scale.
+        /// </summary>
+        private static TextRenderer scaleText;
+
+        /// <summary>
+        /// Text renderer for displaying angle.
+        /// </summary>
+        private static TextRenderer angleText;
+
+        /// <summary>
+        /// Text renderer for displaying component data.
+        /// </summary>
+        private static TextRenderer componentDataText;
+
+        /// <summary>
+        /// Dropdown menu for selecting components.
+        /// </summary>
         private static DropdownMenu dropdownMenu;
+
+        /// <summary>
+        /// Checkbox for enabling/disabling entities.
+        /// </summary>
         private static Checkbox entityEnabledButton;
+
+        /// <summary>
+        /// Transform for representing the selected entity.
+        /// </summary>
         private static Transform selectedEntityMarker;
+
+        /// <summary>
+        /// Index of the selected component.
+        /// </summary>
         private static int selectedComponentIndex = 0;
+
+        /// <summary>
+        /// X-coordinate of the dividing line.
+        /// </summary>
         public static readonly int dividingLineX = 500;
+
+        /// <summary>
+        /// Initializes the editor.
+        /// </summary>
         public static void Init()
         {
             cursor = Entity.CreateEntity().AddComponent<BoxCollider>().SetScale(new(1, 1)).SetPosition(new(0, 0)).Create();
@@ -101,7 +181,8 @@ namespace WoopWoop.Editor
             entityEnabledButton = enabledButtonEntity.GetComponent<Checkbox>();
             entityEnabledButton.OnIsCheckedChanged += (bool isChecked) =>
             {
-                SelectedEntity.Enabled = isChecked;
+                if (SelectedEntity != null)
+                    SelectedEntity.Enabled = isChecked;
             };
 
             Entity componentDataEntity = Entity.CreateEntity().AddComponent<TextRenderer>().SetPosition(dropdown.transform.Position).Create();
@@ -132,6 +213,10 @@ namespace WoopWoop.Editor
             entities.Add(seperatingLine);
             debugMenuEntities.AddRange(entities);
         }
+
+        /// <summary>
+        /// Draws the editor menu.
+        /// </summary>
         public static void DrawMenu()
         {
             editorWindow.Enabled = true;
@@ -140,12 +225,20 @@ namespace WoopWoop.Editor
             UpdateText();
             HandleUpdate();
         }
+
+        /// <summary>
+        /// Turns off the editor.
+        /// </summary>
         public static void TurnOff()
         {
             editorWindow.Enabled = false;
             entityEnabledButton.entity.Enabled = editorWindow.Enabled;
             seperatingLine.Enabled = editorWindow.Enabled;
         }
+
+        /// <summary>
+        /// Updates the text displayed in the editor.
+        /// </summary>
         public static void UpdateText()
         {
             if (selectedEntity != null)
@@ -219,9 +312,12 @@ namespace WoopWoop.Editor
                 angleText.text = $"Angle: ";
                 dropdownMenu.ItemsString = " ";
                 componentDataText.text = "";
-
             }
         }
+
+        /// <summary>
+        /// Displays the debug menu.
+        /// </summary>
         public static void DebugMenu()
         {
             cursor.transform.Position = Raylib.GetMousePosition();
@@ -236,7 +332,7 @@ namespace WoopWoop.Editor
                 // Get the mouse position
                 Vector2 mousePosition = Raylib.GetMousePosition();
                 if (mousePosition.X < dividingLineX) return;
-                selectedEntity = null;
+                SelectedEntity = null;
                 // Iterate through entities to check for collision with the mouse position
                 // List<Entity> collidedEntities = new();
                 foreach (Entity entity in Entity.GetAllEntities())
@@ -351,6 +447,10 @@ namespace WoopWoop.Editor
 
             DrawMenu();
         }
+
+        /// <summary>
+        /// Handles updates in the editor.
+        /// </summary>
         public static void HandleUpdate()
         {
             componentDataText.transform.Position = dropdownMenu.transform.Position + new Vector2(130, 0);
@@ -360,6 +460,10 @@ namespace WoopWoop.Editor
                 selectedEntityMarker.transform.Position = SelectedEntity.transform.Position;
             }
         }
+
+        /// <summary>
+        /// Keeps the mouse in a valid position in the screen.
+        /// </summary>
         private static void KeepMouseInScreen()
         {
             if (Raylib.GetMousePosition().X >= WoopWoopEngine.screenWidth - 2)
@@ -379,9 +483,26 @@ namespace WoopWoop.Editor
                 Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, WoopWoopEngine.screenHeight);
             }
         }
+
+        /// <summary>
+        /// Enumeration representing the state of the editor.
+        /// </summary>
         public enum EditorState
         {
-            Pos, Scale, Rotation
+            /// <summary>
+            /// Position state.
+            /// </summary>
+            Pos,
+
+            /// <summary>
+            /// Scale state.
+            /// </summary>
+            Scale,
+
+            /// <summary>
+            /// Rotation state.
+            /// </summary>
+            Rotation
         }
     }
 }
