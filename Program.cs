@@ -5,6 +5,6 @@ class Program
 {
     public static void Main()
     {
-        WoopWoopEngine.Start(new DemoGame.DemoGame());
+        WoopWoopEngine.Start(new PlatformerDemo.PlatformerDemo());
     }
 }

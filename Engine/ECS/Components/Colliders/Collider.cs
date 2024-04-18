@@ -25,7 +25,7 @@ namespace WoopWoop
         /// <returns>True if colliding, otherwise false.</returns>
         public bool IsCollidingWith(Entity other)
         {
-            if (other == null) return false;
+            if (other == null || other == this.entity) return false;
             return IsCollidingWith(other.GetComponent<BoxCollider>());
         }
 

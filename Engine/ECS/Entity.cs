@@ -154,12 +154,21 @@ namespace WoopWoop
         /// <returns>The component of type T, or null if not found.</returns>
         public T GetComponent<T>() where T : Component
         {
-            lock (componentsLock)
-            {
-                return components.FirstOrDefault(c => c is T) as T;
-            }
+            return GetComponent(typeof(T)) as T;
         }
 
+        /// <summary>
+        ///  Gets the component of type attached to the entity.
+        /// </summary>
+        /// <param name="type">The type of component to get.</param>
+        /// <returns>The component of the specified type, or null if not found.</returns>
+        public Component GetComponent(Type type)
+        {
+            lock (componentsLock)
+            {
+                return components.FirstOrDefault(c => type.IsInstanceOfType(c));
+            }
+        }
         /// <summary>
         /// Removes the component of the specified type from the entity.
         /// </summary>
@@ -389,6 +398,15 @@ namespace WoopWoop
             return new EntityCreator();
         }
 
+        /// <summary>
+        /// Gets all of the entities with a specified component.
+        /// </summary>
+        /// <typeparam name="T">The component type to look for</typeparam>
+        /// <returns>An array of all the matching entities</returns>
+        public static Entity[] GetEntitiesWithComponent<T>() where T : Component
+        {
+            return entities.FindAll(e => e.GetComponent(typeof(T)) as T != null).ToArray();
+        }
 
         /// <summary>
         /// Class responsible for creating entities and configuring their properties.
