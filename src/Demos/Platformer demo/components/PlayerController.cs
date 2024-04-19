@@ -21,13 +21,13 @@ namespace PlatformerDemo
         {
             Entity rightCollider = Entity.CreateEntity()
             // .AddComponent<BasicShapeRenderer>()
-            .AddComponent<BoxCollider>().SetPosition(transform.Position + new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(15, transform.Scale.Y - 4)).Create();
+            .AddComponent<BoxCollider>().SetPosition(transform.Position + new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(17, transform.Scale.Y - 4)).Create();
             Entity.Instantiate(rightCollider);
             transform.AddChild(rightCollider);
 
             Entity leftCollider = Entity.CreateEntity()
             // .AddComponent<BasicShapeRenderer>()
-            .AddComponent<BoxCollider>().SetPosition(transform.Position - new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(15, transform.Scale.Y - 4)).Create();
+            .AddComponent<BoxCollider>().SetPosition(transform.Position - new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(17, transform.Scale.Y - 4)).Create();
             Entity.Instantiate(leftCollider);
             transform.AddChild(leftCollider);
 
@@ -68,17 +68,16 @@ namespace PlatformerDemo
             IsGrounded();
             if (collidingOnLeft && delta.X <= 0)
             {
-                acceleration.X = 0;
-                velocity.X = 0;
-                delta.X = 0;
+                velocity.X *= -0.5f;
+                delta.X *= -0.5f;
             }
             else if (collidingOnRight && delta.X >= 0)
             {
-                velocity.X = 0;
-                delta.X = 0;
+                velocity.X *= -0.5f;
+                delta.X *= -0.5f;
             }
 
-            else if (isCollidingOnTop)
+            else if (isCollidingOnTop || IsGrounded())
             {
                 velocity.Y = gravity;
                 velocity.Y += acceleration.Y;
@@ -87,6 +86,10 @@ namespace PlatformerDemo
             {
                 velocity.Y = 0; // Stop vertical movement if grounded
                 delta.Y = 0;
+            }
+            if (transform.Position.Y > WoopWoopEngine.screenHeight)
+            {
+                transform.Position = new(400, 400);
             }
 
             transform.Position += delta;
