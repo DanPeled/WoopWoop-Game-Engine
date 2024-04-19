@@ -46,7 +46,7 @@ namespace PlatformerDemo
             // Limit velocity to max speed
             velocity.X = Math.Clamp(velocity.X, -maxSpeed, maxSpeed);
             velocity.Y = Math.Clamp(velocity.Y, -maxSpeed, maxSpeed);
-            transform.Position = new Vector2(Math.Clamp(transform.Position.X, transform.Scale.X, 800 - transform.Scale.X), transform.Position.Y);
+            transform.Position = new Vector2(Math.Clamp(transform.Position.X, transform.Scale.X, WoopWoopEngine.screenWidth - transform.Scale.X), transform.Position.Y);
             // Update X and Y separately in the loop
             for (int i = 0; i < Math.Abs(velocity.X); i++)
             {
@@ -151,7 +151,7 @@ namespace PlatformerDemo
 
             foreach (BoxCollider other in entities.ConvertAll(e => e.GetComponent<BoxCollider>()))
             {
-                if (other.entity.tag == "wall")
+                if (other.entity.tag == "wall" || other.entity.tag == "jumpPad")
                 {
                     collidingOnRight = rightCollider.IsCollidingWith(other);
                     collidingOnLeft = leftCollider.IsCollidingWith(other);

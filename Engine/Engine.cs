@@ -29,12 +29,12 @@ namespace WoopWoop
         /// <summary>
         /// The width of the screen.
         /// </summary>
-        public static readonly int screenWidth = 800;
+        public static readonly int screenWidth = 1920;
 
         /// <summary>
         /// The height of the screen.
         /// </summary>
-        public static readonly int screenHeight = 800;
+        public static readonly int screenHeight = 1080;
 
         #endregion
 
@@ -127,7 +127,7 @@ namespace WoopWoop
 #endif
             Raylib.SetTraceLogLevel(traceLogLevel);
             Raylib.InitAudioDevice();
-            // Raylib.SetConfigFlags(ConfigFlags.FLAG_FULLSCREEN_MODE);
+            Raylib.SetConfigFlags(ConfigFlags.FLAG_FULLSCREEN_MODE);
             Raylib.InitWindow(screenWidth, screenHeight, windowTitle);
             Raylib.SetTargetFPS(60);
         }
