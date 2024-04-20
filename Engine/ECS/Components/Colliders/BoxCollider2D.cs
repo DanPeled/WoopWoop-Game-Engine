@@ -8,7 +8,7 @@ namespace WoopWoop
     /// <summary>
     /// Represents a collider component for a rectangular box.
     /// </summary>
-    public class BoxCollider : Collider
+    public class BoxCollider2D : Collider
     {
         // We'll keep track of the axes of the collider
         private List<Vector2> axes = new List<Vector2>();
@@ -28,9 +28,9 @@ namespace WoopWoop
         /// <returns>True if colliding, otherwise false.</returns>
         public override bool IsCollidingWith(Collider other)
         {
-            if (other is BoxCollider)
+            if (other is BoxCollider2D)
             {
-                other = (BoxCollider)other;
+                other = (BoxCollider2D)other;
                 // Get the transform component of both entities
                 Transform otherTransform = other.transform;
                 Vector2 offset = new(0, 0);
@@ -164,7 +164,7 @@ namespace WoopWoop
                     // Populate collision data
                     collider = other,
                     contactCount = 0,
-                    contactPoints = new Vector2[0] // Initialize with empty array
+                    contactPoints = new Vector3[0] // Initialize with empty array
                 };
 
                 // Get the corner points of both colliders in world space
@@ -177,7 +177,7 @@ namespace WoopWoop
                 if (contactPoints.Count > 0)
                 {
                     collisionData.contactCount = contactPoints.Count;
-                    collisionData.contactPoints = contactPoints.ToArray();
+                    collisionData.contactPoints = contactPoints.Select(v => new Vector3(v.X, v.Y, 0f)).ToArray();
                 }
 
                 collisionData.entity = other.entity;

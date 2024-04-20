@@ -6,25 +6,25 @@ namespace DemoGame
 {
     public class Ball : Component
     {
-        public BoxCollider collider;
+        public BoxCollider2D collider;
         public static Ball Instance { get; private set; }
         public Vector2 velocity = Vector2.One;
         public override void Awake()
         {
             Instance = this;
-            collider = entity.GetComponent<BoxCollider>();
+            collider = entity.GetComponent<BoxCollider2D>();
             entity.tag = "ball";
         }
         public override void Update(float deltaTime)
         {
             Instance = this;
-            collider ??= entity.GetComponent<BoxCollider>();
+            collider ??= entity.GetComponent<BoxCollider2D>();
 
             if (collider.GetCollidingEntitiesWithTag("player").Length > 0)
             {
                 Random random = new Random();
                 velocity = new((velocity.X + random.Next(0, 10) / 10f) * (Raylib.GetMouseDelta().X != 0 ? Math.Sign(Raylib.GetMouseDelta().X) : 1), velocity.Y * -1);
-                CollisionData? collisionData = collider.GetCollisionData(Entity.GetEntitiesWithTag("player")[0].GetComponent<BoxCollider>());
+                CollisionData? collisionData = collider.GetCollisionData(Entity.GetEntitiesWithTag("player")[0].GetComponent<BoxCollider2D>());
             }
             if (IsCollidingWithScreenBoundsY())
             {

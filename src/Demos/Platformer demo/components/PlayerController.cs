@@ -14,25 +14,25 @@ namespace PlatformerDemo
         private float accelerationRate = 0.1f;
         private float maxSpeed = 40000f;
         private float gravity = 0.5f;
-        private BoxCollider rightCollider, leftCollider;
+        private BoxCollider2D rightCollider, leftCollider;
         private bool collidingOnLeft, collidingOnRight, isCollidingOnTop;
         private CollisionData? collisionData;
         public override void Awake()
         {
             Entity rightCollider = Entity.CreateEntity()
             // .AddComponent<BasicShapeRenderer>()
-            .AddComponent<BoxCollider>().SetPosition(transform.Position + new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(17, transform.Scale.Y - 4)).Create();
+            .AddComponent<BoxCollider2D>().SetPosition(transform.Position + new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(17, transform.Scale.Y - 4)).Create();
             Entity.Instantiate(rightCollider);
             transform.AddChild(rightCollider);
 
             Entity leftCollider = Entity.CreateEntity()
             // .AddComponent<BasicShapeRenderer>()
-            .AddComponent<BoxCollider>().SetPosition(transform.Position - new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(17, transform.Scale.Y - 4)).Create();
+            .AddComponent<BoxCollider2D>().SetPosition(transform.Position - new Vector2(transform.Scale.X - 10, 1)).SetScale(new Vector2(17, transform.Scale.Y - 4)).Create();
             Entity.Instantiate(leftCollider);
             transform.AddChild(leftCollider);
 
-            this.rightCollider = rightCollider.GetComponent<BoxCollider>();
-            this.leftCollider = leftCollider.GetComponent<BoxCollider>();
+            this.rightCollider = rightCollider.GetComponent<BoxCollider2D>();
+            this.leftCollider = leftCollider.GetComponent<BoxCollider2D>();
         }
         public override void Update(float deltaTime)
         {
@@ -149,18 +149,18 @@ namespace PlatformerDemo
 
         public bool IsGrounded()
         {
-            List<Entity> entities = Entity.GetEntitiesWithComponent<BoxCollider>().ToList();
+            List<Entity> entities = Entity.GetEntitiesWithComponent<BoxCollider2D>().ToList();
             entities.Remove(entity);
 
-            foreach (BoxCollider other in entities.ConvertAll(e => e.GetComponent<BoxCollider>()))
+            foreach (BoxCollider2D other in entities.ConvertAll(e => e.GetComponent<BoxCollider2D>()))
             {
                 if (other.entity.tag == "wall" || other.entity.tag == "jumpPad")
                 {
                     collidingOnRight = rightCollider.IsCollidingWith(other);
                     collidingOnLeft = leftCollider.IsCollidingWith(other);
-                    if (entity.GetComponent<BoxCollider>().IsCollidingWith(other))
+                    if (entity.GetComponent<BoxCollider2D>().IsCollidingWith(other))
                     {
-                        collisionData = (CollisionData)entity.GetComponent<BoxCollider>().GetCollisionData(other);
+                        collisionData = (CollisionData)entity.GetComponent<BoxCollider2D>().GetCollisionData(other);
                         // isCollidingOnTop = collisionData.Value.contactPoints.ToList().Any((p) =>
                         // {
                         //     return transform.Position - p == new Vector2(15, 15);

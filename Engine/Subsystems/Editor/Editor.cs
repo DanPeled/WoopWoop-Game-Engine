@@ -2,10 +2,15 @@ using System.Numerics;
 using ZeroElectric.Vinculum;
 using WoopWoop.UI;
 using System.Reflection;
+using WoopWoop.Engine;
 namespace WoopWoop.Editor
 {
-    public static class Editor
+    public class Editor : Subsystem
     {
+        /// <summary>
+        /// Tells the engine wheter to use the subsystem on release or not
+        /// </summary>
+        public override bool DebugModeOnly { get; set; } = true;
         /// <summary>
         /// The cursor entity used in the editor.
         /// </summary>
@@ -106,9 +111,9 @@ namespace WoopWoop.Editor
         /// <summary>
         /// Initializes the editor.
         /// </summary>
-        public static void Init()
+        public override void Init()
         {
-            cursor = Entity.CreateEntity().AddComponent<BoxCollider>().SetScale(new(1, 1)).SetPosition(new(0, 0)).Create();
+            cursor = Entity.CreateEntity().AddComponent<BoxCollider2D>().SetScale(new(1, 1)).SetPosition(new(0, 0)).Create();
             seperatingLine = Entity.CreateEntity().SetPosition(new(498, 0)).AddComponent<LineRenderer>().Create();
             seperatingLine.GetComponent<LineRenderer>().thickness = 1;
             seperatingLine.GetComponent<LineRenderer>().isEndPositionRelative = false;
@@ -318,7 +323,7 @@ namespace WoopWoop.Editor
         /// <summary>
         /// Displays the debug menu.
         /// </summary>
-        public static void DebugMenu()
+        public override void Update()
         {
             cursor.transform.Position = Raylib.GetMousePosition();
             if (!WoopWoopEngine.IsInDebugMenu) return;
@@ -337,10 +342,10 @@ namespace WoopWoop.Editor
                 // List<Entity> collidedEntities = new();
                 foreach (Entity entity in Entity.GetAllEntities())
                 {
-                    BoxCollider collider = entity.GetComponent<BoxCollider>();
+                    BoxCollider2D collider = entity.GetComponent<BoxCollider2D>();
                     if (collider != null)
                     {
-                        if (collider.IsCollidingWith(cursor.GetComponent<BoxCollider>()))
+                        if (collider.IsCollidingWith(cursor.GetComponent<BoxCollider2D>()))
                         {
                             // Store the selected entity
                             SelectedEntity = entity;
@@ -482,6 +487,11 @@ namespace WoopWoop.Editor
             {
                 Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, WoopWoopEngine.screenHeight);
             }
+        }
+
+        public override void OnStop()
+        {
+            // throw new NotImplementedException();
         }
 
         /// <summary>

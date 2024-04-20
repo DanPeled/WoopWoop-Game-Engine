@@ -5,9 +5,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PackageId>WoopWoopEngine</PackageId>
-    <Version>1.0.1.1</Version>
+    <Version>1.0.1.2</Version>
     <Authors>DanPeled</Authors>
     <Company>DanPeled</Company>
+    <description>A basic C# game engine with Raylib for rendering.</description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 

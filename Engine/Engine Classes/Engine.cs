@@ -1,4 +1,5 @@
 using System.Diagnostics;
+using WoopWoop.Engine;
 using ZeroElectric.Vinculum;
 
 
@@ -76,11 +77,6 @@ namespace WoopWoop
         private static Camera mainCamera;
 
         /// <summary>
-        /// The debug camera used for rendering debug views.
-        /// </summary>
-        private static Camera debugCamera;
-
-        /// <summary>
         /// The render batch for organizing rendering.
         /// </summary>
         public static rlRenderBatch renderBatch;
@@ -90,6 +86,14 @@ namespace WoopWoop
         /// </summary>
         private static Dictionary<int, List<Renderer>> renderBatches;
 
+        #endregion
+
+        #region Engine systems
+
+        /// <summary>
+        /// Collection of subsystems used by the engine.
+        /// </summary>
+        private static List<Subsystem> subsystems = new List<Subsystem>();
 
         #endregion
 
@@ -104,9 +108,8 @@ namespace WoopWoop
             game = game_;
             renderBatches = new();
 
-#if DEBUG
-            Editor.Editor.Init();
-#endif
+            AddSubsystem(new Editor.Editor());
+            // AddSubsystem(new SceneManager());
             // Start the stopwatch
             stopwatch.Start();
 
@@ -143,7 +146,6 @@ namespace WoopWoop
             Entity.Instantiate(debugCameraEntity);
             mainCamera = camera.AddComponent<Camera>();
             mainCamera.IsMain = true;
-            debugCamera = debugCameraEntity.AddComponent<Camera>();
         }
 
         /// <summary>
@@ -153,7 +155,6 @@ namespace WoopWoop
         public static void Start(Game game_)
         {
             Init(game_);
-
 
             game?.Start();
 
@@ -174,7 +175,9 @@ namespace WoopWoop
 
                 HandleRenderFrame();
 
+                //-- ENGINE STUFF --
                 HandleDebugMenu();
+                HandleUpdateSubsystems();
 
                 Raylib.EndDrawing();
             }
@@ -188,12 +191,11 @@ namespace WoopWoop
         private static void Cleanup()
         {
             game?.OnStop();
-
             foreach (Entity entity in currentFrameEntities.ToArray())
             {
                 Entity.Destroy(entity);
             }
-
+            HandleStopSubsystems();
             Raylib.CloseAudioDevice();
             updateGameInstanceThread.Interrupt();
             Raylib.CloseWindow();
@@ -237,7 +239,7 @@ namespace WoopWoop
         private static void HandleRenderFrame()
         {
             Raylib.ClearBackground(Camera.Main().backgroundColor);
-            Raylib.BeginMode2D(IsInDebugMenu ? debugCamera.camera : mainCamera.camera);
+            Raylib.BeginMode2D(mainCamera.camera);
 
             UpdateEntities();
             RenderFrame();
@@ -283,7 +285,6 @@ namespace WoopWoop
             }
             else if (IsInDebugMenu)
             {
-                Editor.Editor.DebugMenu();
                 DebugRender();
             }
 #endif
@@ -439,5 +440,42 @@ namespace WoopWoop
             }
             AddToRenderBatch(r);
         }
+
+        /// <summary>
+        /// Adds a subsystem to the list of subsystems and initializes it.
+        /// </summary>
+        /// <param name="subsystem">The subsystem to add.</param>
+        private static void AddSubsystem(Subsystem subsystem)
+        {
+#if !DEBUG
+            if (subsystem.DebugModeOnly)
+            {
+                return;
+        }
+#endif
+            subsystems.Add(subsystem);
+            subsystem.Init();
+        }
+
+        /// <summary>
+        /// Updates all enabled subsystems.
+        /// </summary>
+        private static void HandleUpdateSubsystems()
+        {
+            foreach (Subsystem subsystem in subsystems)
+            {
+                if (subsystem.IsEnabled)
+                    subsystem.Update();
+            }
+        }
+
+        /// <summary>
+        /// Stops all subsystems.
+        /// </summary>
+        private static void HandleStopSubsystems()
+        {
+            subsystems.ForEach(s => s.OnStop());
+        }
+
     }
 }

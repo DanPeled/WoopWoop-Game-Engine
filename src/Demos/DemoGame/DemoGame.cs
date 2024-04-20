@@ -21,7 +21,7 @@ namespace DemoGame
             player = Entity.CreateEntity()
             .SetPosition(new(WoopWoopEngine.screenWidth / 2, 700))
             .SetScale(new(70, 10))
-            .AddComponent<BoxCollider>()
+            .AddComponent<BoxCollider2D>()
             .AddComponent<BasicShapeRenderer>()
             .AddComponent<PlayerSlideController>()
             .Tag("player").Create();
@@ -32,7 +32,7 @@ namespace DemoGame
             ball = new(WoopWoopEngine.screenWidth / 2, 680);
             ball.AddComponent<BasicShapeRenderer>().shape = BasicShape.Ellipse;
             ball.transform.Scale = new(10, 10);
-            ball.AddComponent<BoxCollider>();
+            ball.AddComponent<BoxCollider2D>();
             Entity.Instantiate(ball);
 
             Entity text = new();
@@ -45,7 +45,7 @@ namespace DemoGame
                 {
                     Entity block = Entity.CreateEntity()
                     .SetPosition(new(j, i)).SetScale(new(30, 30))
-                    .AddComponent<BoxCollider>()
+                    .AddComponent<BoxCollider2D>()
                     .AddComponent<BasicShapeRenderer>()
                     .AddComponent<Block>().Create();
                     block.GetComponent<BasicShapeRenderer>().Color = Raylib.GOLD;

@@ -8,7 +8,7 @@ namespace PlatformerDemo
         public override void Start()
         {
             Entity player = Entity.CreateEntity()
-            .AddComponent<BoxCollider>()
+            .AddComponent<BoxCollider2D>()
             .AddComponent<BasicShapeRenderer>()
             .AddComponent<PlayerController>()
             .SetScale(30, 30)
@@ -18,7 +18,7 @@ namespace PlatformerDemo
 
             Entity floor = Entity.CreateEntity()
             .Tag("wall")
-            .AddComponent<BoxCollider>()
+            .AddComponent<BoxCollider2D>()
             .AddComponent<BasicShapeRenderer>()
             .SetPosition(new(0, 1200))
             .SetScale(3000, 1000)
@@ -27,7 +27,7 @@ namespace PlatformerDemo
             for (int i = 0; i < 13; i++)
             {
                 Entity wall = Entity.CreateEntity()
-                .Tag("wall").AddComponent<BoxCollider>()
+                .Tag("wall").AddComponent<BoxCollider2D>()
                 .AddComponent<BasicShapeRenderer>()
                 .SetPosition(new(400 + i * 30, 700 + i * -10)).SetScale(30, 90 + (i * 15)).Create();
                 Entity.Instantiate(wall);
@@ -35,7 +35,7 @@ namespace PlatformerDemo
 
 
             Entity jumpPad = Entity.CreateEntity()
-            .AddComponent<BoxCollider>()
+            .AddComponent<BoxCollider2D>()
             .Tag("jumpPad")
             .AddComponent<BasicShapeRenderer>()
             .SetPosition(new(900, 700))

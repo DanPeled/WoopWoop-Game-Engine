@@ -26,7 +26,7 @@ namespace WoopWoop
         public bool IsCollidingWith(Entity other)
         {
             if (other == null || other == this.entity) return false;
-            return IsCollidingWith(other.GetComponent<BoxCollider>());
+            return IsCollidingWith(other.GetComponent<BoxCollider2D>());
         }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace WoopWoop
         /// <summary>
         /// The contact points in the collision.
         /// </summary>
-        public Vector2[] contactPoints;
+        public Vector3[] contactPoints;
 
         /// <summary>
         /// The entity involved in the collision.

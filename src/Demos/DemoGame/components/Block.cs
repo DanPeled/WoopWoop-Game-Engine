@@ -6,12 +6,12 @@ namespace DemoGame
 {
     public class Block : Component
     {
-        BoxCollider collider;
+        BoxCollider2D collider;
         public static AudioClip blockDestroyed = new AudioClip(Raylib.LoadSound("resources/break.wav"), 100);
 
         public override void Start()
         {
-            collider = entity.GetComponent<BoxCollider>();
+            collider = entity.GetComponent<BoxCollider2D>();
         }
         public override void Update(float deltaTime)
         {
