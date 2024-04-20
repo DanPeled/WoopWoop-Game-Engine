@@ -17,6 +17,13 @@ In order to import the library using nuget use the following command: `dotnet ad
 - Built in box-collider using SAT collision checking
 
 # Change Logs
+## 1.0.1.2
+- Started working on physics (see platformer demo on github).
+- Fixed null pointer exception issues in the editor when not having an entity selected.
+- Made the `Editor` selected entity highlighter disappear when no entity is selected.
+- Fixed issues in collision systems.
+- Refactoring of the Engine class.
+- Updated [Docs](https://danpeled.github.io/WoopWoop-Game-Engine/annotated.html).
 ## 1.0.1.1
 - Added a CollisionData class in order to collect data about collisions, which are accessed by the `BoxCollider::GetCollisionData(Entity)` method.
 - Added audio support, used by the AudioClip class.
