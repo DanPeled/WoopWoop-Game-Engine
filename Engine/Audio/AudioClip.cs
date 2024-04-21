@@ -1,6 +1,6 @@
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop.Audio
+namespace WoopWoopEngine.Audio
 {
     /// <summary>
     /// Represents an audio clip that can be played.

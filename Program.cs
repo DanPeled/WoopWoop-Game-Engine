@@ -1,10 +1,10 @@
 ﻿using DemoGame;
-using WoopWoop;
+using WoopWoopEngine;
 
 class Program
 {
     public static void Main()
     {
-        WoopWoopEngine.Start(new PlatformerDemo.PlatformerDemo());
+        WoopWoop.Start(new PlatformerDemo.PlatformerDemo());
     }
 }

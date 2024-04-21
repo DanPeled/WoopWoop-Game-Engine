@@ -1,6 +1,6 @@
 using ZeroElectric.Vinculum;
-using WoopWoop;
-using WoopWoop.UI;
+using WoopWoopEngine;
+using WoopWoopEngine.UI;
 
 public class FpsText : Component
 {

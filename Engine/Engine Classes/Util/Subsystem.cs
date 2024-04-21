@@ -1,4 +1,4 @@
-namespace WoopWoop.Engine
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents a subsystem of the engine.

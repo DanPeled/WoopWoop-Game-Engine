@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
-using WoopWoop;
+using WoopWoopEngine;
 using ZeroElectric.Vinculum;
 using System.Linq;
 
@@ -46,7 +46,7 @@ namespace PlatformerDemo
             // Limit velocity to max speed
             velocity.X = Math.Clamp(velocity.X, -maxSpeed, maxSpeed);
             velocity.Y = Math.Clamp(velocity.Y, -maxSpeed, maxSpeed);
-            transform.Position = new Vector2(Math.Clamp(transform.Position.X, transform.Scale.X, WoopWoopEngine.screenWidth - transform.Scale.X), transform.Position.Y);
+            transform.Position = new Vector2(Math.Clamp(transform.Position.X, transform.Scale.X, WoopWoop.screenWidth - transform.Scale.X), transform.Position.Y);
             // Update X and Y separately in the loop
             for (int i = 0; i < Math.Abs(velocity.X); i++)
             {
@@ -87,7 +87,7 @@ namespace PlatformerDemo
                 velocity.Y = 0; // Stop vertical movement if grounded
                 delta.Y = 0;
             }
-            if (transform.Position.Y > WoopWoopEngine.screenHeight)
+            if (transform.Position.Y > WoopWoop.screenHeight)
             {
                 transform.Position = new(400, 400);
             }

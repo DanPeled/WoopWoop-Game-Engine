@@ -3,7 +3,7 @@
 // using ZeroElectric.Vinculum;
 // using ZeroElectric.Vinculum.Extensions;
 
-// namespace WoopWoop.UI
+// namespace WoopWoopEngine.UI
 // {
 //     public class TextInput : UIBoundsComponent
 //     {

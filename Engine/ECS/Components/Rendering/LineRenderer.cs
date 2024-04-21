@@ -1,7 +1,7 @@
 using System.Numerics;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Renders a line between two points.

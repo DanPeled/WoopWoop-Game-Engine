@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents the transformation component of an entity.

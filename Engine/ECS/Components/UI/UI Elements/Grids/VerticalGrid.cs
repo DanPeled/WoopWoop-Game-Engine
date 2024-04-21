@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace WoopWoop.UI
+namespace WoopWoopEngine.UI
 {
     /// <summary>
     /// Represents a component that arranges child entities in a vertical grid layout.

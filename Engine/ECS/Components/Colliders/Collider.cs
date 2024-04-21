@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents a collider component attached to an entity.

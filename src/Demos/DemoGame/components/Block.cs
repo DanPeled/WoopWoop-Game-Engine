@@ -1,5 +1,5 @@
-using WoopWoop;
-using WoopWoop.Audio;
+using WoopWoopEngine.Audio;
+using WoopWoopEngine;
 using ZeroElectric.Vinculum;
 
 namespace DemoGame

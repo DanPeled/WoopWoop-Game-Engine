@@ -1,6 +1,6 @@
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop.UI
+namespace WoopWoopEngine.UI
 {
     /// <summary>
     /// Represents a color picker UI element.

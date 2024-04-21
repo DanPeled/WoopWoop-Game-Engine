@@ -1,7 +1,7 @@
 using ZeroElectric.Vinculum;
 using System.Numerics;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Base class for rendering components.
@@ -25,7 +25,7 @@ namespace WoopWoop
             set
             {
                 layer = value;
-                WoopWoopEngine.ChangeRenderLayer(this);
+                WoopWoop.ChangeRenderLayer(this);
             }
         }
 

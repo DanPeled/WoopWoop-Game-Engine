@@ -1,7 +1,8 @@
 using System.Numerics;
+using WoopWoopEditor;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents a camera that can be used to view the scene.
@@ -31,12 +32,12 @@ namespace WoopWoop
         /// <summary>
         /// The center X position of the camera.
         /// </summary>
-        public readonly float centerX = WoopWoopEngine.screenWidth / 2;
+        public readonly float centerX = WoopWoop.screenWidth / 2;
 
         /// <summary>
         /// The center Y position of the camera.
         /// </summary>
-        public readonly float centerY = WoopWoopEngine.screenHeight / 2;
+        public readonly float centerY = WoopWoop.screenHeight / 2;
 
         /// <summary>
         /// Indicates whether this camera is the main camera.
@@ -96,9 +97,9 @@ namespace WoopWoop
         {
             Raylib.EndMode2D();
 #if DEBUG
-            if (WoopWoopEngine.IsInDebugMenu)
+            if (WoopWoop.IsInDebugMenu)
             {
-                camera.offset = new Vector2(transform.Position.X + centerX + Editor.Editor.dividingLineX, transform.Position.Y + centerY);
+                camera.offset = new Vector2(transform.Position.X + centerX + Editor.dividingLineX, transform.Position.Y + centerY);
             }
             else
             {

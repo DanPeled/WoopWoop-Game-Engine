@@ -1,14 +1,14 @@
 using System.Diagnostics;
-using WoopWoop.Engine;
+using WoopWoopEditor;
 using ZeroElectric.Vinculum;
 
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// The main engine class responsible for managing the game loop and rendering.
     /// </summary>
-    public class WoopWoopEngine
+    public class WoopWoop
     {
         /// <summary>
         /// Gets or sets a value indicating whether the engine is in debug menu mode.
@@ -108,7 +108,8 @@ namespace WoopWoop
             game = game_;
             renderBatches = new();
 
-            AddSubsystem(new Editor.Editor());
+            AddSubsystem(new Editor());
+            AddSubsystem(new AudioSubsystem());
             // AddSubsystem(new SceneManager());
             // Start the stopwatch
             stopwatch.Start();
@@ -129,7 +130,6 @@ namespace WoopWoop
             traceLogLevel = 7;
 #endif
             Raylib.SetTraceLogLevel(traceLogLevel);
-            Raylib.InitAudioDevice();
             Raylib.SetConfigFlags(ConfigFlags.FLAG_FULLSCREEN_MODE);
             Raylib.InitWindow(screenWidth, screenHeight, windowTitle);
             Raylib.SetTargetFPS(60);
@@ -196,7 +196,6 @@ namespace WoopWoop
                 Entity.Destroy(entity);
             }
             HandleStopSubsystems();
-            Raylib.CloseAudioDevice();
             updateGameInstanceThread.Interrupt();
             Raylib.CloseWindow();
         }
@@ -276,7 +275,7 @@ namespace WoopWoop
 #if DEBUG
             if (!IsInDebugMenu)
             {
-                Editor.Editor.TurnOff();
+                Editor.TurnOff();
             }
 
             if (Raylib.IsKeyPressed(KeyboardKey.KEY_F3))
@@ -362,7 +361,7 @@ namespace WoopWoop
                 foreach (Renderer r in renderBatches[layer])
                 {
 #if DEBUG
-                    if (Editor.Editor.debugMenuEntities.Contains(r.entity))
+                    if (Editor.debugMenuEntities.Contains(r.entity))
                     {
                         continue;
                     }
@@ -409,13 +408,13 @@ namespace WoopWoop
         /// </summary>
         private static void DebugRender()
         {
-            Editor.Editor.debugMenuEntities.ForEach(UpdateEntity);
+            Editor.debugMenuEntities.ForEach(UpdateEntity);
 
             foreach (int layer in renderBatches.Keys)
             {
                 foreach (Renderer r in renderBatches[layer])
                 {
-                    if (Editor.Editor.debugMenuEntities.Contains(r.entity) && r.entity.Enabled && r.Enabled)
+                    if (Editor.debugMenuEntities.Contains(r.entity) && r.entity.Enabled && r.Enabled)
                     {
                         r.Update(deltaTime);
                     }

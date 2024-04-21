@@ -2,7 +2,7 @@ using System;
 using System.Text;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop.UI
+namespace WoopWoopEngine.UI
 {
     /// <summary>
     /// Represents a slider UI element.

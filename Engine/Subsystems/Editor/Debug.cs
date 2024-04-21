@@ -1,4 +1,4 @@
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Provides methods for logging debug messages with different colors.

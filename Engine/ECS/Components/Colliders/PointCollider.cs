@@ -1,7 +1,8 @@
 using System.Numerics;
+using WoopWoopEditor;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     
     [RequireComponent(typeof(Transform))]
@@ -61,7 +62,7 @@ namespace WoopWoop
         }
         public override void OnDrawGizmo()
         {
-            bool isSelected = Editor.Editor.SelectedEntity == entity;
+            bool isSelected = Editor.SelectedEntity == entity;
             // Calculate the corner points of the rectangle in local space
             Vector2 topLeft = new(-Size.X / 2, -Size.Y / 2);
             Vector2 topRight = new(Size.X / 2, -Size.Y / 2);

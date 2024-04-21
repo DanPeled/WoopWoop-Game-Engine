@@ -1,4 +1,4 @@
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents a component that can be attached to an entity in the game world.

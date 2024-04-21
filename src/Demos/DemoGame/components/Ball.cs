@@ -1,6 +1,6 @@
 using System.Numerics;
 using ZeroElectric.Vinculum;
-using WoopWoop;
+using WoopWoopEngine;
 
 namespace DemoGame
 {
@@ -28,7 +28,7 @@ namespace DemoGame
             }
             if (IsCollidingWithScreenBoundsY())
             {
-                if (transform.Position.Y >= WoopWoopEngine.screenHeight)
+                if (transform.Position.Y >= WoopWoop.screenHeight)
                 {
                     DemoGame.endScreen.Enabled = true;
                     DemoGame.main.Enabled = false;
@@ -49,11 +49,11 @@ namespace DemoGame
         }
         public bool IsCollidingWithScreenBoundsX()
         {
-            return transform.Position.X <= 0 || transform.Position.X >= WoopWoopEngine.screenWidth - transform.Scale.X;
+            return transform.Position.X <= 0 || transform.Position.X >= WoopWoop.screenWidth - transform.Scale.X;
         }
         public bool IsCollidingWithScreenBoundsY()
         {
-            return transform.Position.Y <= 0 || transform.Position.Y >= WoopWoopEngine.screenHeight;
+            return transform.Position.Y <= 0 || transform.Position.Y >= WoopWoop.screenHeight;
         }
     }
 }

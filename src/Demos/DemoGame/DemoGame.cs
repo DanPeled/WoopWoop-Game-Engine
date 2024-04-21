@@ -1,6 +1,6 @@
 using ZeroElectric.Vinculum;
-using WoopWoop;
-using WoopWoop.UI;
+using WoopWoopEngine;
+using WoopWoopEngine.UI;
 namespace DemoGame
 {
     public class DemoGame : Game
@@ -16,10 +16,10 @@ namespace DemoGame
             startupText.AddComponent<TextRenderer>().text = "PRESS SPACE TO START";
             startupText.GetComponent<TextRenderer>().fontSize = 20;
             startupText.GetComponent<TextRenderer>().Layer = 255;
-            startupText.transform.Position = new(WoopWoopEngine.screenWidth / 2 - 20 * 5, WoopWoopEngine.screenHeight / 2);
+            startupText.transform.Position = new(WoopWoop.screenWidth / 2 - 20 * 5, WoopWoop.screenHeight / 2);
 
             player = Entity.CreateEntity()
-            .SetPosition(new(WoopWoopEngine.screenWidth / 2, 700))
+            .SetPosition(new(WoopWoop.screenWidth / 2, 700))
             .SetScale(new(70, 10))
             .AddComponent<BoxCollider2D>()
             .AddComponent<BasicShapeRenderer>()
@@ -29,7 +29,7 @@ namespace DemoGame
             Entity.Instantiate(player);
 
 
-            ball = new(WoopWoopEngine.screenWidth / 2, 680);
+            ball = new(WoopWoop.screenWidth / 2, 680);
             ball.AddComponent<BasicShapeRenderer>().shape = BasicShape.Ellipse;
             ball.transform.Scale = new(10, 10);
             ball.AddComponent<BoxCollider2D>();
@@ -41,7 +41,7 @@ namespace DemoGame
 
             for (int i = 100; i < 500; i += 40)
             {
-                for (int j = 100; j < WoopWoopEngine.screenWidth - 200; j += 40)
+                for (int j = 100; j < WoopWoop.screenWidth - 200; j += 40)
                 {
                     Entity block = Entity.CreateEntity()
                     .SetPosition(new(j, i)).SetScale(new(30, 30))

@@ -1,4 +1,4 @@
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents the base class for a game.

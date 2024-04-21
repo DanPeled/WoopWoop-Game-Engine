@@ -1,6 +1,6 @@
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop.UI
+namespace WoopWoopEngine.UI
 {
     public class Label : UIBoundsComponent
     {

@@ -1,9 +1,9 @@
 using System.Numerics;
 using ZeroElectric.Vinculum;
-using WoopWoop.UI;
+using WoopWoopEngine.UI;
 using System.Reflection;
-using WoopWoop.Engine;
-namespace WoopWoop.Editor
+using WoopWoopEngine;
+namespace WoopWoopEditor
 {
     public class Editor : Subsystem
     {
@@ -96,7 +96,7 @@ namespace WoopWoop.Editor
         /// <summary>
         /// Transform for representing the selected entity.
         /// </summary>
-        private static Transform selectedEntityMarker;
+        private static WoopWoopEngine.Transform selectedEntityMarker;
 
         /// <summary>
         /// Index of the selected component.
@@ -129,7 +129,7 @@ namespace WoopWoop.Editor
             // BasicShapeRenderer renderer = new()s
             editorWindow.AddComponent<UIWindow>();
             editorWindow.transform.pivot = Pivot.TopLeft;
-            editorWindow.transform.Scale = new(480, WoopWoopEngine.screenHeight - 20);
+            editorWindow.transform.Scale = new(480, WoopWoop.screenHeight - 20);
             editorWindow.transform.Position = new(10, 10);
             float xPos = 13;
 
@@ -259,7 +259,7 @@ namespace WoopWoop.Editor
                 for (int i = 0; i < components.Length; i++)
                 {
                     Component component = components[i];
-                    if (component.GetType() != typeof(PointCollider) && component.GetType() != typeof(Transform))
+                    if (component.GetType() != typeof(PointCollider) && component.GetType() != typeof(WoopWoopEngine.Transform))
                     {
                         componentsString += component.GetType().Name + (i < components.Length - 1 ? "\n" : "");
                         choosableComponens.Add(component);
@@ -326,8 +326,8 @@ namespace WoopWoop.Editor
         public override void Update()
         {
             cursor.transform.Position = Raylib.GetMousePosition();
-            if (!WoopWoopEngine.IsInDebugMenu) return;
-            foreach (Transform child in editorWindow.transform.GetChildren())
+            if (!WoopWoop.IsInDebugMenu) return;
+            foreach (WoopWoopEngine.Transform child in editorWindow.transform.GetChildren())
             {
                 child.entity.Enabled = true;
             }
@@ -381,13 +381,13 @@ namespace WoopWoop.Editor
                                 if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
                                 {
                                     newPos.Y = SelectedEntity.transform.Position.Y;
-                                    Raylib.DrawLineEx(new(-100, newPos.Y), new(WoopWoopEngine.screenWidth + 100, newPos.Y), 3, new Color(255, 0, 0, 200));
+                                    Raylib.DrawLineEx(new(-100, newPos.Y), new(WoopWoop.screenWidth + 100, newPos.Y), 3, new Color(255, 0, 0, 200));
 
                                 }
                                 else if (Raylib.IsKeyDown(KeyboardKey.KEY_Y))
                                 {
                                     newPos.X = SelectedEntity.transform.Position.X;
-                                    Raylib.DrawLineEx(new(newPos.X, -100), new(newPos.X, WoopWoopEngine.screenHeight + 100), 3, new Color(0, 255, 0, 200));
+                                    Raylib.DrawLineEx(new(newPos.X, -100), new(newPos.X, WoopWoop.screenHeight + 100), 3, new Color(0, 255, 0, 200));
                                 }
                             }
                             SelectedEntity.transform.Position = newPos;
@@ -396,7 +396,7 @@ namespace WoopWoop.Editor
                     case EditorState.Rotation:
                         {
                             Entity selectedEntity = SelectedEntity;
-                            Transform transform = selectedEntity.transform;
+                            WoopWoopEngine.Transform transform = selectedEntity.transform;
 
                             // Calculate the angle between the mouse position and the center of the object
                             float angle = transform.Angle;
@@ -421,13 +421,13 @@ namespace WoopWoop.Editor
                                 if (Raylib.IsKeyDown(KeyboardKey.KEY_X))
                                 {
                                     newScale.Y = SelectedEntity.transform.Position.Y;
-                                    Raylib.DrawLineEx(new(-100, newScale.Y), new(WoopWoopEngine.screenWidth + 100, newScale.Y), 3, new Color(255, 0, 0, 200));
+                                    Raylib.DrawLineEx(new(-100, newScale.Y), new(WoopWoop.screenWidth + 100, newScale.Y), 3, new Color(255, 0, 0, 200));
 
                                 }
                                 else if (Raylib.IsKeyDown(KeyboardKey.KEY_Y))
                                 {
                                     newScale.X = SelectedEntity.transform.Position.X;
-                                    Raylib.DrawLineEx(new(newScale.X, -100), new(newScale.X, WoopWoopEngine.screenHeight + 100), 3, new Color(0, 255, 0, 200));
+                                    Raylib.DrawLineEx(new(newScale.X, -100), new(newScale.X, WoopWoop.screenHeight + 100), 3, new Color(0, 255, 0, 200));
                                 }
                             }
                             KeepMouseInScreen();
@@ -471,21 +471,21 @@ namespace WoopWoop.Editor
         /// </summary>
         private static void KeepMouseInScreen()
         {
-            if (Raylib.GetMousePosition().X >= WoopWoopEngine.screenWidth - 2)
+            if (Raylib.GetMousePosition().X >= WoopWoop.screenWidth - 2)
             {
                 Raylib.SetMousePosition(0, (int)Raylib.GetMousePosition().Y);
             }
             else if (Raylib.GetMousePosition().X <= 2)
             {
-                Raylib.SetMousePosition(WoopWoopEngine.screenWidth, (int)Raylib.GetMousePosition().Y);
+                Raylib.SetMousePosition(WoopWoop.screenWidth, (int)Raylib.GetMousePosition().Y);
             }
-            else if (Raylib.GetMousePosition().Y >= WoopWoopEngine.screenHeight - 2)
+            else if (Raylib.GetMousePosition().Y >= WoopWoop.screenHeight - 2)
             {
                 Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, 0);
             }
             else if (Raylib.GetMousePosition().Y <= 2)
             {
-                Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, WoopWoopEngine.screenHeight);
+                Raylib.SetMousePosition((int)Raylib.GetMousePosition().X, WoopWoop.screenHeight);
             }
         }
 

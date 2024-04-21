@@ -1,6 +1,6 @@
 // using System.Diagnostics;
 // using CompileTimeWeaver;
-// namespace WoopWoop
+// namespace WoopWoopEngine
 // {
 
 //     public class TestAttribute : AdviceAttribute

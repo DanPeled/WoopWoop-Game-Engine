@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     public static class Util
     {

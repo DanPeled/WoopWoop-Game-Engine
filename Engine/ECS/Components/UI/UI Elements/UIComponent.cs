@@ -1,6 +1,6 @@
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop.UI
+namespace WoopWoopEngine.UI
 {
     /// <summary>
     /// Represents a UI component with defined bounds.

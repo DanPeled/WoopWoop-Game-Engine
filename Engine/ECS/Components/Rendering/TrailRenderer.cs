@@ -2,7 +2,7 @@ using System.Diagnostics;
 using System.Numerics;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Renders a trail behind an entity.

@@ -1,5 +1,5 @@
 using ZeroElectric.Vinculum;
-using WoopWoop;
+using WoopWoopEngine;
 
 public class LineRendererDemo : Game
 {
@@ -7,7 +7,7 @@ public class LineRendererDemo : Game
     LineRenderer lineRenderer;
     public override void Start()
     {
-        line = new(new(WoopWoopEngine.screenWidth / 2, WoopWoopEngine.screenHeight / 2));
+        line = new(new(WoopWoop.screenWidth / 2, WoopWoop.screenHeight / 2));
         lineRenderer = line.AddComponent<LineRenderer>();
         lineRenderer.isEndPositionRelative = false;
         Entity.Instantiate(line);

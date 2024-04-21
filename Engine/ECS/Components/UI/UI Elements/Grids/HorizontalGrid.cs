@@ -1,6 +1,6 @@
 using System.Numerics;
 
-namespace WoopWoop.UI
+namespace WoopWoopEngine.UI
 {
     /// <summary>
     /// Represents a horizontal grid component that arranges its child elements horizontally.

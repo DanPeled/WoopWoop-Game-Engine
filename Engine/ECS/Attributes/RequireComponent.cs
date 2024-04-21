@@ -1,4 +1,4 @@
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Specifies that a component requires certain other components to be attached to the same entity.

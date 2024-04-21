@@ -1,6 +1,6 @@
-// using WoopWoop.Engine;
+// using WoopWoopEngine;
 
-// namespace WoopWoop.ScenesManage
+// namespace WoopWoopEngine.ScenesManage
 // {
 //     public class SceneManager : Subsystem
 //     {

@@ -2,7 +2,7 @@ using System.Numerics;
 using System.Reflection;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents an entity in the game world.
@@ -141,7 +141,7 @@ namespace WoopWoop
                 }
                 if (comp is Renderer)
                 {
-                    WoopWoopEngine.AddToRenderBatch((Renderer)(object)comp);
+                    WoopWoop.AddToRenderBatch((Renderer)(object)comp);
                 }
             }
             return comp;

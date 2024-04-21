@@ -1,7 +1,7 @@
 using ZeroElectric.Vinculum;
 using System.Numerics;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// A renderer for basic shapes such as ellipses and rectangles.

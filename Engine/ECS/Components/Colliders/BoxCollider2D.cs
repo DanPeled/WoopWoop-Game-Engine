@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using WoopWoopEditor;
 using ZeroElectric.Vinculum;
 
-namespace WoopWoop
+namespace WoopWoopEngine
 {
     /// <summary>
     /// Represents a collider component for a rectangular box.
@@ -34,9 +35,9 @@ namespace WoopWoop
                 // Get the transform component of both entities
                 Transform otherTransform = other.transform;
                 Vector2 offset = new(0, 0);
-                if (other.entity == Editor.Editor.cursor && WoopWoopEngine.IsInDebugMenu)
+                if (other.entity == Editor.cursor && WoopWoop.IsInDebugMenu)
                 {
-                    offset = new(Editor.Editor.dividingLineX, 0);
+                    offset = new(Editor.dividingLineX, 0);
                 }
                 // Get the corner points of both colliders in world space
                 List<Vector2> thisPoints = GetWorldPoints(transform.Position, transform.Scale, transform.Angle);
